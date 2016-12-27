@@ -1,0 +1,5 @@
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\bin\Debug\Navigation.Infrastructure.dll
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\bin\Debug\Navigation.Infrastructure.pdb
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.csprojResolveAssemblyReference.cache
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.dll
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.pdb

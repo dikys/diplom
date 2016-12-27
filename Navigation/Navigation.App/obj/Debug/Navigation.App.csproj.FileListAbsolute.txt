@@ -1,0 +1,12 @@
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.App.exe.config
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.App.exe
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.App.pdb
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.Infrastructure.dll
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.Infrastructure.pdb
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.csprojResolveAssemblyReference.cache
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.exe
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.pdb
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.Domain.dll
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\System.Collections.Immutable.dll
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.Domain.pdb
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\System.Collections.Immutable.xml
