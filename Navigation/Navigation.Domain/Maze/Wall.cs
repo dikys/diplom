@@ -3,7 +3,7 @@ using Navigation.Infrastructure;
 
 namespace Navigation.Domain.Maze
 {
-    public struct Wall
+    public class Wall
     {
         public Line Line { get; }
         public bool IsFinish { get; }

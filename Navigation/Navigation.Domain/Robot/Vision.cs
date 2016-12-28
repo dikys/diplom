@@ -95,7 +95,7 @@ namespace Navigation.Domain.Robot
         private bool LookForward(ref Point observedPoint, ref Wall observedWall)
         {
             observedPoint = new Point();
-            observedWall = new Wall();
+            observedWall = null;
 
             var haveGap = true;
             
