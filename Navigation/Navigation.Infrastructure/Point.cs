@@ -47,11 +47,6 @@ namespace Navigation.Infrastructure
         {
             return new Point(X*Math.Cos(angle) - Y*Math.Sin(angle), X*Math.Sin(angle) + Y*Math.Cos(angle));
         }
-
-        public Point Clone()
-        {
-            return new Point(X, Y);
-        }
         #endregion
 
         #region Перегрузки операторов

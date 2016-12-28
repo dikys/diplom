@@ -6,14 +6,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using Navigation.Infrastructure;
-using ContentAlignment = System.Drawing.ContentAlignment;
 using Point = System.Drawing.Point;
 
 namespace Navigation.App
 {
-    public partial class MainWindow : Form
+    public class MainWindow : Form
     {
         public GameViewer GameViewer { get; private set; }
         
@@ -23,11 +20,11 @@ namespace Navigation.App
         {
             WindowState = FormWindowState.Maximized;
             FormBorderStyle = FormBorderStyle.None;
-            
+
+            InitilizateWindow();
+
             Load += (s, e) =>
             {
-                InitilizateWindow();
-
                 GameViewer = new GameViewer(Canvas);
 
                 Canvas.Initilizate(GameViewer.MazeDiameter);

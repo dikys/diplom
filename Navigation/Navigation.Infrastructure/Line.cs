@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Navigation.Infrastructure
 {
-    public class Line
+    public struct Line
     {
         #region Поля и свойства
         private static readonly double Tollerance = 0.01;
 
         public Point Start { get; }
         public Point End { get; }
-        
+
         private Point? _vector;
         public Point Vector
         {
@@ -64,7 +64,7 @@ namespace Navigation.Infrastructure
             }
         }
 
-        /*private double? _vectorProductBetweenStartAndEnd;
+        private double? _vectorProductBetweenStartAndEnd;
         public double VectorProductBetweenStartAndEnd
         {
             get
@@ -74,7 +74,7 @@ namespace Navigation.Infrastructure
 
                 return _vectorProductBetweenStartAndEnd.Value;
             }
-        }*/
+        }
         #endregion
 
         #region Конструкторы
@@ -82,6 +82,12 @@ namespace Navigation.Infrastructure
         {
             Start = new Point(startX, startY);
             End = new Point(endX, endY);
+            
+            _vector = null;
+            _center = null;
+            _normilizeVector = null;
+            _length = null;
+            _vectorProductBetweenStartAndEnd = null;
         }
 
         public Line(Point start, Point end) : this(start.X, start.Y, end.X, end.Y)
@@ -96,12 +102,9 @@ namespace Navigation.Infrastructure
 
         public double GetAngleTo(Line other)
         {
-            var cosOfAngle = NormilizeVector.GetScalarProduct(other.NormilizeVector);
-            var sinOfAngle = NormilizeVector.GetVectorProduct(other.NormilizeVector);
+            var angle = Math.Acos(NormilizeVector.GetScalarProduct(other.NormilizeVector));
 
-            var angle = Math.Acos(cosOfAngle);
-
-            if (sinOfAngle < 0)
+            if (NormilizeVector.GetVectorProduct(other.NormilizeVector) < 0)
                 return -angle;
 
             return angle;
@@ -121,36 +124,36 @@ namespace Navigation.Infrastructure
                 && ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0)))
             {
                 var delta = Vector.GetVectorProduct(other.Vector);
-                var deltaX = -Start.GetVectorProduct(End)*other.Vector.X +
-                             Vector.X*other.Start.GetVectorProduct(other.End);
-                var deltaY = Vector.Y*other.Start.GetVectorProduct(other.End) -
-                             other.Vector.Y*Start.GetVectorProduct(End);
 
-                intersectionPoint = new Point(deltaX/delta, deltaY/delta);
+                intersectionPoint = new Point(
+                    (-VectorProductBetweenStartAndEnd * other.Vector.X +
+                     Vector.X*other.VectorProductBetweenStartAndEnd) /delta,
+                    (Vector.Y*other.VectorProductBetweenStartAndEnd -
+                     other.Vector.Y*VectorProductBetweenStartAndEnd) /delta);
 
                 return true;
             }
             else if (d1 == 0 && other.OnSegmentStraight(Start))
             {
-                intersectionPoint = Start.Clone();
+                intersectionPoint = Start;
 
                 return true;
             }
             else if (d2 == 0 && other.OnSegmentStraight(End))
             {
-                intersectionPoint = End.Clone();
+                intersectionPoint = End;
 
                 return true;
             }
             else if (d3 == 0 && OnSegmentStraight(other.Start))
             {
-                intersectionPoint = other.Start.Clone();
+                intersectionPoint = other.Start;
 
                 return true;
             }
             else if (d4 == 0 && OnSegmentStraight(other.End))
             {
-                intersectionPoint = other.End.Clone();
+                intersectionPoint = other.End;
 
                 return true;
             }

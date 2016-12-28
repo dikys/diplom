@@ -14,7 +14,7 @@ namespace Navigation.Domain.Maze
     {
         public ImmutableList<Wall> Walls { get; }
         
-        private Line _diameter;
+        private Line? _diameter;
         /// <summary>
         /// Вернет линию, которая является диаметром лабиринта, у которой Start - верхний левый угол, а End - нижний правый угол
         /// </summary>
@@ -22,7 +22,7 @@ namespace Navigation.Domain.Maze
         {
             get
             {
-                if (_diameter == null)
+                if (!_diameter.HasValue)
                 {
                     if (Walls.IsEmpty)
                         throw new InvalidOperationException("Maze not have walls");
@@ -32,14 +32,14 @@ namespace Navigation.Domain.Maze
                     Walls.ForEach(wall =>
                     {
                         _diameter = new Line(
-                            new Point(Math.Min(Math.Min(_diameter.Start.X, wall.Line.Start.X), wall.Line.End.X),
-                                Math.Max(Math.Max(_diameter.Start.Y, wall.Line.Start.Y), wall.Line.End.Y)),
-                            new Point(Math.Max(Math.Max(_diameter.End.X, wall.Line.Start.X), wall.Line.End.X),
-                                Math.Min(Math.Min(_diameter.End.Y, wall.Line.Start.Y), wall.Line.End.Y)));
+                            new Point(Math.Min(Math.Min(_diameter.Value.Start.X, wall.Line.Start.X), wall.Line.End.X),
+                                Math.Max(Math.Max(_diameter.Value.Start.Y, wall.Line.Start.Y), wall.Line.End.Y)),
+                            new Point(Math.Max(Math.Max(_diameter.Value.End.X, wall.Line.Start.X), wall.Line.End.X),
+                                Math.Min(Math.Min(_diameter.Value.End.Y, wall.Line.Start.Y), wall.Line.End.Y)));
                     });
                 }
 
-                return _diameter;
+                return _diameter.Value;
             }
         }
 

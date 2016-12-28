@@ -34,19 +34,19 @@ namespace Navigation.App
         public Matrix TransformCurrentMatrix { get; private set; }
 
         private double _focusCoefficient; 
-        private Line _currentFocus;
+        private Line? _currentFocus;
         public Line CurrentFocus
         {
-            get { return _currentFocus; }
+            get { return _currentFocus.Value; }
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException("CurrentFocus");
+                //if (value == null)
+                //    throw new ArgumentNullException("CurrentFocus");
 
                 if (value.Equals(_currentFocus))
                     return;
 
-                if (_currentFocus != null)
+                if (_currentFocus.HasValue)
                     if (value.Start.X < FocusBorder.Left
                         || value.Start.Y < FocusBorder.Top
                         || FocusBorder.Right < value.End.X
@@ -143,8 +143,6 @@ namespace Navigation.App
         {
             if (IsInitilizated)
                 throw new InvalidOperationException("Canvas has already been initialized");
-
-            IsInitilizated = true;
             
             AspectRatio = (double)Width / Height;
 
@@ -155,6 +153,8 @@ namespace Navigation.App
             FocusBorder = new RectangleF(CurrentFocus.Start.ToPointF(), CurrentFocus.Vector.ToSizeF());
             FocusMaxSize = new SizeF((float) Math.Abs(CurrentFocus.Vector.X), (float) Math.Abs(CurrentFocus.Vector.Y));
             FocusMinSize = new SizeF((float) AspectRatio*focusMinHeight, focusMinHeight);
+
+            IsInitilizated = true;
         }
         
         #region Методы для рисование объектов
@@ -211,6 +211,9 @@ namespace Navigation.App
         private void InitilizateBeforePaint(Graphics g)
         {
             Graphics = g;
+
+            if (!IsInitilizated)
+                return;
 
             Graphics.MultiplyTransform(TransformCurrentMatrix);
         }

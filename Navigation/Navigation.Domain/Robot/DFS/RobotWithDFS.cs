@@ -17,7 +17,7 @@ namespace Navigation.Domain.Robot.DFS
             {
                 _currentNode = value;
 
-                Position = _currentNode.Position.Clone();
+                Position = _currentNode.Position;
             }
         }
         public List<Node> WayToExit { get; }

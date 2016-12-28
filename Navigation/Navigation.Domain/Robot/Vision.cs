@@ -39,26 +39,18 @@ namespace Navigation.Domain.Robot
         public bool LookAround(ref List<Line> observedСontour, ref Point exitPoint)
         {
             ResetDirection();
-
-            observedСontour = new List<Line>();
-            exitPoint = new Point();
             
-            Wall observedWall = new Wall(new Line(new Point(), new Point()));
-            Point observedPoint = new Point();
-
-            Point previousObservedPoint;
-            Wall previousObservedWall;
-
-            Point wallStart;
+            var observedWall = new Wall(new Line(new Point(), new Point()));
+            var observedPoint = new Point();
 
             // инициализация
             if (LookForward(ref observedPoint, ref observedWall))
                 return true;
             
-            previousObservedPoint = observedPoint.Clone();
-            previousObservedWall = observedWall.Clone();
+            var previousObservedPoint = observedPoint;
+            var previousObservedWall = observedWall.Clone();
 
-            wallStart = observedPoint.Clone();
+            var wallStart = observedPoint;
 
             Rotate();
             // конец и.
@@ -75,10 +67,10 @@ namespace Navigation.Domain.Robot
                 {
                     observedСontour.Add(new Line(wallStart, previousObservedPoint));
 
-                    wallStart = observedPoint.Clone();
+                    wallStart = observedPoint;
                 }
 
-                previousObservedPoint = observedPoint.Clone();
+                previousObservedPoint = observedPoint;
                 previousObservedWall = observedWall.Clone();
 
                 Rotate();
@@ -94,9 +86,6 @@ namespace Navigation.Domain.Robot
         /// </summary>
         private bool LookForward(ref Point observedPoint, ref Wall observedWall)
         {
-            observedPoint = new Point();
-            observedWall = null;
-
             var haveGap = true;
             
             var directionTrace = DirectionTrace;
@@ -116,7 +105,7 @@ namespace Navigation.Domain.Robot
                     haveGap = false;
 
                     observedWall = wall.Clone();
-                    observedPoint = currentIntersectionPoint.Clone();
+                    observedPoint = currentIntersectionPoint;
                     distanceToObservedPoint = _robot.Position.GetDistanceTo(observedPoint);
 
                     continue;
@@ -125,7 +114,7 @@ namespace Navigation.Domain.Robot
                 if (_robot.Position.GetDistanceTo(currentIntersectionPoint) < distanceToObservedPoint)
                 {
                     observedWall = wall.Clone();
-                    observedPoint = currentIntersectionPoint.Clone();
+                    observedPoint = currentIntersectionPoint;
                     distanceToObservedPoint = _robot.Position.GetDistanceTo(observedPoint);
                 }
             }
