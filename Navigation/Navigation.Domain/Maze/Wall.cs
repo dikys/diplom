@@ -3,12 +3,12 @@ using Navigation.Infrastructure;
 
 namespace Navigation.Domain.Maze
 {
-    public class Wall
+    public struct Wall
     {
         public Line Line { get; }
-        public Boolean IsFinish { get; }
+        public bool IsFinish { get; }
 
-        public Wall(Line line, Boolean isFinish = false)
+        public Wall(Line line, bool isFinish = false)
         {
             Line = line;
             IsFinish = isFinish;
@@ -22,6 +22,7 @@ namespace Navigation.Domain.Maze
             return new Wall(this);
         }
 
+        #region Перегрузка Object методов
         private bool Equals(Wall other)
         {
             return Line.Equals(other.Line) && IsFinish == other.IsFinish;
@@ -52,5 +53,6 @@ namespace Navigation.Domain.Maze
         {
             return "Wall[" + Line.ToString() + ", " + IsFinish + "]";
         }
+        #endregion
     }
 }

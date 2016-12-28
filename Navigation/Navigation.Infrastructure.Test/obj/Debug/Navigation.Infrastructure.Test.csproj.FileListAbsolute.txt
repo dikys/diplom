@@ -1,9 +1,7 @@
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\bin\Debug\Navigation.Infrastructure.Test.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\bin\Debug\Navigation.Infrastructure.Test.pdb
-C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\bin\Debug\Navigation.Infrastructure.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\bin\Debug\Navigation.Infrastructure.pdb
-C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\bin\Debug\ru\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\obj\Debug\Navigation.Infrastructure.Test.csprojResolveAssemblyReference.cache
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\obj\Debug\Navigation.Infrastructure.Test.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure.Test\obj\Debug\Navigation.Infrastructure.Test.pdb

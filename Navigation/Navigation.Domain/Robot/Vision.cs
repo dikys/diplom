@@ -95,7 +95,9 @@ namespace Navigation.Domain.Robot
         private bool LookForward(ref Point observedPoint, ref Wall observedWall)
         {
             observedPoint = new Point();
-            observedWall = null;
+            observedWall = new Wall();
+
+            var haveGap = true;
             
             var directionTrace = DirectionTrace;
 
@@ -109,8 +111,10 @@ namespace Navigation.Domain.Robot
                 if (!directionTrace.HaveIntersectionPoint(wall.Line, ref currentIntersectionPoint))
                     continue;
 
-                if (observedWall == null)
+                if (haveGap)
                 {
+                    haveGap = false;
+
                     observedWall = wall.Clone();
                     observedPoint = currentIntersectionPoint.Clone();
                     distanceToObservedPoint = _robot.Position.GetDistanceTo(observedPoint);
@@ -126,8 +130,8 @@ namespace Navigation.Domain.Robot
                 }
             }
 
-            if (observedWall == null)
-                throw new InvalidOperationException("Border of maze has apertures");
+            if (haveGap)
+                throw new InvalidOperationException("Border of maze has gap");
 
             if (observedWall.IsFinish)
                 return true;

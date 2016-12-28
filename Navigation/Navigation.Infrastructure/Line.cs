@@ -10,6 +10,7 @@ namespace Navigation.Infrastructure
 {
     public class Line
     {
+        #region Поля и свойства
         private static readonly double Tollerance = 0.01;
 
         public Point Start { get; }
@@ -74,7 +75,9 @@ namespace Navigation.Infrastructure
                 return _vectorProductBetweenStartAndEnd.Value;
             }
         }*/
+        #endregion
 
+        #region Конструкторы
         public Line(double startX, double startY, double endX, double endY)
         {
             Start = new Point(startX, startY);
@@ -83,7 +86,9 @@ namespace Navigation.Infrastructure
 
         public Line(Point start, Point end) : this(start.X, start.Y, end.X, end.Y)
         { }
+        #endregion
 
+        #region Основные методы
         public Line Stretch(double coefficient)
         {
             return new Line(Start, End * coefficient);
@@ -102,8 +107,6 @@ namespace Navigation.Infrastructure
             return angle;
         }
         
-        
-
         public bool HaveIntersectionPoint(Line other, ref Point intersectionPoint)
         {
             var d1 = (Start - other.Start).GetVectorProduct(other.Vector);
@@ -113,15 +116,10 @@ namespace Navigation.Infrastructure
 
             // d1=d2=d3=d4 = 0 => тогда отрезки имеют множество точек пересечения!
 
+            // тут можно Tollerance использовать
             if (((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0))
                 && ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0)))
             {
-                /*var delta = -Vector.Y*other.Vector.X + other.Vector.Y*Vector.X;
-                var delta1 = -Start.GetVectorProduct(End)*other.Vector.X + other.Start.GetVectorProduct(End)*Vector.X;
-                var delta2 = Vector.Y*other.Start.GetVectorProduct(End) - other.Vector.Y*Start.GetVectorProduct(End);
-
-                intersectionPoint = new Point(delta1 / delta, delta2 / delta);*/
-
                 var delta = Vector.GetVectorProduct(other.Vector);
                 var deltaX = -Start.GetVectorProduct(End)*other.Vector.X +
                              Vector.X*other.Start.GetVectorProduct(other.End);
@@ -169,6 +167,22 @@ namespace Navigation.Infrastructure
         }
 
         /// <summary>
+        /// Вернет лежит ли точка point на прямой с данным направляющим вектором 
+        /// </summary>
+        public bool OnStraight(Point point)
+        {
+            return Math.Abs(Vector.GetVectorProduct(point - Start)) < Tollerance;
+        }
+
+        public bool HavePoint(Point point)
+        {
+            if (!OnStraight(point))
+                return false;
+
+            return OnSegmentStraight(point);
+        }
+
+        /// <summary>
         /// Вычислить проекцию точки на прямую с направляющим вектором равным этой линии
         /// </summary>
         public Point GetProjectionOnStraight(Point point)
@@ -177,21 +191,19 @@ namespace Navigation.Infrastructure
 
             return new Point(Start.X + Vector.X*t, Start.Y + Vector.Y*t);
         }
-
-        public bool HavePoint(Point point)
-        {
-            //return Math.Abs(Start.GetDistanceTo(point) + point.GetDistanceTo(End) - Length) < Tollerance;
-            if (Math.Abs(Vector.GetVectorProduct(point - Start)) > Tollerance)
-                return false;
-
-            return OnSegmentStraight(point);
-        }
-
+        
         public Line Rotate(double angle)
         {
             return new Line(Start, Start + Vector.Rotate(angle));
         }
 
+        public Line Clone()
+        {
+            return new Line(Start, End);
+        }
+        #endregion
+
+        #region Перегрузка операторов
         public static Line operator +(Line line, Point point)
         {
             return new Line(line.Start + point, line.End + point);
@@ -201,17 +213,9 @@ namespace Navigation.Infrastructure
         {
             return new Line(line.Start - point, line.End - point);
         }
+        #endregion
 
-        /*public static bool operator ==(Line left, object right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(Line left, object right)
-        {
-            return !left.Equals(right);
-        }*/
-
+        #region Перегрузка Object методов
         private bool Equals(Line other)
         {
             return Start == other.Start && End == other.End;
@@ -237,15 +241,11 @@ namespace Navigation.Infrastructure
                 return hash;
             }
         }
-
-        public Line Clone()
-        {
-            return new Line(Start, End);
-        }
-
+        
         public override string ToString()
         {
             return "{" + Start.ToString() + ", " + End.ToString() + "}";
         }
+        #endregion
     }
 }

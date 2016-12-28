@@ -24,7 +24,7 @@ namespace Navigation.App
         public GameViewer(Canvas canvas)
         {
             _maze = GetDefaultMaze();
-            _robot = new RobotWithDFS(_maze, new Point(50, 50));
+            _robot = new RobotWithDfs(_maze, new Point(50, 50));
             _canvas = canvas;
 
             canvas.Paint += (sender, args) =>
@@ -36,17 +36,17 @@ namespace Navigation.App
                     canvas.Draw(wall);
                 }
 
-                /*(_robot as RobotWithDFS).ViewedContours.ForEach(
+                /*(_robot as RobotWithDfs).ViewedContours.ForEach(
                     contour =>
                         g.FillPolygon(Brushes.AliceBlue,
                             contour.SelectMany(line => new PointF[] {line.Start.ToPointF(), line.End.ToPointF()})
                                 .ToArray()));*/
 
-                (_robot as RobotWithDFS).CurrentNode.AdjacentNodes.ForEach(
+                (_robot as RobotWithDfs).CurrentNode.AdjacentNodes.ForEach(
                     node =>
                         _canvas.Draw(Brushes.Red, node.Position));
 
-                (_robot as RobotWithDFS).CurrentNode.NotDeadLockAdjacentNodes.ToList().ForEach(
+                (_robot as RobotWithDfs).CurrentNode.NotDeadLockAdjacentNodes.ToList().ForEach(
                     node =>
                         _canvas.Draw(node.Position));
 

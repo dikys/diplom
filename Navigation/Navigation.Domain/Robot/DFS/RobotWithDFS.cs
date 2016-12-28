@@ -5,7 +5,7 @@ using Navigation.Infrastructure;
 
 namespace Navigation.Domain.Robot.DFS
 {
-    public class RobotWithDFS : MobileRobot
+    public class RobotWithDfs : MobileRobot
     {
         public Node Start { get; }
 
@@ -24,7 +24,7 @@ namespace Navigation.Domain.Robot.DFS
 
         public List<List<Line>> ViewedContours { get; }
 
-        public RobotWithDFS(Maze.Maze maze, Point position) : base(maze, position)
+        public RobotWithDfs(Maze.Maze maze, Point position) : base(maze, position)
         {
             Start = new Node(position);
             CurrentNode = Start;
@@ -62,8 +62,6 @@ namespace Navigation.Domain.Robot.DFS
 
                     WayToExit.RemoveAt(WayToExit.Count - 1);
 
-                    Console.WriteLine("Идти назад надо");
-
                     continue;
                 }
 
@@ -97,8 +95,6 @@ namespace Navigation.Domain.Robot.DFS
                     CurrentNode = WayToExit.Last();
 
                     WayToExit.RemoveAt(WayToExit.Count - 1);
-
-                    Console.WriteLine("Идти назад надо");
                 }
                 
                 ViewedContours.Add(сontour);

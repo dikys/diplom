@@ -27,13 +27,5 @@ namespace Navigation.Domain.Robot.DFS
 
             IsDeadLock = false;
         }
-
-        /*public void MarkDeadLock()
-        {
-            if (IsDeadLock)
-                throw new InvalidOperationException("Node is already deadlock!");
-
-            IsDeadLock = true;
-        }*/
     }
 }

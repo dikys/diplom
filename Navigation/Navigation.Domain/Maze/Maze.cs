@@ -67,9 +67,11 @@ namespace Navigation.Domain.Maze
             return new Maze(Walls.RemoveRange(wall));
         }
 
+        #region Перегрузка Object методов
         public override string ToString()
         {
             return "Maze[" + String.Concat(Walls.Select((wall, index) => wall.ToString() + (index < Walls.Count ? "\n" : ""))) + "]";
         }
+        #endregion
     }
 }

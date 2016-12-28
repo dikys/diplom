@@ -7,7 +7,7 @@ namespace Navigation.Infrastructure.Test
     public class LineTest
     {
         [TestMethod]
-        public void Should_CorrectIntersectionPoint_When_UseHaveIntersectionPoint()
+        public void Should_CorrectIntersectionPoint_When_HaveIntersectionPoint()
         {
             var intersectionPoint = new Point();
 
@@ -19,6 +19,15 @@ namespace Navigation.Infrastructure.Test
 
             Assert.IsTrue(new Line(50, 50, 130, 50).HaveIntersectionPoint(new Line(100, 50, 100, 75), ref intersectionPoint));
             Assert.AreEqual(new Point(100, 50), intersectionPoint);
+        }
+
+        [TestMethod]
+        public void Should_ResultFalse_When_LinesDoNotIntersect()
+        {
+            var intersectionPoint = new Point();
+
+            Assert.IsFalse(new Line(1, 0, 50, 0).HaveIntersectionPoint(new Line(-10, -1, 30, -1), ref intersectionPoint));
+            Assert.IsFalse(new Line(0, 0, 20, 20).HaveIntersectionPoint(new Line(21, 21, 30, 5), ref intersectionPoint));
         }
     }
 }

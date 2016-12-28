@@ -9,11 +9,14 @@ namespace Navigation.Infrastructure
 {
     public struct Point
     {
-        private static readonly double Tollerance = 0.01;
+        #region Поля и свойства
+        public static readonly double Tollerance = 0.01;
         
         public double X { get; }
         public double Y { get; }
+        #endregion
 
+        #region Конструкторы
         public Point(double x = 0, double y = 0)
         {
             X = x;
@@ -22,7 +25,9 @@ namespace Navigation.Infrastructure
 
         public Point(Point point) : this(point.X, point.Y)
         { }
+        #endregion
 
+        #region Основные методы
         public double GetDistanceTo(Point point)
         {
             return Math.Sqrt((X - point.X) * (X - point.X) + (Y - point.Y) * (Y - point.Y));
@@ -43,6 +48,13 @@ namespace Navigation.Infrastructure
             return new Point(X*Math.Cos(angle) - Y*Math.Sin(angle), X*Math.Sin(angle) + Y*Math.Cos(angle));
         }
 
+        public Point Clone()
+        {
+            return new Point(X, Y);
+        }
+        #endregion
+
+        #region Перегрузки операторов
         public static Point operator +(Point left, Point right)
         {
             return new Point(left.X + right.X, left.Y + right.Y);
@@ -87,12 +99,9 @@ namespace Navigation.Infrastructure
         {
             return !left.Equals(right);
         }
-        
-        public Point Clone()
-        {
-            return new Point(X, Y);
-        }
+        #endregion
 
+        #region Перегрузки Object методов
         private bool Equals(Point other)
         {
             return (Math.Abs(X - other.X) <= Tollerance) && (Math.Abs(Y - other.Y) <= Tollerance);
@@ -121,5 +130,6 @@ namespace Navigation.Infrastructure
         {
             return "(" + X + ", " + Y + ")";
         }
+        #endregion
     }
 }
