@@ -6,8 +6,13 @@ namespace Navigation.Infrastructure.Test
     [TestClass]
     public class LineTest
     {
+        public void Should_CorrectLine_When_UsedMethodStretch()
+        {
+            
+        }
+
         [TestMethod]
-        public void Should_CorrectIntersectionPoint_When_HaveIntersectionPoint()
+        public void Should_CorrectIntersectionPoint_When_UsedMethodHaveIntersectionPoint()
         {
             var intersectionPoint = new Point();
 

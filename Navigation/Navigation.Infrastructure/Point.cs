@@ -82,6 +82,9 @@ namespace Navigation.Infrastructure
 
         public static Point operator /(Point point, double coefficient)
         {
+            if (Math.Abs(coefficient) < 0.0000001)
+                throw new DivideByZeroException("coefficient equals 0");
+
             return new Point(point.X / coefficient, point.Y / coefficient);
         }
 
