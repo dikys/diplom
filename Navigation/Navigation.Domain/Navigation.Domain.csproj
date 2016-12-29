@@ -47,10 +47,11 @@
     <Compile Include="Maze\Maze.cs" />
     <Compile Include="Maze\Wall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Robot\DFS\Node.cs" />
+    <Compile Include="Strategies\DFS\Node.cs" />
     <Compile Include="Robot\MobileRobot.cs" />
-    <Compile Include="Robot\DFS\RobotWithDFS.cs" />
+    <Compile Include="Strategies\DFS\RobotWithDFS.cs" />
     <Compile Include="Robot\Vision.cs" />
+    <Compile Include="Strategies\StrategyInfoAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Navigation.Infrastructure\Navigation.Infrastructure.csproj">

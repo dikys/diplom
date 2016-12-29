@@ -3,7 +3,7 @@ using Navigation.Infrastructure;
 
 namespace Navigation.Domain.Maze
 {
-    public class Wall
+    public struct Wall
     {
         public Line Line { get; }
         public bool IsFinish { get; }
@@ -16,11 +16,6 @@ namespace Navigation.Domain.Maze
 
         public Wall(Wall wall) : this(wall.Line, wall.IsFinish)
         { }
-        
-        public Wall Clone()
-        {
-            return new Wall(this);
-        }
 
         #region Перегрузка Object методов
         private bool Equals(Wall other)

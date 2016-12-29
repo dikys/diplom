@@ -18,8 +18,7 @@ namespace Navigation.App
     {
         #region Поля и свойства
         public Graphics Graphics { get; private set; }
-
-        public bool IsInitilizated { get; private set; }
+        
         public bool IsFocused { get; private set; }
 
         public double AspectRatio { get; private set; }
@@ -91,19 +90,29 @@ namespace Navigation.App
             ExitWallPen = new Pen(Color.LawnGreen);
             PointBrush = new SolidBrush(Color.FromArgb(0, 47, 47));*/
 
+            AspectRatio = (double)Width / Height;
+
+            CurrentFocus = focus;
+
+            var focusMinHeight = Math.Max((float)CurrentFocus.Vector.Y * 10 / 100, 20);
+
+            FocusBorder = new RectangleF(CurrentFocus.Start.ToPointF(), CurrentFocus.Vector.ToSizeF());
+            FocusMaxSize = new SizeF((float)Math.Abs(CurrentFocus.Vector.X), (float)Math.Abs(CurrentFocus.Vector.Y));
+            FocusMinSize = new SizeF((float)AspectRatio * focusMinHeight, focusMinHeight);
+            
+            Paint += (sender, args) => InitilizateBeforePaint(args.Graphics);
+
             form.MouseWheel += (sender, args) =>
             {
                 if (!IsFocused)
                     return;
-
+                
                 if (args.Delta > 0)
                     ZoomIn();
                 else
                     ZoomOut();
             };
-
-            Paint += (sender, args) => InitilizateBeforePaint(args.Graphics);
-
+            
             var previousMousePosition = new Point();
             MouseMove += (sender, args) =>
             {
@@ -125,26 +134,6 @@ namespace Navigation.App
 
             MouseEnter += (sender, args) => IsFocused = true;
             MouseLeave += (sender, args) => IsFocused = false;
-
-            Initilizate(focus);
-        }
-
-        public void Initilizate(Line focusMaximum)
-        {
-            if (IsInitilizated)
-                throw new InvalidOperationException("Canvas has already been initialized");
-            
-            AspectRatio = (double)Width / Height;
-
-            CurrentFocus = focusMaximum;
-
-            var focusMinHeight = Math.Max((float) CurrentFocus.Vector.Y*10/100, 20);
-
-            FocusBorder = new RectangleF(CurrentFocus.Start.ToPointF(), CurrentFocus.Vector.ToSizeF());
-            FocusMaxSize = new SizeF((float) Math.Abs(CurrentFocus.Vector.X), (float) Math.Abs(CurrentFocus.Vector.Y));
-            FocusMinSize = new SizeF((float) AspectRatio*focusMinHeight, focusMinHeight);
-
-            IsInitilizated = true;
         }
         
         #region Методы для рисование объектов
@@ -193,9 +182,6 @@ namespace Navigation.App
         private void InitilizateBeforePaint(Graphics g)
         {
             Graphics = g;
-
-            if (!IsInitilizated)
-                return;
 
             Graphics.MultiplyTransform(TransformCurrentMatrix);
         }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Navigation.Domain.Robot;
 using Navigation.Infrastructure;
 
-namespace Navigation.Domain.Robot.DFS
+namespace Navigation.Domain.Strategies.DFS
 {
-    public class RobotWithDfs : MobileRobot
+    [StrategyInfo(Name = "Мгновенный DFS")]
+    public class RobotWithDFS : MobileRobot
     {
         public Node Start { get; }
 
@@ -24,7 +26,7 @@ namespace Navigation.Domain.Robot.DFS
 
         public List<List<Line>> ViewedContours { get; }
 
-        public RobotWithDfs(Maze.Maze maze, Point position) : base(maze, position)
+        public RobotWithDFS(Maze.Maze maze, Point position) : base(maze, position)
         {
             Start = new Node(position);
             CurrentNode = Start;

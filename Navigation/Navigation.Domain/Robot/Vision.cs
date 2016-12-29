@@ -48,7 +48,7 @@ namespace Navigation.Domain.Robot
                 return true;
             
             var previousObservedPoint = observedPoint;
-            var previousObservedWall = observedWall.Clone();
+            var previousObservedWall = observedWall;
 
             var wallStart = observedPoint;
 
@@ -56,7 +56,6 @@ namespace Navigation.Domain.Robot
             // конец и.
             
             while (DirectionAngle <= 2*Math.PI)
-            //while(observedContur.Count < 3)
             {
                 if (LookForward(ref observedPoint, ref observedWall))
                 {
@@ -71,7 +70,7 @@ namespace Navigation.Domain.Robot
                 }
 
                 previousObservedPoint = observedPoint;
-                previousObservedWall = observedWall.Clone();
+                previousObservedWall = observedWall;
 
                 Rotate();
             }
@@ -104,7 +103,7 @@ namespace Navigation.Domain.Robot
                 {
                     haveGap = false;
 
-                    observedWall = wall.Clone();
+                    observedWall = wall;
                     observedPoint = currentIntersectionPoint;
                     distanceToObservedPoint = _robot.Position.GetDistanceTo(observedPoint);
 
@@ -113,7 +112,7 @@ namespace Navigation.Domain.Robot
 
                 if (_robot.Position.GetDistanceTo(currentIntersectionPoint) < distanceToObservedPoint)
                 {
-                    observedWall = wall.Clone();
+                    observedWall = wall;
                     observedPoint = currentIntersectionPoint;
                     distanceToObservedPoint = _robot.Position.GetDistanceTo(observedPoint);
                 }

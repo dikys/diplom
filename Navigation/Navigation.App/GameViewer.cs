@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Navigation.Domain.Maze;
 using Navigation.Domain.Robot;
-using Navigation.Domain.Robot.DFS;
+using Navigation.Domain.Strategies.DFS;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
 
@@ -24,7 +24,7 @@ namespace Navigation.App
         public GameViewer()
         {
             _maze = GetDefaultMaze();
-            _robot = new RobotWithDfs(_maze, new Point(50, 50));
+            _robot = new RobotWithDFS(_maze, new Point(50, 50));
         }
 
         public void RunRobot()
@@ -34,10 +34,7 @@ namespace Navigation.App
 
         public void Draw(Canvas canvas)
         {
-            foreach (var wall in _maze.Walls)
-            {
-                canvas.Draw(new Pen(Color.FromArgb(55, 93, 129)), wall);
-            }
+            _maze.Walls.ForEach((wall) => canvas.Draw(new Pen(Color.FromArgb(55, 93, 129)), wall));
 
             canvas.Draw(Brushes.LawnGreen, _robot.Position);
         }
