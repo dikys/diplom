@@ -13,72 +13,66 @@ namespace Navigation.App
     public class MainWindow : Form
     {
         public GameViewer GameViewer { get; private set; }
-        
         public Canvas Canvas { get; private set; }
+
+        public TableLayoutPanel WindowMainTable;
 
         public MainWindow()
         {
             WindowState = FormWindowState.Maximized;
             FormBorderStyle = FormBorderStyle.None;
 
-            InitilizateWindow();
+            GameViewer = new GameViewer();
+
+            WindowMainTable = new TableLayoutPanel()
+            {
+                Dock = DockStyle.Fill
+            };
+            WindowMainTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            WindowMainTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
+            WindowMainTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            Controls.Add(WindowMainTable);
+
+            var menu = SetDefaultSetting(new MenuStrip()
+            {
+                Renderer = new MenuStripRender()
+            });
+            WindowMainTable.Controls.Add(menu, 0, 0);
+
+            var robotRunButton = SetDefaultSettingForMenuItems(new ToolStripButton("Старт"));
+            robotRunButton.Click += (sender, args) => GameViewer.RunRobot();
+            menu.Items.Add(robotRunButton);
+
+            var item = SetDefaultSettingForMenuItems(new ToolStripMenuItem("Пункт 1")
+            {
+                DropDownItems =
+                {
+                    new ToolStripButton("Привет"),
+                    new ToolStripLabel("Настройка ы")
+                }
+            });
+            menu.Items.Add(item);
+
+            item = SetDefaultSettingForMenuItems(new ToolStripMenuItem("Пункт 2")
+            {
+                DropDownItems =
+                {
+                    new ToolStripLabel("Я лабел"),
+                    new ToolStripButton("Я кнопка")
+                }
+            });
+            menu.Items.Add(item);
 
             Load += (s, e) =>
             {
-                GameViewer = new GameViewer(Canvas);
+                Canvas = new Canvas(this, GameViewer.MazeDiameter)
+                {
+                    Dock = DockStyle.Fill
+                };
+                WindowMainTable.Controls.Add(Canvas, 0, 1);
 
-                Canvas.Initilizate(GameViewer.MazeDiameter);
+                Canvas.Paint += (sender, args) => GameViewer.Draw(Canvas);
             };
-        }
-
-        public void InitilizateWindow()
-        {
-            var menuStripHeight = 30;
-
-            var table = new TableLayoutPanel()
-            {
-                Dock = DockStyle.Fill
-            };
-            Controls.Add(table);
-
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-
-            table.RowStyles.Add(new RowStyle(SizeType.Absolute, menuStripHeight));
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-
-            var menu = SetDefaultSetting(new MenuStrip());
-            menu.Renderer = new MenuStripRender();
-            table.Controls.Add(menu, 0, 0);
-
-            var robotRunButton = SetDefaultSettingForMenuItems(new ToolStripButton("Старт"));
-            
-            robotRunButton.Click += (sender, args) =>
-            {
-                GameViewer.RunRobot();
-            };
-            menu.Items.Add(robotRunButton);
-
-            var item = SetDefaultSettingForMenuItems(new ToolStripMenuItem("Пункт 1"));
-            menu.Items.Add(item);
-            item.DropDownItems.AddRange(new ToolStripItem[]
-            {
-                new ToolStripButton("Привет"),
-                new ToolStripLabel("Настройка ы")
-            });
-
-            item = SetDefaultSettingForMenuItems(new ToolStripMenuItem("Пункт 2"));
-            menu.Items.Add(item);
-            item.DropDownItems.AddRange(new ToolStripItem[]
-            {
-                new ToolStripLabel("Я лабел"),
-                new ToolStripButton("Я кнопка")  
-            });
-
-            Canvas = new Canvas(this)
-            {
-                Dock = DockStyle.Fill
-            };
-            table.Controls.Add(Canvas, 0, 1);
         }
         
         private TControl SetDefaultSetting<TControl>(TControl control)

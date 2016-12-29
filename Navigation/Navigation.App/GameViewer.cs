@@ -21,44 +21,25 @@ namespace Navigation.App
 
         private Canvas _canvas;
 
-        public GameViewer(Canvas canvas)
+        public GameViewer()
         {
             _maze = GetDefaultMaze();
             _robot = new RobotWithDfs(_maze, new Point(50, 50));
-            _canvas = canvas;
-
-            canvas.Paint += (sender, args) =>
-            {
-                var g = args.Graphics;
-
-                foreach (var wall in _maze.Walls)
-                {
-                    canvas.Draw(wall);
-                }
-
-                /*(_robot as RobotWithDfs).ViewedContours.ForEach(
-                    contour =>
-                        g.FillPolygon(Brushes.AliceBlue,
-                            contour.SelectMany(line => new PointF[] {line.Start.ToPointF(), line.End.ToPointF()})
-                                .ToArray()));*/
-
-                (_robot as RobotWithDfs).CurrentNode.AdjacentNodes.ForEach(
-                    node =>
-                        _canvas.Draw(Brushes.Red, node.Position));
-
-                (_robot as RobotWithDfs).CurrentNode.NotDeadLockAdjacentNodes.ToList().ForEach(
-                    node =>
-                        _canvas.Draw(node.Position));
-
-                canvas.Draw(Brushes.LawnGreen, _robot.Position);
-            };
         }
 
         public void RunRobot()
         {
             _robot.Run();
+        }
 
-            _canvas.Invalidate();
+        public void Draw(Canvas canvas)
+        {
+            foreach (var wall in _maze.Walls)
+            {
+                canvas.Draw(new Pen(Color.FromArgb(55, 93, 129)), wall);
+            }
+
+            canvas.Draw(Brushes.LawnGreen, _robot.Position);
         }
 
         private Maze GetDefaultMaze()

@@ -75,21 +75,21 @@ namespace Navigation.App
         }
 
         private float _drawnPointSize = 2;
-        public Brush PointBrush { get; private set; }
-        public Pen LinePen { get; private set; }
-        public Pen WallPen { get; private set; }
-        public Pen ExitWallPen { get; private set; }
-
         #endregion
-
-        public Canvas(Form form)
+        
+        public Canvas(Form form, Line focus)
         {
             DoubleBuffered = true;
             ResizeRedraw = true;
-            
-            IsInitilizated = false;
 
-            DefaultSettings();
+            FocusScalingSpeed = 30;
+            FocusMovingSpeed = 1;
+            BackColor = Color.FromArgb(225, 230, 250);
+
+            /*LinePen = new Pen(Color.FromArgb(55, 93, 129));
+            WallPen = LinePen;
+            ExitWallPen = new Pen(Color.LawnGreen);
+            PointBrush = new SolidBrush(Color.FromArgb(0, 47, 47));*/
 
             form.MouseWheel += (sender, args) =>
             {
@@ -125,18 +125,8 @@ namespace Navigation.App
 
             MouseEnter += (sender, args) => IsFocused = true;
             MouseLeave += (sender, args) => IsFocused = false;
-        }
 
-        private void DefaultSettings()
-        {
-            FocusScalingSpeed = 30;
-            FocusMovingSpeed = 1;
-            BackColor = Color.FromArgb(225, 230, 250);
-
-            LinePen = new Pen(Color.FromArgb(55, 93, 129));
-            WallPen = LinePen;
-            ExitWallPen = new Pen(Color.LawnGreen);
-            PointBrush = new SolidBrush(Color.FromArgb(0, 47, 47));
+            Initilizate(focus);
         }
 
         public void Initilizate(Line focusMaximum)
@@ -158,27 +148,19 @@ namespace Navigation.App
         }
         
         #region Методы для рисование объектов
-        public void Draw(Point point)
-        {
-            Draw(PointBrush, point);
-        }
         public void Draw(Brush brush, Point point)
         {
             Graphics.FillEllipse(brush, new RectangleF((point - _drawnPointSize / 2).ToPointF(), new SizeF(_drawnPointSize, _drawnPointSize)));
         }
-
-        public void Draw(Line line)
-        {
-            Draw(LinePen, line);
-        }
+        
         public void Draw(Pen pen, Line line)
         {
             Graphics.DrawLine(pen, line.Start.ToPointF(), line.End.ToPointF());
         }
 
-        public void Draw(Wall wall)
+        public void Draw(Pen pen, Wall wall)
         {
-            Graphics.DrawLine(wall.IsFinish ? ExitWallPen : WallPen, wall.Line.Start.ToPointF(), wall.Line.End.ToPointF());
+            Draw(pen, wall.Line);
         }
         #endregion
 
