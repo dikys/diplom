@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,10 +17,9 @@ using Navigation.Infrastructure;
  *      
  *      Возможность визуального просмотра алгоритма
  *          Наверное, нужно для каждой стратегии создавать StrategyViewer, который все будет выводить
+ *          А можно с помощью делегатов сделать
  *      
  *      Написать тесты для
- *          Point
- *          Line
  *          Vision
  *          Maze
  *          ...

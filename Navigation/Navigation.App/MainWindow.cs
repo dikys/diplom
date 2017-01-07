@@ -35,31 +35,38 @@ namespace Navigation.App
 
             var menu = SetDefaultSetting(new MenuStrip()
             {
-                Renderer = new MenuStripRender(new TestColorTable())
+                Renderer = new MyMenuStripRender(new MyColorTable())
             });
             WindowMainTable.Controls.Add(menu, 0, 0);
 
-            var robotRunButton = SetDefaultSettingForMenuItems(new ToolStripButton("Старт"));
-            robotRunButton.Click += (sender, args) => GameViewer.RunRobot();
-            menu.Items.Add(robotRunButton);
-
-            var item = SetDefaultSettingForMenuItems(new ToolStripMenuItem("Лабиринт")
+            var item = SetDefaultSettingForMenuItems(new ToolStripMenuItem("Робот")
             {
                 DropDownItems =
                 {
-                    new ToolStripButton("Загрузить"),
-                    new ToolStripLabel("Настройка ы")
+                    SetDefaultSettingForMenuItems(new ToolStripButton("Запустить")),
+                    SetDefaultSettingForMenuItems(new ToolStripButton("Остановить"))
                 }
             });
+            item.DropDownItems[0].Click += (sender, args) => GameViewer.RunRobot();
+            item.DropDownItems[1].Click += (sender, args) => MessageBox.Show("Привет");
+            menu.Items.Add(item);
 
+            item = SetDefaultSettingForMenuItems(new ToolStripMenuItem("Лабиринт")
+            {
+                DropDownItems =
+                {
+                    SetDefaultSettingForMenuItems(new ToolStripButton("Загрузить")),
+                    SetDefaultSettingForMenuItems(new ToolStripButton("Настройка ы"))
+                }
+            });
             menu.Items.Add(item);
 
             item = SetDefaultSettingForMenuItems(new ToolStripMenuItem("Пункт 2")
             {
                 DropDownItems =
                 {
-                    new ToolStripLabel("Я лабел"),
-                    new ToolStripButton("Я кнопка")
+                    SetDefaultSettingForMenuItems(new ToolStripLabel("Я лабел")),
+                    SetDefaultSettingForMenuItems(new ToolStripButton("Я кнопка"))
                 }
             });
             menu.Items.Add(item);
@@ -100,75 +107,61 @@ namespace Navigation.App
         {
             item.Dock = DockStyle.Fill;
 
+            item.ForeColor = Color.FromArgb(171, 200, 226);
+
             item.Width = 100;
+            item.TextAlign = ContentAlignment.MiddleLeft;
             
             return item;
         }
 
-        public class TestColorTable : ProfessionalColorTable
+        public class MyColorTable : ProfessionalColorTable
         {
-            /*Color culoare = Color.FromArgb(20, 20, 20);
-            Color culoare1 = Color.FromArgb(36, 36, 36);
+            #region Button Style
+            // Когда нажали
+            public override Color ButtonCheckedHighlightBorder => Color.FromArgb(24, 49, 82);
+            public override Color ButtonPressedHighlight => Color.FromArgb(24, 49, 82);
 
-            // когда на кнопку нажали
-            public override Color ButtonCheckedHighlight => Color.Blue;
+            // При наведении
+            public override Color ButtonSelectedHighlight => Color.FromArgb(24, 49, 82);
+            public override Color ButtonSelectedBorder => Color.FromArgb(24, 49, 82);
+            #endregion
 
-            public override Color ButtonSelectedBorder => Color.Black;
-            public override Color ButtonSelectedGradientBegin => Color.Black;
-            public override Color ButtonSelectedGradientEnd => Color.Black;
-            public override Color ButtonSelectedGradientMiddle => Color.Black;
-            public override Color ButtonSelectedHighlight => Color.Black;
-            public override Color ButtonSelectedHighlightBorder => Color.Black;
-            public override Color CheckSelectedBackground => Color.Black;
-            public override Color ButtonPressedHighlightBorder => Color.Black;
+            #region Item Style
+            // Цвет полоски над всеми элементами
+            public override Color MenuBorder => Color.FromArgb(24, 49, 82);
 
-            //public override Color MenuItemBorder => Color.Black;
-            //public override Color MenuItemPressedGradientBegin => Color.Black;
-            //public override Color MenuItemPressedGradientEnd => Color.Black;
-            public override Color MenuItemPressedGradientMiddle => Color.Black;
-            public override Color MenuItemSelected => Color.Black;
-            //public override Color MenuItemSelectedGradientBegin => Color.Black;
-            //public override Color MenuItemSelectedGradientEnd => Color.Black;
+            // Цвет квадратика перед элементом в выпадающем списке
+            public override Color ImageMarginGradientBegin => Color.FromArgb(24, 49, 82);
+            public override Color ImageMarginGradientEnd => Color.FromArgb(24, 49, 82);
+            public override Color ImageMarginGradientMiddle => Color.FromArgb(24, 49, 82);
 
-            public override Color SeparatorDark => Color.Black;
-            public override Color SeparatorLight => Color.Black;
-
-            public override Color ToolStripBorder => Color.Black;
-            public override Color ToolStripDropDownBackground => Color.Black;
-            public override Color ToolStripGradientBegin => Color.Black;
-            public override Color ToolStripGradientMiddle => Color.Black;
-            public override Color ToolStripPanelGradientBegin => Color.Black;
-            public override Color ToolStripPanelGradientEnd => Color.Black;*/
-
-            public override Color ButtonCheckedGradientBegin => Color.Black;
+            // Цвет элементов в выпадающем списке
+            public override Color ToolStripDropDownBackground => Color.FromArgb(24, 49, 82);
+            #endregion
+            
+            /////////////////////////
+            /*public override Color ButtonCheckedGradientBegin => Color.Black;
             public override Color ButtonCheckedGradientEnd => Color.Black;
             public override Color ButtonCheckedGradientMiddle => Color.Black;
-            public override Color ButtonCheckedHighlightBorder => Color.Black;
             public override Color ButtonPressedBorder => Color.Black;
             public override Color ButtonPressedGradientBegin => Color.Black;
             public override Color ButtonPressedGradientEnd => Color.Black;
             public override Color ButtonPressedGradientMiddle => Color.Black;
-            public override Color ButtonPressedHighlight => Color.Black;
             public override Color ButtonPressedHighlightBorder => Color.Black;
-            public override Color ButtonSelectedBorder => Color.Black;
-            public override Color ButtonSelectedGradientBegin => Color.Black;
+            /*public override Color ButtonSelectedGradientBegin => Color.Black;
             public override Color ButtonSelectedGradientEnd => Color.Black;
             public override Color ButtonSelectedGradientMiddle => Color.Black;
-            public override Color ButtonSelectedHighlight => Color.Black;
             public override Color ButtonSelectedHighlightBorder => Color.Black;
             public override Color CheckBackground => Color.Black;
             public override Color CheckPressedBackground => Color.Black;
             public override Color CheckSelectedBackground => Color.Black;
             public override Color GripDark => Color.Black;
             public override Color GripLight => Color.Black;
-            public override Color ImageMarginGradientBegin => Color.Black;
-            public override Color ImageMarginGradientEnd => Color.Black;
-            public override Color ImageMarginGradientMiddle => Color.Black;
             public override Color ImageMarginRevealedGradientBegin => Color.Black;
             public override Color ImageMarginRevealedGradientEnd => Color.Black;
             public override Color ImageMarginRevealedGradientMiddle => Color.Black;
-            public override Color MenuBorder => Color.Black;
-            public override Color MenuItemBorder => Color.Black;
+            public override Color MenuItemBorder => Color.Black; 
             public override Color MenuItemPressedGradientBegin => Color.Black;
             public override Color MenuItemPressedGradientEnd => Color.Black;
             public override Color MenuItemPressedGradientMiddle => Color.Black;
@@ -189,17 +182,16 @@ namespace Navigation.App
             public override Color ToolStripBorder => Color.Black;
             public override Color ToolStripContentPanelGradientBegin => Color.Black;
             public override Color ToolStripContentPanelGradientEnd => Color.Black;
-            public override Color ToolStripDropDownBackground => Color.Black;
             public override Color ToolStripGradientBegin => Color.Black;
             public override Color ToolStripGradientEnd => Color.Black;
             public override Color ToolStripGradientMiddle => Color.Black;
             public override Color ToolStripPanelGradientBegin => Color.Black;
-            public override Color ToolStripPanelGradientEnd => Color.Black;
+            public override Color ToolStripPanelGradientEnd => Color.Black;*/
         }
 
-        public class MenuStripRender : ToolStripProfessionalRenderer
+        public class MyMenuStripRender : ToolStripProfessionalRenderer
         {
-            public MenuStripRender(ProfessionalColorTable table) : base(table) { }
+            public MyMenuStripRender(ProfessionalColorTable table) : base(table) { }
 
             protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
             {
