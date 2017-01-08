@@ -10,7 +10,6 @@ namespace Navigation.Domain.Strategies.DFS
     public class RobotWithDFS : MobileRobot
     {
         public Node Start { get; }
-
         private Node _currentNode;
         public Node CurrentNode
         {
@@ -23,7 +22,6 @@ namespace Navigation.Domain.Strategies.DFS
             }
         }
         public List<Node> WayToExit { get; }
-
         public List<List<Line>> ViewedContours { get; }
 
         public RobotWithDFS(Maze.Maze maze, Point position) : base(maze, position)

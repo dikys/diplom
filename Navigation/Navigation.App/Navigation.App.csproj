@@ -49,14 +49,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Canvas.cs">
+    <Compile Include="Extensions\MenuStripExtension.cs" />
+    <Compile Include="Extensions\ToolStripButtonExtension.cs" />
+    <Compile Include="Extensions\ToolStripItemExtension.cs" />
+    <Compile Include="Extensions\ToolStripMenuItemExtension.cs" />
+    <Compile Include="Windows\BaseWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Extensions\ControlExtension.cs" />
+    <Compile Include="Windows\Controls\BaseColorTable.cs" />
+    <Compile Include="Windows\Controls\BaseMenuStripRender.cs" />
+    <Compile Include="Windows\Controls\Canvas.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameViewer.cs" />
-    <Compile Include="MainWindow.cs">
+    <Compile Include="Windows\Controls\Focus.cs" />
+    <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PointExtension.cs" />
+    <Compile Include="Extensions\PointExtension.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

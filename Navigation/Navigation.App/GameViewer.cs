@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Navigation.App.Windows.Controls;
 using Navigation.Domain.Maze;
 using Navigation.Domain.Robot;
 using Navigation.Domain.Strategies.DFS;
