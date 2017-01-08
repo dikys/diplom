@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Navigation.App.Extensions;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
@@ -22,20 +18,21 @@ namespace Navigation.App.Windows.Controls
                 if (value.Equals(_line))
                     return;
 
-                if (_line.HasValue)
-                    if (value.Start.X < Border.Left
-                        || value.Start.Y < Border.Top
-                        || Border.Right < value.End.X
-                        || Border.Bottom < value.End.Y)
-                        return;
-
                 var focusWidth = Math.Max(Math.Abs(value.Vector.X), Math.Abs(value.Vector.Y) * AspectRatio);
                 var focusHeight = focusWidth / AspectRatio;
 
-                _line = new Line(value.Center.X - focusWidth / 2,
-                    value.Center.Y - focusHeight / 2,
-                    value.Center.X + focusWidth / 2,
-                    value.Center.Y + focusHeight / 2);
+                if (Border.HasValue)
+                {
+                    _line = new Line(Math.Max(value.Center.X - focusWidth / 2, Border.Value.Left),
+                        Math.Max(value.Center.Y - focusHeight/2, Border.Value.Top),
+                        Math.Min(value.Center.X + focusWidth/2, Border.Value.Right),
+                        Math.Min(value.Center.Y + focusHeight/2, Border.Value.Bottom));
+                }
+                else
+                    _line = new Line(value.Center.X - focusWidth/2,
+                        value.Center.Y - focusHeight/2,
+                        value.Center.X + focusWidth/2,
+                        value.Center.Y + focusHeight/2);
 
                 var scX = (float)(_canvas.Width / Line.Vector.X);
                 var scY = -(float)(_canvas.Height / Line.Vector.Y);
@@ -51,7 +48,7 @@ namespace Navigation.App.Windows.Controls
         }
 
         public double AspectRatio { get; }
-        public RectangleF Border { get; }
+        public RectangleF? Border { get; }
         public SizeF MaxSize { get; }
         public SizeF MinSize { get; }
         public double ScalingSpeed { get; }
@@ -65,6 +62,9 @@ namespace Navigation.App.Windows.Controls
 
         public Focus(Line maxLine, Canvas canvas)
         {
+            if (canvas == null)
+                throw new ArgumentNullException("canvas");
+
             ScalingSpeed = 30;
             MovingSpeed = 1;
 

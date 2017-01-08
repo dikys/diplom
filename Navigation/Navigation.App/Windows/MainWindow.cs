@@ -29,7 +29,10 @@ namespace Navigation.App.Windows
                             .WithOnClick((sender, args) => GameViewer.RunRobot()),
                         new ToolStripButton("Остановить")
                             .TuneItem()
-                            .WithOnClick((sender, args) => MessageBox.Show("Привет"))),
+                            .WithOnClick((sender, args) => MessageBox.Show("Привет")),
+                        new ToolStripButton("Настройки")
+                            .TuneItem()
+                            .WithOnClick((sender, args) => )),
                 new ToolStripMenuItem("Лабиринт")
                     .TuneItem()
                     .WithDropDownItems(

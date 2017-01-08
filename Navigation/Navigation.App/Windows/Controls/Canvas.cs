@@ -88,8 +88,6 @@ namespace Navigation.App.Windows.Controls
             Graphics = g;
 
             Graphics.MultiplyTransform(Focus.TransformMatrix);
-
-            Console.WriteLine("Рисуем");
         }
         #endregion
     }
