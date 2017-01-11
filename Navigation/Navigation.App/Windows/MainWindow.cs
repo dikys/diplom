@@ -18,31 +18,40 @@ namespace Navigation.App.Windows
 
             GameViewer = new GameViewer();
 
-            ControlsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-
             TopMenuStrip.WithItems(
-                new ToolStripMenuItem("Робот")
-                    .TuneItem()
+                new ToolStripMenuItem("Робот").TuneItem()
                     .WithDropDownItems(
-                        new ToolStripButton("Запустить")
-                            .TuneItem()
+                        new ToolStripButton("Запустить").TuneItem()
                             .WithOnClick((sender, args) => GameViewer.RunRobot()),
-                        new ToolStripButton("Остановить")
-                            .TuneItem()
-                            .WithOnClick((sender, args) => MessageBox.Show("Привет")),
-                        new ToolStripButton("Настройки")
-                            .TuneItem()
-                            .WithOnClick((sender, args) => )),
-                new ToolStripMenuItem("Лабиринт")
-                    .TuneItem()
+                        new ToolStripButton("Остановить").TuneItem()
+                            .WithOnClick((sender, args) =>
+                            {
+                                var window = new BaseWindow();
+
+                                window.MainPanel.Controls.Add(new Label {Text = "Привет"});
+
+                                window.ShowDialog();
+                            })),
+                new ToolStripMenuItem("Лабиринт").TuneItem()
                     .WithDropDownItems(
-                        new ToolStripButton("Загрузить").TuneItem(),
+                        new ToolStripButton("Загрузить").TuneItem()
+                            .WithOnClick((sender, args) =>
+                            {
+                                
+                            }),
                         new ToolStripButton("Настройка ы").TuneItem()),
-                new ToolStripMenuItem("Редактор")
-                    .TuneItem()
+                new ToolStripMenuItem("Редактор").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Открыть").TuneItem(),
-                        new ToolStripButton("Отправить").TuneItem().WithToolTipText("Открыть редактор с текущим лабиринтом")));
+                        new ToolStripButton("Отправить").TuneItem()
+                            .WithToolTipText("Открыть редактор с текущим лабиринтом")),
+                new ToolStripButton("Настройки").TuneItem()
+                    .WithOnClick((sender, args) =>
+                    {
+                        var window = new BaseWindow();
+
+                        window.ShowDialog(this);
+                    }));
             
             Load += (s, e) =>
             {
@@ -51,7 +60,7 @@ namespace Navigation.App.Windows
                     Dock = DockStyle.Fill
                 };
                 Canvas.Paint += (sender, args) => GameViewer.Draw(Canvas);
-                ControlsTable.Controls.Add(Canvas, 0, 1);
+                MainPanel.Controls.Add(Canvas);
             };
         }
     }

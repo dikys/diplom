@@ -34,8 +34,6 @@ namespace Navigation.Domain.Strategies.DFS
         
         public override void Run()
         {
-            var exitPoint = new Point();
-            
             while (true)
             {
                 if (CurrentNode.HaveAdjacentNodes)
@@ -65,18 +63,18 @@ namespace Navigation.Domain.Strategies.DFS
                     continue;
                 }
 
-                var сontour = new List<Line>();
+                var visionResult = Vision.LookAround();
 
-                if (Vision.LookAround(ref сontour, ref exitPoint))
+                if (visionResult.SawFinish)
                 {
-                    WayToExit.Add(new Node(exitPoint));
+                    WayToExit.Add(new Node(visionResult.FinishPoint));
 
                     Console.WriteLine("Выход найден");
 
                     return;
                 }
 
-                var passages = GetPassageInСontour(сontour).Where(IsNewPassage).ToList();
+                var passages = visionResult.ObservedPassages.Where(IsNewPassage).ToList();
 
                 if (passages.Any())
                 {
@@ -97,7 +95,7 @@ namespace Navigation.Domain.Strategies.DFS
                     WayToExit.RemoveAt(WayToExit.Count - 1);
                 }
                 
-                ViewedContours.Add(сontour);
+                ViewedContours.Add(visionResult.ObservedContour.ToList());
             }
         }
 

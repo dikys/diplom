@@ -27,7 +27,7 @@ namespace Navigation.App.Windows.Controls
             DoubleBuffered = true;
             ResizeRedraw = true;
             BackColor = Color.FromArgb(225, 230, 250);
-            
+
             Focus = new Focus(maxFocus, this);
             Focus.Change += () => Invalidate();
             form.MouseWheel += (sender, args) =>

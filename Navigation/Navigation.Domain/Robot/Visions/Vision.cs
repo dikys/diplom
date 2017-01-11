@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Navigation.Domain.Maze;
 using Navigation.Infrastructure;
 
-namespace Navigation.Domain.Robot
+namespace Navigation.Domain.Robot.Visions
 {
     public class Vision
     {
-        /// <summary>
-        /// Направление взгляда, вектор единичной длины
-        /// </summary>
-        public Point Direction { get; private set; }
-        public double DirectionAngle { get; private set; }
-        public Line DirectionTrace => new Line(_robot.Position, _robot.Position + Direction*_maze.Diameter.Length*2);
-        public double RotationAngle { get; }
+        private Point _direction;
+        private double _directionAngle;
+
+        private Line DirectionTrace => new Line(_robot.Position, _robot.Position + _direction*_maze.Diameter.Length*2);
+        private readonly double _rotationAngle;
 
         private Maze.Maze _maze;
         private MobileRobot _robot;
@@ -26,26 +21,32 @@ namespace Navigation.Domain.Robot
             _maze = maze;
             _robot = robot;
 
-            RotationAngle = 0.005;
+            _rotationAngle = 0.005;
 
             ResetDirection();
         }
+
+        public VisionResult LookAround()
+        {
+            var observedСontour = new List<Line>();
+            var finishPoint = new Point();
+
+            var sawFinish = LookAround(ref observedСontour, ref finishPoint);
+
+            return new VisionResult(sawFinish, finishPoint, observedСontour, GetPassageInСontour(observedСontour));
+        }
         
-        /// <summary>
-        /// Осмотреться. Вернет видимый контур.
-        /// Если во время осмотра был найден выход, то прекратит восстанавливать видимый контур и вернет true.
-        /// </summary>
-        /// <returns></returns>
-        public bool LookAround(ref List<Line> observedСontour, ref Point exitPoint)
+        private bool LookAround(ref List<Line> observedСontour, ref Point exitPoint)
         {
             ResetDirection();
+
+            var sawFinish = false;
             
             var observedWall = new Wall(new Line(new Point(), new Point()));
             var observedPoint = new Point();
 
             // инициализация
-            if (LookForward(ref observedPoint, ref observedWall))
-                return true;
+            sawFinish = LookForward(ref observedPoint, ref observedWall);
             
             var previousObservedPoint = observedPoint;
             var previousObservedWall = observedWall;
@@ -55,11 +56,11 @@ namespace Navigation.Domain.Robot
             Rotate();
             // конец и.
             
-            while (DirectionAngle <= 2*Math.PI)
+            while (_directionAngle <= 2*Math.PI)
             {
                 if (LookForward(ref observedPoint, ref observedWall))
                 {
-                    return true;
+                    sawFinish = true;
                 }
 
                 if (!previousObservedWall.Equals(observedWall))
@@ -77,12 +78,9 @@ namespace Navigation.Domain.Robot
 
             observedСontour.Add(new Line(wallStart, previousObservedPoint));
 
-            return false;
+            return sawFinish;
         }
-
-        /// <summary>
-        /// Виден ли финиш.
-        /// </summary>
+        
         private bool LookForward(ref Point observedPoint, ref Wall observedWall)
         {
             var haveGap = true;
@@ -120,23 +118,36 @@ namespace Navigation.Domain.Robot
 
             if (haveGap)
                 throw new InvalidOperationException("Border of maze has gap");
+            
+            return observedWall.IsFinish;
+        }
+        
+        private List<Line> GetPassageInСontour(List<Line> contour)
+        {
+            var result = new List<Line>();
 
-            if (observedWall.IsFinish)
-                return true;
+            for (var index = 0; index < contour.Count - 1; index++)
+            {
+                if (contour[index].End.GetDistanceTo(contour[index + 1].Start) > _robot.Size)
+                    result.Add(new Line(contour[index].End, contour[index + 1].Start));
+            }
 
-            return false;
+            if (contour[contour.Count - 1].End.GetDistanceTo(contour[0].Start) > _robot.Size)
+                result.Add(new Line(contour[contour.Count - 1].End, contour[0].Start));
+
+            return result;
         }
 
         private void ResetDirection()
         {
-            DirectionAngle = 0;
-            Direction = new Point(1, 0);
+            _directionAngle = 0;
+            _direction = new Point(1, 0);
         }
 
         private void Rotate()
         {
-            DirectionAngle += RotationAngle;
-            Direction = Direction.Rotate(RotationAngle);
+            _directionAngle += _rotationAngle;
+            _direction = _direction.Rotate(_rotationAngle);
         }
     }
 }
