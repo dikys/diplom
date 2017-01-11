@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Navigation.Infrastructure
 {
@@ -15,8 +16,9 @@ namespace Navigation.Infrastructure
 
         public Point Start { get; }
         public Point End { get; }
-
+        
         private Point? _vector;
+        [JsonIgnore]
         public Point Vector
         {
             get
@@ -27,8 +29,9 @@ namespace Navigation.Infrastructure
                 return _vector.Value;
             }
         }
-
+        
         private Point? _center;
+        [JsonIgnore]
         public Point Center
         {
             get
@@ -39,8 +42,9 @@ namespace Navigation.Infrastructure
                 return _center.Value;
             }
         }
-
+        
         private Point? _normilizeVector;
+        [JsonIgnore]
         public Point NormilizeVector
         {
             get
@@ -51,8 +55,9 @@ namespace Navigation.Infrastructure
                 return _normilizeVector.Value;
             }
         }
-
+        
         private double? _length;
+        [JsonIgnore]
         public double Length
         {
             get
@@ -65,6 +70,7 @@ namespace Navigation.Infrastructure
         }
 
         private double? _vectorProductBetweenStartAndEnd;
+        [JsonIgnore]
         public double VectorProductBetweenStartAndEnd
         {
             get
@@ -90,6 +96,7 @@ namespace Navigation.Infrastructure
             _vectorProductBetweenStartAndEnd = null;
         }
 
+        [JsonConstructor]
         public Line(Point start, Point end) : this(start.X, start.Y, end.X, end.Y)
         { }
         #endregion

@@ -7,3 +7,5 @@ C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\D
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.csprojResolveAssemblyReference.cache
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.pdb
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Newtonsoft.Json.xml

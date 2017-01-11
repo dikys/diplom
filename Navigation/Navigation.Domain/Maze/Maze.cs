@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Collections.Immutable;
-using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 using Navigation.Infrastructure;
+using Newtonsoft.Json;
 
 namespace Navigation.Domain.Maze
 {
     public class Maze
     {
-        public ImmutableList<Wall> Walls { get; }
-        
-        private Line? _diameter;
+        public ImmutableList<Wall> Walls { get; set; }
+
         /// <summary>
-        /// Вернет линию, которая является диаметром лабиринта, у которой Start - верхний левый угол, а End - нижний правый угол
+        /// Диаметр лабиринта, у которой Start - верхний левый угол, а End - нижний правый угол
         /// </summary>
+        private Line? _diameter;
+        [JsonIgnore]
         public Line Diameter
         {
             get
             {
                 if (!_diameter.HasValue)
                 {
-                    if (Walls.IsEmpty)
-                        throw new InvalidOperationException("Maze not have walls");
+                    //if (Walls.IsEmpty)
+                        //throw new InvalidOperationException("Maze not have walls");
 
                     _diameter = Walls.First().Line.Clone();
 
@@ -47,7 +48,8 @@ namespace Navigation.Domain.Maze
         {
             Walls = walls ?? ImmutableList<Wall>.Empty;
         }
-
+        
+        [JsonConstructor]
         public Maze(params Wall[] walls) : this(walls.ToImmutableList())
         { }
 
@@ -56,7 +58,7 @@ namespace Navigation.Domain.Maze
             if (wall == null)
                 throw new ArgumentNullException("wall");
 
-            return new Maze(Walls.AddRange(wall));
+            return new Maze(); //Walls.AddRange(wall));
         }
 
         public Maze RemoveWall(params Wall[] wall)
@@ -64,7 +66,7 @@ namespace Navigation.Domain.Maze
             if (wall == null)
                 throw new ArgumentNullException("wall");
 
-            return new Maze(Walls.RemoveRange(wall));
+            return new Maze();//Walls.RemoveRange(wall));
         }
 
         #region Перегрузка Object методов

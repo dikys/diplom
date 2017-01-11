@@ -35,11 +35,9 @@ namespace Navigation.App.Windows
                 new ToolStripMenuItem("Лабиринт").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Загрузить").TuneItem()
-                            .WithOnClick((sender, args) =>
-                            {
-                                
-                            }),
-                        new ToolStripButton("Настройка ы").TuneItem()),
+                            .WithOnClick((sender, args) => GameViewer.Load("maze2.txt")),
+                        new ToolStripButton("охранить").TuneItem()
+                            .WithOnClick((sender, args) => GameViewer.Save("maze.txt"))),
                 new ToolStripMenuItem("Редактор").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Открыть").TuneItem(),

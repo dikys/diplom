@@ -14,11 +14,8 @@ namespace Navigation.App.Windows.Controls
     {
         #region Поля и свойства
         public Graphics Graphics { get; private set; }
-        
         public bool IsFocused { get; private set; }
-
-        public Focus Focus { get; private set; }
-
+        private readonly Focus _focus;
         private float _drawnPointSize = 2;
         #endregion
         
@@ -28,17 +25,17 @@ namespace Navigation.App.Windows.Controls
             ResizeRedraw = true;
             BackColor = Color.FromArgb(225, 230, 250);
 
-            Focus = new Focus(maxFocus, this);
-            Focus.Change += () => Invalidate();
+            _focus = new Focus(maxFocus, this);
+            _focus.Change += () => Invalidate();
             form.MouseWheel += (sender, args) =>
             {
                 if (!IsFocused)
                     return;
 
                 if (args.Delta > 0)
-                    Focus.ZoomIn();
+                    _focus.ZoomIn();
                 else
-                    Focus.ZoomOut();
+                    _focus.ZoomOut();
             };
             var previousMousePosition = new Point();
             MouseMove += (sender, args) =>
@@ -56,7 +53,7 @@ namespace Navigation.App.Windows.Controls
                 var deltaPosition = new Point(args.X, Height - args.Y) - previousMousePosition;
                 previousMousePosition = new Point(args.X, Height - args.Y);
                 
-                Focus.Move(deltaPosition);
+                _focus.Move(deltaPosition);
             };
 
             Paint += (sender, args) => InitilizateBeforePaint(args.Graphics);
@@ -87,7 +84,7 @@ namespace Navigation.App.Windows.Controls
         {
             Graphics = g;
 
-            Graphics.MultiplyTransform(Focus.TransformMatrix);
+            Graphics.MultiplyTransform(_focus.TransformMatrix);
         }
         #endregion
     }

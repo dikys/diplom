@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Navigation.Infrastructure
 {
@@ -17,6 +18,7 @@ namespace Navigation.Infrastructure
         #endregion
 
         #region Конструкторы
+        [JsonConstructor]
         public Point(double x = 0, double y = 0)
         {
             X = x;
