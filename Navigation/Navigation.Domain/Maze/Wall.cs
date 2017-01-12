@@ -11,7 +11,6 @@ namespace Navigation.Domain.Maze
         public Line Line { get; }
         public bool IsFinish { get; }
         
-        [JsonConstructor]
         public Wall(Line line, bool isFinish = false)
         {
             Line = line;

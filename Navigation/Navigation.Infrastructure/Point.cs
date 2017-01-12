@@ -18,7 +18,6 @@ namespace Navigation.Infrastructure
         #endregion
 
         #region Конструкторы
-        [JsonConstructor]
         public Point(double x = 0, double y = 0)
         {
             X = x;

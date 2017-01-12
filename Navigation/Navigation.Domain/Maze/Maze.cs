@@ -18,7 +18,6 @@ namespace Navigation.Domain.Maze
         /// Диаметр лабиринта, у которой Start - верхний левый угол, а End - нижний правый угол
         /// </summary>
         private Line? _diameter;
-        [JsonIgnore]
         public Line Diameter
         {
             get
@@ -49,7 +48,6 @@ namespace Navigation.Domain.Maze
             Walls = walls ?? ImmutableList<Wall>.Empty;
         }
         
-        [JsonConstructor]
         public Maze(params Wall[] walls) : this(walls.ToImmutableList())
         { }
 

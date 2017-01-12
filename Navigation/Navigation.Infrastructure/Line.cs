@@ -18,7 +18,6 @@ namespace Navigation.Infrastructure
         public Point End { get; }
         
         private Point? _vector;
-        [JsonIgnore]
         public Point Vector
         {
             get
@@ -31,7 +30,6 @@ namespace Navigation.Infrastructure
         }
         
         private Point? _center;
-        [JsonIgnore]
         public Point Center
         {
             get
@@ -44,7 +42,6 @@ namespace Navigation.Infrastructure
         }
         
         private Point? _normilizeVector;
-        [JsonIgnore]
         public Point NormilizeVector
         {
             get
@@ -57,7 +54,6 @@ namespace Navigation.Infrastructure
         }
         
         private double? _length;
-        [JsonIgnore]
         public double Length
         {
             get
@@ -70,7 +66,6 @@ namespace Navigation.Infrastructure
         }
 
         private double? _vectorProductBetweenStartAndEnd;
-        [JsonIgnore]
         public double VectorProductBetweenStartAndEnd
         {
             get
@@ -95,8 +90,7 @@ namespace Navigation.Infrastructure
             _length = null;
             _vectorProductBetweenStartAndEnd = null;
         }
-
-        [JsonConstructor]
+        
         public Line(Point start, Point end) : this(start.X, start.Y, end.X, end.Y)
         { }
         #endregion

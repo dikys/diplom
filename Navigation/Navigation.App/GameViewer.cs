@@ -48,7 +48,7 @@ namespace Navigation.App
         public void Load(string path)
         {
             var str = File.ReadAllText(path);
-
+            
             _maze = JsonConvert.DeserializeObject<Maze>(str);
         }
 
