@@ -20,8 +20,8 @@ namespace Navigation.App.Windows
         public BaseWindow()
         {
             FormBorderStyle = FormBorderStyle.None;
-            CenterToParent();
-
+            StartPosition = FormStartPosition.CenterParent;
+            
              ControlsTable = new TableLayoutPanel()
             {
                 Dock = DockStyle.Fill

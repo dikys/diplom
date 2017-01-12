@@ -1,9 +1,7 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Navigation.App.Extensions;
 using Navigation.App.Windows.Controls;
-using Point = System.Drawing.Point;
+using Navigation.Domain.Repository;
 
 namespace Navigation.App.Windows
 {
@@ -12,9 +10,13 @@ namespace Navigation.App.Windows
         public GameViewer GameViewer { get; private set; }
         public Canvas Canvas { get; private set; }
 
+        public MazeRepository Repository { get; }
+
         public MainWindow()
         {
             WindowState = FormWindowState.Maximized;
+
+            Repository = new MazeRepository("mazes/");
 
             GameViewer = new GameViewer();
 
@@ -23,21 +25,19 @@ namespace Navigation.App.Windows
                     .WithDropDownItems(
                         new ToolStripButton("Запустить").TuneItem()
                             .WithOnClick((sender, args) => GameViewer.RunRobot()),
-                        new ToolStripButton("Остановить").TuneItem()
-                            .WithOnClick((sender, args) =>
-                            {
-                                var window = new BaseWindow();
-
-                                window.MainPanel.Controls.Add(new Label {Text = "Привет"});
-
-                                window.ShowDialog();
-                            })),
+                        new ToolStripButton("Остановить").TuneItem()),
                 new ToolStripMenuItem("Лабиринт").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Загрузить").TuneItem()
-                            .WithOnClick((sender, args) => GameViewer.Load("maze2.txt")),
-                        new ToolStripButton("охранить").TuneItem()
-                            .WithOnClick((sender, args) => GameViewer.Save("maze.txt"))),
+                            .WithOnClick((sender, args) =>
+                            {
+                                var window = new BaseWindow();
+                            }),
+                        new ToolStripButton("Сохранить").TuneItem()
+                            .WithOnClick((sender, args) =>
+                            {
+                                
+                            })),
                 new ToolStripMenuItem("Редактор").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Открыть").TuneItem(),

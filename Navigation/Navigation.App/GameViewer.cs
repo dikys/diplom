@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using Navigation.App.Extensions;
 using Navigation.App.Windows.Controls;
 using Navigation.Domain.Maze;
 using Navigation.Domain.Robot;
 using Navigation.Domain.Strategies.DFS;
 using Navigation.Infrastructure;
-using Newtonsoft.Json;
 using Point = Navigation.Infrastructure.Point;
 
 namespace Navigation.App
@@ -36,20 +27,6 @@ namespace Navigation.App
         public void RunRobot()
         {
             _robot.Run();
-        }
-
-        public void Save(string path)
-        {
-            var str = JsonConvert.SerializeObject(_maze);
-
-            File.WriteAllText(path, str);
-        }
-
-        public void Load(string path)
-        {
-            var str = File.ReadAllText(path);
-            
-            _maze = JsonConvert.DeserializeObject<Maze>(str);
         }
 
         public void Draw(Canvas canvas)
