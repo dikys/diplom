@@ -12,11 +12,17 @@ namespace Navigation.Domain.Repository
 {
     public class MazeRepository
     {
-        public string Path { get; }
+        private DirectoryInfo _directory;
+        //private List<FileInfo> _mazeFiles; 
 
+        public string Path => _directory.FullName;
+        
         public MazeRepository(string path)
         {
-            Path = path;
+            _directory = new DirectoryInfo(path);
+
+            if(!_directory.Exists)
+                _directory.Create();
         }
 
         public void Save(Maze.Maze maze, string name)
@@ -29,9 +35,14 @@ namespace Navigation.Domain.Repository
             return (Maze.Maze)JsonConvert.DeserializeObject<MazeRepresentation>(File.ReadAllText(PathTo(name)));
         }
 
-        public IReadOnlyList<string> GetMazes()
+        public void Delete(string name)
         {
-            return Directory.GetFiles(Path);
+            _directory.GetFiles().Single(file => file.Name.Replace(file.Extension, "") == name).Delete();
+        }
+
+        public IReadOnlyList<string> GetMazeNames()
+        {
+            return _directory.GetFiles().Select(file => file.Name.Replace(file.Extension, "")).ToList();
         }
 
         private string PathTo(string name)

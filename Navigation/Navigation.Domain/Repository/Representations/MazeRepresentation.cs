@@ -22,7 +22,7 @@ namespace Navigation.Domain.Repository.Representations
 
         public static explicit operator Maze.Maze(MazeRepresentation mazeRepresentation)
         {
-            return new Maze.Maze(mazeRepresentation.Walls.Cast<Wall>().ToArray());
+            return new Maze.Maze(mazeRepresentation.Walls.Select(wall => (Wall)wall).ToArray());
         }
     }
 }
