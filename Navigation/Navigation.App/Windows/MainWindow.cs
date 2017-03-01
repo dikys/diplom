@@ -25,7 +25,10 @@ namespace Navigation.App.Windows
                 new ToolStripMenuItem("Робот").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Запустить").TuneItem()
-                            .WithOnClick((sender, args) => GameViewer.RunRobot())),
+                            .WithOnClick((sender, args) => GameViewer.RunRobot()),
+                        new ToolStripMenuItem("Настройки").TuneItem()
+                            .WithDropDownItems(
+                                new ToolStripMenuItem("Алгоритм").TuneItem()),
                 new ToolStripMenuItem("Лабиринт").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Репозиторий лабиринтов").TuneItem()
@@ -59,7 +62,7 @@ namespace Navigation.App.Windows
 
                                         var mazeName = mazeNames[listBox.SelectedIndex];
 
-                                        GameViewer.MazeViewer.SetMaze(Repository.Load(mazeName));
+                                        GameViewer.MazeViewer.Maze = Repository.Load(mazeName);
 
                                         Canvas.Invalidate();
 
@@ -83,7 +86,7 @@ namespace Navigation.App.Windows
                                     .WithText("Сохранить текущий")
                                     .WithOnClick((s, a) =>
                                     {
-                                        var name = "Аарт";
+                                        string name = "";
 
                                         var windowSave = new BaseWindow()
                                         {
@@ -141,7 +144,7 @@ namespace Navigation.App.Windows
                                 window.MainPanel.Controls.Add(table);
 
                                 window.ShowDialog(this);
-                            }),
+                            })),
                 new ToolStripMenuItem("Редактор").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Открыть").TuneItem(),
@@ -157,7 +160,7 @@ namespace Navigation.App.Windows
             
             Load += (s, e) =>
             {
-                Canvas = new Canvas(this, GameViewer.MazeViewer.MazeDiameter)
+                Canvas = new Canvas(this, GameViewer.MazeViewer.Maze.Diameter)
                 {
                     Dock = DockStyle.Fill
                 };

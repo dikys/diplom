@@ -13,28 +13,21 @@ namespace Navigation.App
 {
     public class MazeViewer
     {
-        private Maze _maze;
-
-        public Line MazeDiameter => _maze.Diameter;
+        public Maze Maze;
 
         public MazeViewer(Maze maze)
         {
-            _maze = maze;
+            Maze = maze;
         }
 
         public void Draw(Canvas canvas)
         {
-            _maze.Walls.ForEach((wall) => canvas.Draw(new Pen(Color.FromArgb(55, 93, 129)), wall));
-        }
-
-        public void SetMaze(Maze maze)
-        {
-            _maze = maze;
+            Maze.Walls.ForEach((wall) => canvas.Draw(new Pen(Color.FromArgb(55, 93, 129)), wall));
         }
 
         public void SaveMaze(MazeRepository repository, string name)
         {
-            repository.Save(_maze, name);
+            repository.Save(Maze, name);
         }
 
         public static Maze GetDefaultMaze()

@@ -8,7 +8,7 @@ namespace Navigation.App
 {
     public class GameViewer
     {
-        //public Line MazeDiameter => _maze.Diameter;
+        //public Line MazeDiameter => Maze.Diameter;
         public MazeViewer MazeViewer;
 
         private MobileRobot _robot;
@@ -24,6 +24,8 @@ namespace Navigation.App
 
         public void RunRobot()
         {
+            _robot = new RobotWithDFS(MazeViewer.Maze, new Point(50, 50));
+
             _robot.Run();
         }
 
