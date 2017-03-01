@@ -8,8 +8,8 @@ namespace Navigation.Infrastructure
 {
     public class FastMath
     {
-        private List<double> _sinTable;
-        private List<double> _cosTable;
+        private readonly List<double> _sinTable;
+        private readonly List<double> _cosTable;
 
         public FastMath()
         {
