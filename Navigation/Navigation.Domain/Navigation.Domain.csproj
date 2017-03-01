@@ -50,11 +50,12 @@
     <Compile Include="Maze\Maze.cs" />
     <Compile Include="Maze\Wall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Representations\LineRepresentation.cs" />
     <Compile Include="Repository\MazeRepository.cs" />
+    <Compile Include="Repository\Representations\LineRepresentation.cs" />
     <Compile Include="Repository\Representations\MazeRepresentation.cs" />
     <Compile Include="Repository\Representations\PointRepresentation.cs" />
     <Compile Include="Repository\Representations\WallRepresentation.cs" />
+    <Compile Include="Robot\Visions\Sensor.cs" />
     <Compile Include="Robot\Visions\VisionResult.cs" />
     <Compile Include="Strategies\DFS\Node.cs" />
     <Compile Include="Robot\MobileRobot.cs" />

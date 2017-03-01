@@ -7,24 +7,14 @@ namespace Navigation.Domain.Robot.Visions
 {
     public class Vision
     {
-        private Point _direction;
-        private double _directionAngle;
-
-        private Line DirectionTrace => new Line(_robot.Position, _robot.Position + _direction*_maze.Diameter.Length*2);
-        private readonly double _rotationAngle;
-
-        private Maze.Maze _maze;
-        private MobileRobot _robot;
-
-        public Vision(Maze.Maze maze, MobileRobot robot)
+        public Vision(Sensor sensor, MobileRobot robot)
         {
-            _maze = maze;
+            _sensor = sensor;
             _robot = robot;
-
-            _rotationAngle = 0.005;
-
-            ResetDirection();
         }
+
+        private MobileRobot _robot;
+        private Sensor _sensor;
 
         public VisionResult LookAround()
         {
@@ -38,27 +28,27 @@ namespace Navigation.Domain.Robot.Visions
         
         private bool LookAround(ref List<Line> observedСontour, ref Point exitPoint)
         {
-            ResetDirection();
+            _sensor.Reset();
 
             var sawFinish = false;
             
             var observedWall = new Wall(new Line(new Point(), new Point()));
             var observedPoint = new Point();
 
-            // инициализация
-            sawFinish = LookForward(ref observedPoint, ref observedWall);
+            // Инициализация
+            sawFinish = _sensor.LookForward(ref observedPoint, ref observedWall);
             
             var previousObservedPoint = observedPoint;
             var previousObservedWall = observedWall;
 
             var wallStart = observedPoint;
 
-            Rotate();
-            // конец и.
+            _sensor.Rotate();
+            // Конец инициализации
             
-            while (_directionAngle <= 2*Math.PI)
+            while (_sensor.Angle <= 2*Math.PI)
             {
-                if (LookForward(ref observedPoint, ref observedWall))
+                if (_sensor.LookForward(ref observedPoint, ref observedWall))
                 {
                     sawFinish = true;
                 }
@@ -73,55 +63,14 @@ namespace Navigation.Domain.Robot.Visions
                 previousObservedPoint = observedPoint;
                 previousObservedWall = observedWall;
 
-                Rotate();
+                _sensor.Rotate();
             }
 
             observedСontour.Add(new Line(wallStart, previousObservedPoint));
 
             return sawFinish;
         }
-        
-        private bool LookForward(ref Point observedPoint, ref Wall observedWall)
-        {
-            var haveGap = true;
-            
-            var directionTrace = DirectionTrace;
 
-            // вспомогательные переменные
-            var distanceToObservedPoint = 0D;
-            var currentIntersectionPoint = new Point();
-            // конец в.п.
-
-            foreach (var wall in _maze.Walls)
-            {
-                if (!directionTrace.HaveIntersectionPoint(wall.Line, ref currentIntersectionPoint))
-                    continue;
-
-                if (haveGap)
-                {
-                    haveGap = false;
-
-                    observedWall = wall;
-                    observedPoint = currentIntersectionPoint;
-                    distanceToObservedPoint = _robot.Position.GetDistanceTo(observedPoint);
-
-                    continue;
-                }
-
-                if (_robot.Position.GetDistanceTo(currentIntersectionPoint) < distanceToObservedPoint)
-                {
-                    observedWall = wall;
-                    observedPoint = currentIntersectionPoint;
-                    distanceToObservedPoint = _robot.Position.GetDistanceTo(observedPoint);
-                }
-            }
-
-            if (haveGap)
-                throw new InvalidOperationException("Border of maze has gap");
-            
-            return observedWall.IsFinish;
-        }
-        
         private List<Line> GetPassageInСontour(List<Line> contour)
         {
             var result = new List<Line>();
@@ -136,18 +85,6 @@ namespace Navigation.Domain.Robot.Visions
                 result.Add(new Line(contour[contour.Count - 1].End, contour[0].Start));
 
             return result;
-        }
-
-        private void ResetDirection()
-        {
-            _directionAngle = 0;
-            _direction = new Point(1, 0);
-        }
-
-        private void Rotate()
-        {
-            _directionAngle += _rotationAngle;
-            _direction = _direction.Rotate(_rotationAngle);
         }
     }
 }

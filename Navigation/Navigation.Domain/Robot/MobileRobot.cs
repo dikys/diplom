@@ -13,7 +13,7 @@ namespace Navigation.Domain.Robot
         protected MobileRobot(Maze.Maze maze, Point position)
         {
             Position = position;
-            Vision = new Vision(maze, this);
+            Vision = new Vision(new Sensor(maze, this, 0.005), this);
 
             Size = 5;
         }

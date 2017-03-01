@@ -9,8 +9,19 @@ namespace Navigation.Domain.Strategies.DFS
     [StrategyInfo(Name = "Мгновенный DFS")]
     public class RobotWithDFS : MobileRobot
     {
-        public Node Start { get; }
         private Node _currentNode;
+        
+        public RobotWithDFS(Maze.Maze maze, Point position) : base(maze, position)
+        {
+            Start = new Node(position);
+            CurrentNode = Start;
+            WayToExit = new List<Node>();
+            ViewedContours = new List<List<Line>>();
+        }
+
+        public Node Start { get; }
+        public List<Node> WayToExit { get; }
+        public List<List<Line>> ViewedContours { get; }
         public Node CurrentNode
         {
             get { return _currentNode; }
@@ -21,17 +32,7 @@ namespace Navigation.Domain.Strategies.DFS
                 Position = _currentNode.Position;
             }
         }
-        public List<Node> WayToExit { get; }
-        public List<List<Line>> ViewedContours { get; }
 
-        public RobotWithDFS(Maze.Maze maze, Point position) : base(maze, position)
-        {
-            Start = new Node(position);
-            CurrentNode = Start;
-            WayToExit = new List<Node>();
-            ViewedContours = new List<List<Line>>();
-        }
-        
         public override void Run()
         {
             while (true)
