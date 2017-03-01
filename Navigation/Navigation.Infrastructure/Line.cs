@@ -10,74 +10,13 @@ namespace Navigation.Infrastructure
 {
     public struct Line
     {
-        #region Поля и свойства
         private static readonly double Tollerance = 0.01;
-
-        public Point Start { get; }
-        public Point End { get; }
-        
         private Point? _vector;
-        public Point Vector
-        {
-            get
-            {
-                if (!_vector.HasValue)
-                    _vector = new Point(End.X - Start.X, End.Y - Start.Y);
-
-                return _vector.Value;
-            }
-        }
-        
         private Point? _center;
-        public Point Center
-        {
-            get
-            {
-                if (!_center.HasValue)
-                    _center = new Point(Start.X + NormilizeVector.X * Length / 2, Start.Y + NormilizeVector.Y * Length / 2);
-
-                return _center.Value;
-            }
-        }
-        
         private Point? _normilizeVector;
-        public Point NormilizeVector
-        {
-            get
-            {
-                if (!_normilizeVector.HasValue)
-                    _normilizeVector = Vector / Length;
-
-                return _normilizeVector.Value;
-            }
-        }
-        
         private double? _length;
-        public double Length
-        {
-            get
-            {
-                if (!_length.HasValue)
-                    _length = Start.GetDistanceTo(End);
-
-                return _length.Value;
-            }
-        }
-
         private double? _vectorProductBetweenStartAndEnd;
-        public double VectorProductBetweenStartAndEnd
-        {
-            get
-            {
-                if (!_vectorProductBetweenStartAndEnd.HasValue)
-                    _vectorProductBetweenStartAndEnd = Start.GetVectorProduct(End);
-
-                return _vectorProductBetweenStartAndEnd.Value;
-            }
-        }
-        #endregion
-
-        #region Конструкторы
+        
         public Line(double startX, double startY, double endX, double endY)
         {
             Start = new Point(startX, startY);
@@ -89,10 +28,16 @@ namespace Navigation.Infrastructure
             _length = null;
             _vectorProductBetweenStartAndEnd = null;
         }
-        
         public Line(Point start, Point end) : this(start.X, start.Y, end.X, end.Y)
         { }
-        #endregion
+
+        public Point Start { get; }
+        public Point End { get; }
+        public Point Vector => _vector.HasValue ? _vector.Value : (_vector = End - Start).Value;
+        public Point Center => _center.HasValue ? _center.Value : (_center = new Point(Start.X + NormilizeVector.X*Length/2, Start.Y + NormilizeVector.Y*Length/2)).Value;
+        public Point NormilizeVector => _normilizeVector.HasValue ? _normilizeVector.Value : (_normilizeVector = Vector/Length).Value;
+        public double Length => _length.HasValue ? _length.Value : (_length = Start.GetDistanceTo(End)).Value;
+        public double VectorProductBetweenStartAndEnd => _vectorProductBetweenStartAndEnd.HasValue ? _vectorProductBetweenStartAndEnd.Value : (_vectorProductBetweenStartAndEnd = Start.GetVectorProduct(End)).Value;
 
         #region Основные методы
         public Line Stretch(double coefficient)

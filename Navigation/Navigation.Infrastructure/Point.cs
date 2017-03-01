@@ -9,23 +9,17 @@ namespace Navigation.Infrastructure
 {
     public struct Point
     {
-        #region Поля и свойства
         public static readonly double Tollerance = 0.01;
-        
-        public double X { get; }
-        public double Y { get; }
-        #endregion
-
-        #region Конструкторы
         public Point(double x = 0, double y = 0)
         {
             X = x;
             Y = y;
         }
-
         public Point(Point point) : this(point.X, point.Y)
         { }
-        #endregion
+
+        public double X { get; }
+        public double Y { get; }
 
         #region Основные методы
         public double GetDistanceTo(Point point)

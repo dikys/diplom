@@ -28,7 +28,7 @@ namespace Navigation.App.Windows
                             .WithOnClick((sender, args) => GameViewer.RunRobot()),
                         new ToolStripMenuItem("Настройки").TuneItem()
                             .WithDropDownItems(
-                                new ToolStripMenuItem("Алгоритм").TuneItem()),
+                                new ToolStripMenuItem("Алгоритм").TuneItem())),
                 new ToolStripMenuItem("Лабиринт").TuneItem()
                     .WithDropDownItems(
                         new ToolStripButton("Репозиторий лабиринтов").TuneItem()
