@@ -18,15 +18,20 @@ namespace Navigation.Domain.Maze
         /// Диаметр лабиринта, у которой Start - верхний левый угол, а End - нижний правый угол
         /// </summary>
         private Line? _diameter;
+        
+        public Maze(ImmutableList<Wall> walls = null)
+        {
+            Walls = walls ?? ImmutableList<Wall>.Empty;
+        }
+        public Maze(params Wall[] walls) : this(walls.ToImmutableList())
+        { }
+
         public Line Diameter
         {
             get
             {
                 if (!_diameter.HasValue)
                 {
-                    //if (Walls.IsEmpty)
-                        //throw new InvalidOperationException("Maze not have walls");
-
                     _diameter = Walls.First().Line.Clone();
 
                     Walls.ForEach(wall =>
@@ -43,18 +48,10 @@ namespace Navigation.Domain.Maze
             }
         }
 
-        public Maze(ImmutableList<Wall> walls = null)
-        {
-            Walls = walls ?? ImmutableList<Wall>.Empty;
-        }
-        
-        public Maze(params Wall[] walls) : this(walls.ToImmutableList())
-        { }
-
-        public Maze AddWall(params Wall[] wall)
+        /*public Maze AddWall(params Wall[] wall)
         {
             if (wall == null)
-                throw new ArgumentNullException("wall");
+                throw new ArgumentNullException(nameof(wall));
 
             return new Maze(); //Walls.AddRange(wall));
         }
@@ -62,10 +59,10 @@ namespace Navigation.Domain.Maze
         public Maze RemoveWall(params Wall[] wall)
         {
             if (wall == null)
-                throw new ArgumentNullException("wall");
+                throw new ArgumentNullException(nameof(wall));
 
             return new Maze();//Walls.RemoveRange(wall));
-        }
+        }*/
 
         #region Перегрузка Object методов
         public override string ToString()

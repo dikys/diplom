@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using Navigation.App.Windows;
+using Ninject;
 
 /*
  *  Планы:

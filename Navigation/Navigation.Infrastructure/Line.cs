@@ -33,11 +33,11 @@ namespace Navigation.Infrastructure
 
         public Point Start { get; }
         public Point End { get; }
-        public Point Vector => _vector.HasValue ? _vector.Value : (_vector = End - Start).Value;
-        public Point Center => _center.HasValue ? _center.Value : (_center = new Point(Start.X + NormilizeVector.X*Length/2, Start.Y + NormilizeVector.Y*Length/2)).Value;
-        public Point NormilizeVector => _normilizeVector.HasValue ? _normilizeVector.Value : (_normilizeVector = Vector/Length).Value;
-        public double Length => _length.HasValue ? _length.Value : (_length = Start.GetDistanceTo(End)).Value;
-        public double VectorProductBetweenStartAndEnd => _vectorProductBetweenStartAndEnd.HasValue ? _vectorProductBetweenStartAndEnd.Value : (_vectorProductBetweenStartAndEnd = Start.GetVectorProduct(End)).Value;
+        public Point Vector => _vector ?? (_vector = End - Start).Value;
+        public Point Center => _center ?? (_center = new Point(Start.X + NormilizeVector.X*Length/2, Start.Y + NormilizeVector.Y*Length/2)).Value;
+        public Point NormilizeVector => _normilizeVector ?? (_normilizeVector = Vector/Length).Value;
+        public double Length => _length ?? (_length = Start.GetDistanceTo(End)).Value;
+        public double VectorProductBetweenStartAndEnd => _vectorProductBetweenStartAndEnd ?? (_vectorProductBetweenStartAndEnd = Start.GetVectorProduct(End)).Value;
 
         #region Основные методы
         public Line Stretch(double coefficient)
