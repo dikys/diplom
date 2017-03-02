@@ -5,11 +5,13 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.Infrastructure", "Navigation.Infrastructure\Navigation.Infrastructure.csproj", "{043A6CFC-E657-480B-AD76-1A2968E9146A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.App", "Navigation.App\Navigation.App.csproj", "{C57190BA-5C13-41B7-9506-2C1AF3BC19BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.UI", "Navigation.App\Navigation.UI.csproj", "{C57190BA-5C13-41B7-9506-2C1AF3BC19BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.Domain", "Navigation.Domain\Navigation.Domain.csproj", "{C88740B2-09A7-412A-9344-8B329DB45A30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.Infrastructure.Test", "Navigation.Infrastructure.Test\Navigation.Infrastructure.Test.csproj", "{049E1437-1A2B-4596-9D6D-DD8B10D17637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.App", "Navigation.Application\Navigation.App.csproj", "{689788A7-07C0-4DA3-B622-A7025C1C537C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{049E1437-1A2B-4596-9D6D-DD8B10D17637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{049E1437-1A2B-4596-9D6D-DD8B10D17637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{049E1437-1A2B-4596-9D6D-DD8B10D17637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689788A7-07C0-4DA3-B622-A7025C1C537C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689788A7-07C0-4DA3-B622-A7025C1C537C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689788A7-07C0-4DA3-B622-A7025C1C537C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689788A7-07C0-4DA3-B622-A7025C1C537C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

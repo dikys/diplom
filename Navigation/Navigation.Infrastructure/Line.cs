@@ -10,7 +10,7 @@ namespace Navigation.Infrastructure
 {
     public struct Line
     {
-        private static readonly double Tollerance = 0.01;
+        private static readonly double Tollerance = 0.000001;
         private Point? _vector;
         private Point? _center;
         private Point? _normilizeVector;
@@ -78,25 +78,25 @@ namespace Navigation.Infrastructure
 
                 return true;
             }
-            else if (d1 == 0 && other.OnSegmentStraight(Start))
+            else if (d1 <= Tollerance && other.OnSegmentStraight(Start))
             {
                 intersectionPoint = Start;
 
                 return true;
             }
-            else if (d2 == 0 && other.OnSegmentStraight(End))
+            else if (d2 <= Tollerance && other.OnSegmentStraight(End))
             {
                 intersectionPoint = End;
 
                 return true;
             }
-            else if (d3 == 0 && OnSegmentStraight(other.Start))
+            else if (d3 <= Tollerance && OnSegmentStraight(other.Start))
             {
                 intersectionPoint = other.Start;
 
                 return true;
             }
-            else if (d4 == 0 && OnSegmentStraight(other.End))
+            else if (d4 <= Tollerance && OnSegmentStraight(other.End))
             {
                 intersectionPoint = other.End;
 

@@ -42,8 +42,10 @@
   <ItemGroup>
     <Compile Include="Line.cs" />
     <Compile Include="FastMath.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wall.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

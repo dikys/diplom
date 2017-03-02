@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Navigation.Domain.Repository.Representations;
+using Navigation.App.Repository.Representations;
+using Navigation.Domain.Mazes;
 using Newtonsoft.Json;
-using Navigation.Domain.Maze;
 
-namespace Navigation.Domain.Repository
+namespace Navigation.App.Repository
 {
     public class MazeRepository
     {
-        private DirectoryInfo _directory;
+        private readonly DirectoryInfo _directory;
         //private List<FileInfo> _mazeFiles; 
 
         public string Path => _directory.FullName;
@@ -33,7 +29,7 @@ namespace Navigation.Domain.Repository
 
         public IMaze Load(string name)
         {
-            return (Maze.Maze)JsonConvert.DeserializeObject<MazeRepresentation>(File.ReadAllText(PathTo(name)));
+            return (DefaultMaze)JsonConvert.DeserializeObject<MazeRepresentation>(File.ReadAllText(PathTo(name)));
         }
 
         public void Delete(string name)

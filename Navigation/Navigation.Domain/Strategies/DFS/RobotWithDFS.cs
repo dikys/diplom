@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Navigation.Domain.Robot;
 using Navigation.Infrastructure;
-using Navigation.Domain.Maze;
+using Navigation.Domain.Robot.Visions;
 
 namespace Navigation.Domain.Strategies.DFS
 {
@@ -12,10 +13,11 @@ namespace Navigation.Domain.Strategies.DFS
     {
         private Node _currentNode;
         
-        public RobotWithDFS(IMaze maze, Point position) : base(maze, position)
+        public RobotWithDFS(IRobotVision robotVision, Point position) : base(robotVision, position)
         {
             Start = new Node(position);
             CurrentNode = Start;
+
             WayToExit = new List<Node>();
             ViewedContours = new List<List<Line>>();
         }
@@ -56,16 +58,12 @@ namespace Navigation.Domain.Strategies.DFS
                         return;
                     }
 
-                    CurrentNode.IsDeadLock = true;
-
-                    CurrentNode = WayToExit.Last();
-
-                    WayToExit.RemoveAt(WayToExit.Count - 1);
+                    MoveBack();
 
                     continue;
                 }
 
-                var visionResult = Vision.LookAround();
+                var visionResult = RobotVision.LookAround();
 
                 if (visionResult.SawFinish)
                 {
@@ -80,7 +78,7 @@ namespace Navigation.Domain.Strategies.DFS
 
                 if (passages.Any())
                 {
-                    passages.ForEach(passage => CurrentNode.AdjacentNodes.Add(new Node(passage.Center)));
+                    CurrentNode.AdjacentNodes.AddRange(passages.Select(passage => new Node(passage.Center)));
                 }
                 else if (CurrentNode.Position == Start.Position)
                 {
@@ -90,15 +88,20 @@ namespace Navigation.Domain.Strategies.DFS
                 }
                 else
                 {
-                    CurrentNode.IsDeadLock = true;
-
-                    CurrentNode = WayToExit.Last();
-
-                    WayToExit.RemoveAt(WayToExit.Count - 1);
+                    MoveBack();
                 }
-                
+
                 ViewedContours.Add(visionResult.ObservedContour.ToList());
             }
+        }
+
+        private void MoveBack()
+        {
+            CurrentNode.IsDeadLock = true;
+
+            CurrentNode = WayToExit.Last();
+
+            WayToExit.RemoveAt(WayToExit.Count - 1);
         }
 
         private bool IsNewPassage(Line passage)

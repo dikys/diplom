@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C57190BA-5C13-41B7-9506-2C1AF3BC19BB}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{689788A7-07C0-4DA3-B622-A7025C1C537C}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Navigation.App</RootNamespace>
     <AssemblyName>Navigation.App</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,66 +30,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject\lib\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.Extensions.Logging">
-      <HintPath>..\packages\Ninject\Ninject.Extensions.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.1.3.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\MenuStripExtension.cs" />
-    <Compile Include="Extensions\ToolStripButtonExtension.cs" />
-    <Compile Include="Extensions\ToolStripItemExtension.cs" />
-    <Compile Include="Extensions\ToolStripMenuItemExtension.cs" />
-    <Compile Include="MazeViewer.cs" />
+    <Compile Include="MobileRobotFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\MazeRepository.cs" />
     <Compile Include="Repository\Representations\LineRepresentation.cs" />
     <Compile Include="Repository\Representations\MazeRepresentation.cs" />
     <Compile Include="Repository\Representations\PointRepresentation.cs" />
     <Compile Include="Repository\Representations\WallRepresentation.cs" />
-    <Compile Include="Windows\BaseWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Extensions\ControlExtension.cs" />
-    <Compile Include="Windows\Controls\BaseColorTable.cs" />
-    <Compile Include="Windows\Controls\BaseMenuStripRender.cs" />
-    <Compile Include="Windows\Controls\Canvas.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GameViewer.cs" />
-    <Compile Include="Windows\Controls\Focus.cs" />
-    <Compile Include="Windows\MainWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Extensions\PointExtension.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Navigation.Domain\Navigation.Domain.csproj">
@@ -105,7 +66,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

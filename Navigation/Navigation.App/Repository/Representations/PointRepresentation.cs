@@ -1,7 +1,7 @@
 ﻿using Navigation.Infrastructure;
 using Newtonsoft.Json;
 
-namespace Navigation.Domain.Repository.Representations
+namespace Navigation.App.Repository.Representations
 {
     internal class PointRepresentation
     {

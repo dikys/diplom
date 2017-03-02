@@ -30,5 +30,24 @@ namespace Navigation.Infrastructure.Test
             Assert.AreEqual(new Point(-1, 1), new Point(1, 1).Rotate(Math.PI / 2));
             Assert.AreEqual(new Point(1, -1), new Point(1, 1).Rotate(-Math.PI / 2));
         }
+
+        [TestMethod]
+        public void Should_CorrectOperatorOverloading()
+        {
+            var p1 = new Point(100, 100);
+            var p2 = new Point(50, 50);
+
+            Assert.AreEqual(new Point(150, 150), p1 + p2);
+            Assert.AreEqual(new Point(-50, -50), p2 - p1);
+            Assert.AreEqual(new Point(5000, 5000), p1*p2);
+
+            Assert.AreEqual(new Point(103, 103), p1 + 3);
+            Assert.AreEqual(new Point(97, 97), p2 + 47);
+            Assert.AreEqual(new Point(300, 300), p1*3);
+            Assert.AreEqual(new Point(25, 25), p1/4);
+
+            Assert.IsFalse(p1 == p2);
+            Assert.IsTrue(p1 != p2);
+        }
     }
 }

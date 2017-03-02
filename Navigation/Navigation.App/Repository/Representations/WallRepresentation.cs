@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Navigation.Domain.Maze;
-using Navigation.Infrastructure;
+﻿using Navigation.Infrastructure;
 using Newtonsoft.Json;
 
-namespace Navigation.Domain.Repository.Representations
+namespace Navigation.App.Repository.Representations
 {
     internal class WallRepresentation
     {

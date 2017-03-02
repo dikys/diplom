@@ -54,6 +54,11 @@ namespace Navigation.Infrastructure
             return new Point(left.X - right.X, left.Y - right.Y);
         }
 
+        public static Point operator *(Point left, Point right)
+        {
+            return new Point(left.X * right.X, left.Y * right.Y);
+        }
+
         public static Point operator +(Point left, double coefficient)
         {
             return new Point(left.X + coefficient, left.Y + coefficient);
@@ -76,12 +81,7 @@ namespace Navigation.Infrastructure
 
             return new Point(point.X / coefficient, point.Y / coefficient);
         }
-
-        public static Point operator *(Point left, Point right)
-        {
-            return new Point(left.X * right.X, left.Y * right.Y);
-        }
-
+        
         public static bool operator ==(Point left, Point right)
         {
             return left.Equals(right);

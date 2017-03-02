@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Navigation.Domain.Maze;
+using Navigation.Domain.Mazes;
+using Navigation.Infrastructure;
 using Newtonsoft.Json;
 
-namespace Navigation.Domain.Repository.Representations
+namespace Navigation.App.Repository.Representations
 {
     internal class MazeRepresentation
     {
@@ -20,9 +18,9 @@ namespace Navigation.Domain.Repository.Representations
 
         public MazeRepresentation(IMaze maze) : this(maze.Walls.Select(wall => new WallRepresentation(wall)).ToList()) { }
 
-        public static explicit operator Maze.Maze(MazeRepresentation mazeRepresentation)
+        public static explicit operator DefaultMaze(MazeRepresentation mazeRepresentation)
         {
-            return new Maze.Maze(mazeRepresentation.Walls.Select(wall => (Wall)wall).ToArray());
+            return new DefaultMaze(mazeRepresentation.Walls.Select(wall => (Wall)wall).ToArray());
         }
     }
 }
