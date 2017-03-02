@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Navigation.Domain.Robot;
 using Navigation.Infrastructure;
+using Navigation.Domain.Maze;
 
 namespace Navigation.Domain.Strategies.DFS
 {
@@ -11,7 +12,7 @@ namespace Navigation.Domain.Strategies.DFS
     {
         private Node _currentNode;
         
-        public RobotWithDFS(Maze.Maze maze, Point position) : base(maze, position)
+        public RobotWithDFS(IMaze maze, Point position) : base(maze, position)
         {
             Start = new Node(position);
             CurrentNode = Start;

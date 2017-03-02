@@ -10,13 +10,8 @@ using Newtonsoft.Json;
 
 namespace Navigation.Domain.Maze
 {
-    public class Maze
+    public class Maze : IMaze
     {
-        public ImmutableList<Wall> Walls { get; set; }
-
-        /// <summary>
-        /// Диаметр лабиринта, у которой Start - верхний левый угол, а End - нижний правый угол
-        /// </summary>
         private Line? _diameter;
         
         public Maze(ImmutableList<Wall> walls = null)
@@ -26,6 +21,10 @@ namespace Navigation.Domain.Maze
         public Maze(params Wall[] walls) : this(walls.ToImmutableList())
         { }
 
+        public ImmutableList<Wall> Walls { get; set; }
+        /// <summary>
+        /// Диаметр лабиринта, у которой Start - верхний левый угол, а End - нижний правый угол
+        /// </summary>
         public Line Diameter
         {
             get
@@ -48,21 +47,21 @@ namespace Navigation.Domain.Maze
             }
         }
 
-        /*public Maze AddWall(params Wall[] wall)
+        public IMaze AddWalls(params Wall[] walls)
         {
-            if (wall == null)
-                throw new ArgumentNullException(nameof(wall));
+            if (walls == null)
+                throw new ArgumentNullException(nameof(walls));
 
-            return new Maze(); //Walls.AddRange(wall));
+            throw new NotImplementedException();
         }
 
-        public Maze RemoveWall(params Wall[] wall)
+        public IMaze RemoveWalls(params Wall[] walls)
         {
-            if (wall == null)
-                throw new ArgumentNullException(nameof(wall));
+            if (walls == null)
+                throw new ArgumentNullException(nameof(walls));
 
-            return new Maze();//Walls.RemoveRange(wall));
-        }*/
+            throw new NotImplementedException();
+        }
 
         #region Перегрузка Object методов
         public override string ToString()

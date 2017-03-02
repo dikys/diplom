@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Navigation.Domain.Repository.Representations;
 using Newtonsoft.Json;
+using Navigation.Domain.Maze;
 
 namespace Navigation.Domain.Repository
 {
@@ -25,12 +26,12 @@ namespace Navigation.Domain.Repository
                 _directory.Create();
         }
 
-        public void Save(Maze.Maze maze, string name)
+        public void Save(IMaze maze, string name)
         {
             File.WriteAllText(PathTo(name), JsonConvert.SerializeObject(new MazeRepresentation(maze)));
         }
 
-        public Maze.Maze Load(string name)
+        public IMaze Load(string name)
         {
             return (Maze.Maze)JsonConvert.DeserializeObject<MazeRepresentation>(File.ReadAllText(PathTo(name)));
         }

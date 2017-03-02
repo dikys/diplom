@@ -18,7 +18,7 @@ namespace Navigation.Domain.Repository.Representations
             Walls = walls;
         }
 
-        public MazeRepresentation(Maze.Maze maze) : this(maze.Walls.Select(wall => new WallRepresentation(wall)).ToList()) { }
+        public MazeRepresentation(IMaze maze) : this(maze.Walls.Select(wall => new WallRepresentation(wall)).ToList()) { }
 
         public static explicit operator Maze.Maze(MazeRepresentation mazeRepresentation)
         {

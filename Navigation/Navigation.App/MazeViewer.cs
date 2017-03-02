@@ -13,9 +13,9 @@ namespace Navigation.App
 {
     public class MazeViewer
     {
-        public Maze Maze;
+        public IMaze Maze;
 
-        public MazeViewer(Maze maze)
+        public MazeViewer(IMaze maze)
         {
             Maze = maze;
         }
@@ -30,7 +30,7 @@ namespace Navigation.App
             repository.Save(Maze, name);
         }
 
-        public static Maze GetDefaultMaze()
+        public static IMaze GetDefaultMaze()
         {
             return new Maze(new Wall[]{
                 //new Wall(new Line(50, 25, 75, 25)),

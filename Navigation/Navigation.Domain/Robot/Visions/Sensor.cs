@@ -12,7 +12,7 @@ namespace Navigation.Domain.Robot.Visions
     {
         public double Angle;
 
-        public Sensor(Maze.Maze maze, MobileRobot robot, double rotationAngle)
+        public Sensor(IMaze maze, MobileRobot robot, double rotationAngle)
         {
             _maze = maze;
             _robot = robot;
@@ -22,7 +22,7 @@ namespace Navigation.Domain.Robot.Visions
             Reset();
         }
 
-        private readonly Maze.Maze _maze;
+        private readonly IMaze _maze;
         private readonly MobileRobot _robot;
         private readonly double _rotationAngle;
         private readonly double _rayLength;

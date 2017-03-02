@@ -1,4 +1,5 @@
-﻿using Navigation.Domain.Robot.Visions;
+﻿using Navigation.Domain.Maze;
+using Navigation.Domain.Robot.Visions;
 using Navigation.Infrastructure;
 
 namespace Navigation.Domain.Robot
@@ -10,7 +11,7 @@ namespace Navigation.Domain.Robot
 
         public double Size { get; }
 
-        protected MobileRobot(Maze.Maze maze, Point position)
+        protected MobileRobot(IMaze maze, Point position)
         {
             Position = position;
             Vision = new Vision(new Sensor(maze, this, 0.005), this);
