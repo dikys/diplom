@@ -101,7 +101,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Navigation.Application\Navigation.App.csproj">
+    <ProjectReference Include="..\Navigation.App\Navigation.App.csproj">
       <Project>{689788a7-07c0-4da3-b622-a7025c1c537c}</Project>
       <Name>Navigation.App</Name>
     </ProjectReference>

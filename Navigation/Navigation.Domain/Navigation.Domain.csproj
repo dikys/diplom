@@ -48,14 +48,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mazes\IMaze.cs" />
-    <Compile Include="Mazes\Maze.cs" />
+    <Compile Include="Mazes\DefaultMaze.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Robot\Visions\Sensors\DistanceSensor.cs" />
+    <Compile Include="Robot\Visions\IRobotVision.cs" />
+    <Compile Include="Robot\Visions\Sensors\DefaultSensor.cs" />
+    <Compile Include="Robot\Visions\Sensors\DistanceSensorResult.cs" />
     <Compile Include="Robot\Visions\Sensors\IDistanceSensor.cs" />
     <Compile Include="Robot\Visions\VisionResult.cs" />
     <Compile Include="Robot\MobileRobot.cs" />
     <Compile Include="Strategies\DFS\RobotWithDFS.cs" />
-    <Compile Include="Robot\Visions\Vision.cs" />
+    <Compile Include="Robot\Visions\DefaultRobotVision.cs" />
     <Compile Include="Strategies\StrategyInfoAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
