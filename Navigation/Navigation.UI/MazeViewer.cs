@@ -29,9 +29,9 @@ namespace Navigation.UI
         public static IMaze GetDefaultMaze()
         {
             return new DefaultMaze(new Wall[]{
-                //new Wall(new Line(50, 25, 75, 25)),
-                //new Wall(new Line(75, 25, 100, 50)),
-                //new Wall(new Line(100, 50, 100, 75)),
+                new Wall(new Line(50, 25, 75, 25)),
+                new Wall(new Line(75, 25, 100, 50)),
+                new Wall(new Line(100, 50, 100, 75)),
                 new Wall(new Line(100, 75, 75, 100)),
                 new Wall(new Line(75, 100, 50, 100)),
                 new Wall(new Line(50, 100, 25, 75)),
