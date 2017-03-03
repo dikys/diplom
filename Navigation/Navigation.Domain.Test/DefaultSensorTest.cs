@@ -13,46 +13,40 @@ namespace Navigation.Domain.Test
     [TestClass]
     public class DefaultSensorTest
     {
-        // надо фабрику создать для создания всех объектов!
-        public TSensor CreateSensor<TSensor>(Point robotPosition)
-            where TSensor : IDistanceSensor
+        [TestMethod]
+        public void Should_CorrectSensorResult_When_UseLookForward()
         {
             var container = new StandardKernel();
 
+            container.Bind<IMaze>()
+                .ToConstant(new DefaultMaze(new Wall[]
+                {
+                    new Wall(new Line(10, -100, 10, 100))
+                })).InSingletonScope();
             container.Bind<MobileRobot>()
                 .To<RobotWithDFS>()
-                .InSingletonScope()
-                .WithConstructorArgument("position", robotPosition);
-            container.Bind<IMaze>().ToConstant(new DefaultMaze(new Wall[]
-            {
-                new Wall(new Line(50, 25, 75, 25)),
-                new Wall(new Line(75, 25, 100, 50)),
-                new Wall(new Line(100, 50, 100, 75)),
-                new Wall(new Line(100, 75, 75, 100)),
-                new Wall(new Line(75, 100, 50, 100)),
-                new Wall(new Line(50, 100, 25, 75)),
-                new Wall(new Line(25, 75, 25, 50)),
-                new Wall(new Line(25, 50, 50, 25)),
-
-                new Wall(new Line(75, 50, 75, 75)),
-                new Wall(new Line(75, 75, 50, 75)),
-                new Wall(new Line(50, 75, 75, 50))
-            })).InSingletonScope();
+                .InSingletonScope();
+            //.WithConstructorArgument("position", new Point(0, 0));
             container.Bind<IRobotVision>()
                 .To<DefaultRobotVision>()
-                .InSingletonScope()
-                .WithConstructorArgument("minPassageSize", 5);
+                .InSingletonScope();
+                //.WithConstructorArgument("minPassageSize", 5);
             container.Bind<IDistanceSensor>()
-                .To<TSensor>()
-                .InSingletonScope()
-                .WithConstructorArgument("rotationAngle", 0.01);
+                .To<DefaultSensor>()
+                .InSingletonScope();
+            //.WithConstructorArgument("rotationAngle", 0.01);
 
-            return (TSensor)container.Get<IDistanceSensor>();
-        }
-
-        [TestMethod]
-        public void TestMethod1()
-        {
+            var sensor = container.Get<IDistanceSensor>();
+            /*var sensor = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(new Point(0, 0),
+                new DefaultMaze(new Wall[]
+                {
+                    new Wall(new Line(10, -100, 10, 100))
+                })).Get<DefaultSensor>();*/
+            
+            var sensorResult = sensor.LookForward();
+            
+            Assert.AreEqual(new Wall(new Line(10, -100, 10, 100)), sensorResult.ObservedWall);
+            Assert.AreEqual(new Point(10, 0), sensorResult.ObservedPoint);
         }
     }
 }

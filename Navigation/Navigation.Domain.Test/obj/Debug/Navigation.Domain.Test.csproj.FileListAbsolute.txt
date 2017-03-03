@@ -1,0 +1,13 @@
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Navigation.Domain.Test.dll
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Navigation.Domain.Test.pdb
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Navigation.Domain.dll
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Navigation.Infrastructure.dll
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Ninject.dll
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\System.Collections.Immutable.dll
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Navigation.Domain.pdb
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Navigation.Infrastructure.pdb
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Ninject.xml
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\bin\Debug\System.Collections.Immutable.xml
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.csprojResolveAssemblyReference.cache
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.dll
+D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.pdb

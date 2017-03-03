@@ -10,10 +10,10 @@ namespace Navigation.Domain.Robot.Visions
         private readonly double _minPassageSize;
         private readonly Lazy<IDistanceSensor> _distanceSensor;
 
-        public DefaultRobotVision(Lazy<IDistanceSensor> distanceSensor, double minPassageSize)
+        public DefaultRobotVision(Lazy<IDistanceSensor> distanceSensor)//, double minPassageSize)
         {
             _distanceSensor = distanceSensor;
-            _minPassageSize = minPassageSize;
+            _minPassageSize = 5;//minPassageSize;
         }
         
         public VisionResult LookAround()

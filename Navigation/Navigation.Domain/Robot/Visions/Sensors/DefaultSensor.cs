@@ -8,19 +8,19 @@ namespace Navigation.Domain.Robot.Visions.Sensors
     {
         public double Angle { private set; get; }
 
-        public DefaultSensor(IMaze maze, Lazy<MobileRobot> robot, double rotationAngle)
+        public DefaultSensor(IMaze maze, MobileRobot robot)//, double rotationAngle)
         {
             _maze = maze;
             _robot = robot;
-            _rotationAngle = rotationAngle;
+            _rotationAngle = 0.01;// rotationAngle;
 
             _rayLength = 1.1 * maze.Diameter.Length;
 
-            Reset();
+            //Reset();
         }
 
         private readonly IMaze _maze;
-        private readonly Lazy<MobileRobot> _robot;
+        private readonly MobileRobot _robot;
         private readonly double _rotationAngle;
         private readonly double _rayLength;
         private Line _ray;
@@ -46,13 +46,13 @@ namespace Navigation.Domain.Robot.Visions.Sensors
                 if (!_ray.HaveIntersectionPoint(wall.Line, ref currentIntersectionPoint))
                     continue;
 
-                if (haveGap || _robot.Value.Position.GetDistanceTo(currentIntersectionPoint) < distanceToObservedPoint)
+                if (haveGap || _robot.Position.GetDistanceTo(currentIntersectionPoint) < distanceToObservedPoint)
                 {
                     haveGap = false;
 
                     result = new DistanceSensorResult(currentIntersectionPoint, wall);
 
-                    distanceToObservedPoint = _robot.Value.Position.GetDistanceTo(currentIntersectionPoint);
+                    distanceToObservedPoint = _robot.Position.GetDistanceTo(currentIntersectionPoint);
                 }
             }
 
@@ -64,7 +64,7 @@ namespace Navigation.Domain.Robot.Visions.Sensors
 
         public void Reset()
         {
-            _ray = new Line(_robot.Value.Position, _robot.Value.Position + new Point(_rayLength, 0));
+            _ray = new Line(_robot.Position, _robot.Position + new Point(_rayLength, 0));
 
             Angle = 0;
         }
