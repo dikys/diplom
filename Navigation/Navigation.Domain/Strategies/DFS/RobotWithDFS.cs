@@ -19,12 +19,10 @@ namespace Navigation.Domain.Strategies.DFS
             CurrentNode = Start;
 
             WayToExit = new List<Node>();
-            ViewedContours = new List<List<Line>>();
         }
 
         public Node Start { get; }
         public List<Node> WayToExit { get; }
-        public List<List<Line>> ViewedContours { get; }
         public Node CurrentNode
         {
             get { return _currentNode; }
@@ -74,7 +72,7 @@ namespace Navigation.Domain.Strategies.DFS
                     return;
                 }
 
-                var passages = visionResult.ObservedPassages.Where(IsNewPassage).ToList();
+                var passages = visionResult.ObservedPassages;
 
                 if (passages.Any())
                 {
@@ -90,8 +88,6 @@ namespace Navigation.Domain.Strategies.DFS
                 {
                     MoveBack();
                 }
-
-                ViewedContours.Add(visionResult.ObservedContour.ToList());
             }
         }
 
@@ -102,11 +98,6 @@ namespace Navigation.Domain.Strategies.DFS
             CurrentNode = WayToExit.Last();
 
             WayToExit.RemoveAt(WayToExit.Count - 1);
-        }
-
-        private bool IsNewPassage(Line passage)
-        {
-            return ViewedContours.SelectMany(contour => contour).All(line => !line.HavePoint(passage.Start) && !line.HavePoint(passage.End));
         }
     }
 }

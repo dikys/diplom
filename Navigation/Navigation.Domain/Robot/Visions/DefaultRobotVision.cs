@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using Navigation.Domain.Robot.Visions.Sensors;
 using Navigation.Infrastructure;
 
@@ -9,21 +11,28 @@ namespace Navigation.Domain.Robot.Visions
     {
         private readonly double _minPassageSize;
         private readonly IDistanceSensor _distanceSensor;
-
+        private readonly List<List<Line>> _viewedContours; 
+        
         public DefaultRobotVision(IDistanceSensor distanceSensor, double minPassageSize)
         {
             _distanceSensor = distanceSensor;
             _minPassageSize = minPassageSize;
+
+            _viewedContours = new List<List<Line>>();
         }
-        
+
+        public ImmutableList<ImmutableList<Line>> ViewedContours => _viewedContours.Select(c => c.ToImmutableList()).ToImmutableList();
+            
         public VisionResult LookAround()
         {
             var observedСontour = new List<Line>();
             var finishPoint = new Point();
-
             var sawFinish = LookAround(ref observedСontour, ref finishPoint);
+            var observedPassages = GetPassageInСontour(observedСontour);
 
-            return new VisionResult(sawFinish, finishPoint, observedСontour, GetPassageInСontour(observedСontour));
+            _viewedContours.Add(observedСontour);
+
+            return new VisionResult(sawFinish, finishPoint, observedСontour, observedPassages);
         }
         
         private bool LookAround(ref List<Line> observedСontour, ref Point exitPoint)
@@ -73,16 +82,33 @@ namespace Navigation.Domain.Robot.Visions
         {
             var result = new List<Line>();
 
+            var passage = new Line();
+
             for (var index = 0; index < contour.Count - 1; index++)
             {
-                if (contour[index].End.GetDistanceTo(contour[index + 1].Start) > _minPassageSize)
-                    result.Add(new Line(contour[index].End, contour[index + 1].Start));
+                if (contour[index].End.GetDistanceTo(contour[index + 1].Start) > _minPassageSize
+                    && TryCreateNewPassage(contour[index].End, contour[index + 1].Start, ref passage))
+                    result.Add(passage);
             }
 
-            if (contour[contour.Count - 1].End.GetDistanceTo(contour[0].Start) > _minPassageSize)
-                result.Add(new Line(contour[contour.Count - 1].End, contour[0].Start));
+            if (contour[contour.Count - 1].End.GetDistanceTo(contour[0].Start) > _minPassageSize
+                && TryCreateNewPassage(contour[contour.Count - 1].End, contour[0].Start, ref passage))
+                result.Add(passage);
 
             return result;
+        }
+
+        private bool TryCreateNewPassage(Point start, Point end, ref Line newPassage)
+        {
+            if (_viewedContours.SelectMany(contour => contour)
+                .All(line => !line.HavePoint(start) && !line.HavePoint(end)))
+            {
+                newPassage = new Line(start, end);
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
