@@ -59,6 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DefaultRobotVisionTest.cs" />
     <Compile Include="DefaultSensorTest.cs" />
     <Compile Include="MainFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

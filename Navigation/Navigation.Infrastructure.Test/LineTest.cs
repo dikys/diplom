@@ -29,8 +29,7 @@ namespace Navigation.Infrastructure.Test
             Assert.IsTrue(new Line(-1, 2, 0, 1).HaveIntersectionPoint(new Line(-1, 1, 0, 2), ref intersectionPoint));
             Assert.AreEqual(new Point(-0.5, 1.5), intersectionPoint);
 
-            Assert.IsTrue(new Line(50, 50, 130, 50).HaveIntersectionPoint(new Line(100, 50, 100, 75), ref intersectionPoint));
-            Assert.AreEqual(new Point(100, 50), intersectionPoint);
+            Assert.IsFalse(new Line(25, 50, 50, 25).HaveIntersectionPoint(new Line(45, 45, 100, 45), ref intersectionPoint));
         }
 
         [TestMethod]

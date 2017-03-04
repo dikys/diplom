@@ -15,7 +15,7 @@ namespace Navigation.Domain.Test
 {
     public static class MainFactory
     {
-        public static StandardKernel CreateContainer<TRobot, TVision, TSensor>(Point robotPosition, IMaze maze, double minPassageSize = 5, double rotationAngle = 0.01)
+        public static StandardKernel CreateContainer<TRobot, TVision, TSensor>(Point robotPosition, IMaze maze, double minPassageSize = 5, double rotationAngle = 0.017)
             where TRobot : MobileRobot
             where TVision : IRobotVision
             where TSensor : IDistanceSensor
@@ -23,19 +23,19 @@ namespace Navigation.Domain.Test
             var container = new StandardKernel();
 
             container.Bind<IMaze>().ToConstant(maze).InSingletonScope();
-            container.Bind<MobileRobot>()
-                .To<TRobot>()
-                .InSingletonScope()
-                .WithConstructorArgument("position", robotPosition);
-            container.Bind<IRobotVision>()
-                .To<TVision>()
-                .InSingletonScope()
-                .WithConstructorArgument("minPassageSize", minPassageSize);
             container.Bind<IDistanceSensor>()
                 .To<TSensor>()
                 .InSingletonScope()
                 .WithConstructorArgument("rotationAngle", rotationAngle);
-
+            container.Bind<IRobotVision>()
+                .To<TVision>()
+                .InSingletonScope()
+                .WithConstructorArgument("minPassageSize", minPassageSize);
+            container.Bind<MobileRobot>()
+                .To<TRobot>()
+                .InSingletonScope()
+                .WithConstructorArgument("position", robotPosition);
+            
             return container;
         }
 

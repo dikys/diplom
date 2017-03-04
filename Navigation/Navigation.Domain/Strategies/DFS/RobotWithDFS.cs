@@ -13,9 +13,9 @@ namespace Navigation.Domain.Strategies.DFS
     {
         private Node _currentNode;
         
-        public RobotWithDFS(Lazy<IRobotVision> robotVision) : base(robotVision)//, Point position) : base(robotVision, position)
+        public RobotWithDFS(Lazy<IRobotVision> robotVision, Point position) : base(robotVision, position)
         {
-            Start = new Node(new Point(0, 0));//new Node(position);
+            Start = new Node(position);
             CurrentNode = Start;
 
             WayToExit = new List<Node>();

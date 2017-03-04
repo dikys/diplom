@@ -10,9 +10,9 @@ namespace Navigation.Domain.Robot
         public Point Position { get; protected set; }
         public Lazy<IRobotVision> RobotVision { get; }
 
-        protected MobileRobot(Lazy<IRobotVision> robotVision)//, Point position)
+        protected MobileRobot(Lazy<IRobotVision> robotVision, Point position)
         {
-            Position = new Point(0, 0);//position;
+            Position = position;
             RobotVision = robotVision;
         }
 

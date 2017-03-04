@@ -78,25 +78,25 @@ namespace Navigation.Infrastructure
 
                 return true;
             }
-            else if (d1 <= Tollerance && other.OnSegmentStraight(Start))
+            else if (Math.Abs(d1) <= Tollerance && other.OnSegmentStraight(Start))
             {
                 intersectionPoint = Start;
 
                 return true;
             }
-            else if (d2 <= Tollerance && other.OnSegmentStraight(End))
+            else if (Math.Abs(d2) <= Tollerance && other.OnSegmentStraight(End))
             {
                 intersectionPoint = End;
 
                 return true;
             }
-            else if (d3 <= Tollerance && OnSegmentStraight(other.Start))
+            else if (Math.Abs(d3) <= Tollerance && OnSegmentStraight(other.Start))
             {
                 intersectionPoint = other.Start;
 
                 return true;
             }
-            else if (d4 <= Tollerance && OnSegmentStraight(other.End))
+            else if (Math.Abs(d4) <= Tollerance && OnSegmentStraight(other.End))
             {
                 intersectionPoint = other.End;
 

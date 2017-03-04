@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Navigation.Domain.Exceptions;
 using Navigation.Domain.Mazes;
 using Navigation.Infrastructure;
 
@@ -8,15 +10,15 @@ namespace Navigation.Domain.Robot.Visions.Sensors
     {
         public double Angle { private set; get; }
 
-        public DefaultSensor(IMaze maze, MobileRobot robot)//, double rotationAngle)
+        public DefaultSensor(IMaze maze, MobileRobot robot, double rotationAngle)
         {
             _maze = maze;
             _robot = robot;
-            _rotationAngle = 0.01;// rotationAngle;
+            _rotationAngle = rotationAngle;
 
             _rayLength = 1.1 * maze.Diameter.Length;
 
-            //Reset();
+            Reset();
         }
 
         private readonly IMaze _maze;
@@ -36,17 +38,17 @@ namespace Navigation.Domain.Robot.Visions.Sensors
         {
             var haveGap = true;
 
-            DistanceSensorResult result = new DistanceSensorResult();
+            var result = new DistanceSensorResult();
             
-            var distanceToObservedPoint = 0.0;
+            var distanceToObservedPoint = _rayLength;
             var currentIntersectionPoint = new Point();
-
+            
             foreach (var wall in _maze.Walls)
             {
                 if (!_ray.HaveIntersectionPoint(wall.Line, ref currentIntersectionPoint))
                     continue;
 
-                if (haveGap || _robot.Position.GetDistanceTo(currentIntersectionPoint) < distanceToObservedPoint)
+                if (haveGap)
                 {
                     haveGap = false;
 
@@ -54,10 +56,17 @@ namespace Navigation.Domain.Robot.Visions.Sensors
 
                     distanceToObservedPoint = _robot.Position.GetDistanceTo(currentIntersectionPoint);
                 }
+
+                if (_robot.Position.GetDistanceTo(currentIntersectionPoint) < distanceToObservedPoint)
+                {
+                    result = new DistanceSensorResult(currentIntersectionPoint, wall);
+
+                    distanceToObservedPoint = _robot.Position.GetDistanceTo(currentIntersectionPoint);
+                }
             }
 
             if (haveGap)
-                throw new InvalidOperationException("Border of maze has gap");
+                throw new MazeHaveGapException();
             
             return result;
         }

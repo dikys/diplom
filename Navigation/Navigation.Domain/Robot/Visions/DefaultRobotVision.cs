@@ -8,12 +8,12 @@ namespace Navigation.Domain.Robot.Visions
     public class DefaultRobotVision : IRobotVision
     {
         private readonly double _minPassageSize;
-        private readonly Lazy<IDistanceSensor> _distanceSensor;
+        private readonly IDistanceSensor _distanceSensor;
 
-        public DefaultRobotVision(Lazy<IDistanceSensor> distanceSensor)//, double minPassageSize)
+        public DefaultRobotVision(IDistanceSensor distanceSensor, double minPassageSize)
         {
             _distanceSensor = distanceSensor;
-            _minPassageSize = 5;//minPassageSize;
+            _minPassageSize = minPassageSize;
         }
         
         public VisionResult LookAround()
@@ -21,15 +21,17 @@ namespace Navigation.Domain.Robot.Visions
             var observedСontour = new List<Line>();
             var finishPoint = new Point();
 
-            return new VisionResult(LookAround(ref observedСontour, ref finishPoint), finishPoint, observedСontour, GetPassageInСontour(observedСontour));
+            var sawFinish = LookAround(ref observedСontour, ref finishPoint);
+
+            return new VisionResult(sawFinish, finishPoint, observedСontour, GetPassageInСontour(observedСontour));
         }
         
         private bool LookAround(ref List<Line> observedСontour, ref Point exitPoint)
         {
-            _distanceSensor.Value.Reset();
+            _distanceSensor.Reset();
 
             // Инициализация
-            var distanceSensorResult = _distanceSensor.Value.LookForward();
+            var distanceSensorResult = _distanceSensor.LookForward();
             var sawFinish = distanceSensorResult.ObservedWall.IsFinish;
 
             var previousObservedPoint = distanceSensorResult.ObservedPoint;
@@ -37,12 +39,12 @@ namespace Navigation.Domain.Robot.Visions
 
             var wallStart = distanceSensorResult.ObservedPoint;
 
-            _distanceSensor.Value.Rotate();
+            _distanceSensor.Rotate();
             // Конец инициализации
             
-            while (_distanceSensor.Value.Angle <= 2*Math.PI)
+            while (_distanceSensor.Angle <= 2*Math.PI)
             {
-                distanceSensorResult = _distanceSensor.Value.LookForward();
+                distanceSensorResult = _distanceSensor.LookForward();
 
                 if (distanceSensorResult.ObservedWall.IsFinish)
                 {
@@ -59,7 +61,7 @@ namespace Navigation.Domain.Robot.Visions
                 previousObservedPoint = distanceSensorResult.ObservedPoint;
                 previousObservedWall = distanceSensorResult.ObservedWall;
 
-                _distanceSensor.Value.Rotate();
+                _distanceSensor.Rotate();
             }
 
             observedСontour.Add(new Line(wallStart, previousObservedPoint));
