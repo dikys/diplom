@@ -73,5 +73,20 @@ namespace Navigation.Domain.Test
 
             Assert.AreEqual(0, visionResult.ObservedPassages.Count);
         }
+
+        [TestMethod]
+        public void Should_FinishFound()
+        {
+            var container = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(
+                new Point(45, 45),
+                MainFactory.GetDefaultMaze(0));
+
+            var vision = container.Get<IRobotVision>();
+
+            var visionResult = vision.LookAround();
+
+            Assert.IsTrue(visionResult.SawFinish);
+            Assert.AreEqual(0, (new Point(50, 25) - visionResult.FinishPoint).GetNorm(), 2);
+        }
     }
 }

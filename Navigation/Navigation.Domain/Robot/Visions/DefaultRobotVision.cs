@@ -35,7 +35,7 @@ namespace Navigation.Domain.Robot.Visions
             return new VisionResult(sawFinish, finishPoint, observedСontour, observedPassages);
         }
         
-        private bool LookAround(ref List<Line> observedСontour, ref Point exitPoint)
+        private bool LookAround(ref List<Line> observedСontour, ref Point finishPoint)
         {
             _distanceSensor.Reset();
 
@@ -55,9 +55,11 @@ namespace Navigation.Domain.Robot.Visions
             {
                 distanceSensorResult = _distanceSensor.LookForward();
 
-                if (distanceSensorResult.ObservedWall.IsFinish)
+                if (distanceSensorResult.ObservedWall.IsFinish && !sawFinish)
                 {
                     sawFinish = true;
+
+                    finishPoint = distanceSensorResult.ObservedPoint;
                 }
 
                 if (!previousObservedWall.Equals(distanceSensorResult.ObservedWall))

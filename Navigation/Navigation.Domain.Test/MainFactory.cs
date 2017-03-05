@@ -39,23 +39,27 @@ namespace Navigation.Domain.Test
             return container;
         }
 
-        public static IMaze GetDefaultMaze()
+        public static IMaze GetDefaultMaze(params int[] wallFinishIndexes)
         {
-            return new DefaultMaze(new Wall[]
-            {
-                new Wall(new Line(50, 25, 75, 25)),
-                new Wall(new Line(75, 25, 100, 50)),
-                new Wall(new Line(100, 50, 100, 75)),
-                new Wall(new Line(100, 75, 75, 100)),
-                new Wall(new Line(75, 100, 50, 100)),
-                new Wall(new Line(50, 100, 25, 75)),
-                new Wall(new Line(25, 75, 25, 50)),
-                new Wall(new Line(25, 50, 50, 25)),
+            var result = new DefaultMaze(
+                new Wall[]
+                {
+                    new Wall(new Line(50, 25, 75, 25)),
+                    new Wall(new Line(75, 25, 100, 50)),
+                    new Wall(new Line(100, 50, 100, 75)),
+                    new Wall(new Line(100, 75, 75, 100)),
+                    new Wall(new Line(75, 100, 50, 100)),
+                    new Wall(new Line(50, 100, 25, 75)),
+                    new Wall(new Line(25, 75, 25, 50)),
+                    new Wall(new Line(25, 50, 50, 25)),
 
-                new Wall(new Line(75, 50, 75, 75)),
-                new Wall(new Line(75, 75, 50, 75)),
-                new Wall(new Line(50, 75, 75, 50))
-            });
+                    new Wall(new Line(75, 50, 75, 75)),
+                    new Wall(new Line(75, 75, 50, 75)),
+                    new Wall(new Line(50, 75, 75, 50))
+                }.Select((wall, index) => new Wall(wall.Line, wallFinishIndexes.Contains(index)))
+                    .ToArray());
+
+            return result;
         }
     }
 }

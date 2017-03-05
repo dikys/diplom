@@ -41,6 +41,8 @@ namespace Navigation.Infrastructure
         {
             return new Point(X*Math.Cos(angle) - Y*Math.Sin(angle), X*Math.Sin(angle) + Y*Math.Cos(angle));
         }
+
+        public double GetNorm() => GetDistanceTo(new Point(0, 0));
         #endregion
 
         #region Перегрузки операторов
