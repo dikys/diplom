@@ -63,6 +63,7 @@
     <Compile Include="DefaultSensorTest.cs" />
     <Compile Include="MainFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RobotWithDFSTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Navigation.Domain\Navigation.Domain.csproj">

@@ -31,11 +31,16 @@ namespace Navigation.Domain.Test
                 .To<TVision>()
                 .InSingletonScope()
                 .WithConstructorArgument("minPassageSize", minPassageSize);
+
+            container.Bind<Lazy<IRobotVision>>()
+                .ToMethod(c => new Lazy<IRobotVision>(() => (c.Kernel.Get<IRobotVision>())))
+                .InSingletonScope();
             container.Bind<MobileRobot>()
                 .To<TRobot>()
                 .InSingletonScope()
                 .WithConstructorArgument("position", robotPosition);
-            
+
+
             return container;
         }
 

@@ -10,7 +10,6 @@ namespace Navigation.Infrastructure
 {
     public struct Line
     {
-        private static readonly double Tollerance = 0.000001;
         private Point? _vector;
         private Point? _center;
         private Point? _normilizeVector;
@@ -78,25 +77,25 @@ namespace Navigation.Infrastructure
 
                 return true;
             }
-            else if (Math.Abs(d1) <= Tollerance && other.OnSegmentStraight(Start))
+            else if (Math.Abs(d1) <= InfrastructureConstants.CalculationsAccuracy && other.OnSegmentStraight(Start))
             {
                 intersectionPoint = Start;
 
                 return true;
             }
-            else if (Math.Abs(d2) <= Tollerance && other.OnSegmentStraight(End))
+            else if (Math.Abs(d2) <= InfrastructureConstants.CalculationsAccuracy && other.OnSegmentStraight(End))
             {
                 intersectionPoint = End;
 
                 return true;
             }
-            else if (Math.Abs(d3) <= Tollerance && OnSegmentStraight(other.Start))
+            else if (Math.Abs(d3) <= InfrastructureConstants.CalculationsAccuracy && OnSegmentStraight(other.Start))
             {
                 intersectionPoint = other.Start;
 
                 return true;
             }
-            else if (Math.Abs(d4) <= Tollerance && OnSegmentStraight(other.End))
+            else if (Math.Abs(d4) <= InfrastructureConstants.CalculationsAccuracy && OnSegmentStraight(other.End))
             {
                 intersectionPoint = other.End;
 
@@ -110,8 +109,10 @@ namespace Navigation.Infrastructure
         /// </summary>
         public bool OnSegmentStraight(Point point)
         {
-            return (Math.Min(Start.X, End.X) - Tollerance <= point.X && point.X <= Math.Max(Start.X, End.X) + Tollerance
-                    && Math.Min(Start.Y, End.Y) - Tollerance <= point.Y && point.Y <= Math.Max(Start.Y, End.Y) + Tollerance);
+            return (Math.Min(Start.X, End.X) - InfrastructureConstants.CalculationsAccuracy <= point.X
+                    && point.X <= Math.Max(Start.X, End.X) + InfrastructureConstants.CalculationsAccuracy
+                    && Math.Min(Start.Y, End.Y) - InfrastructureConstants.CalculationsAccuracy <= point.Y
+                    && point.Y <= Math.Max(Start.Y, End.Y) + InfrastructureConstants.CalculationsAccuracy);
         }
 
         /// <summary>
@@ -119,7 +120,7 @@ namespace Navigation.Infrastructure
         /// </summary>
         public bool OnStraight(Point point)
         {
-            return Math.Abs(Vector.GetVectorProduct(point - Start)) < Tollerance;
+            return Math.Abs(Vector.GetVectorProduct(point - Start)) < InfrastructureConstants.CalculationsAccuracy;
         }
 
         public bool HavePoint(Point point)

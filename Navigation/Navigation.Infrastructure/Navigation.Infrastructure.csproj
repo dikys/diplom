@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InfrastructureConstants.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="FastMath.cs" />
     <Compile Include="Node.cs" />

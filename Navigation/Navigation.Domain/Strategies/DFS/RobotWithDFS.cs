@@ -19,6 +19,8 @@ namespace Navigation.Domain.Strategies.DFS
             CurrentNode = Start;
 
             WayToExit = new List<Node>();
+
+            Console.WriteLine(1);
         }
 
         public Node Start { get; }

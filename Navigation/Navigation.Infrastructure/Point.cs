@@ -9,7 +9,6 @@ namespace Navigation.Infrastructure
 {
     public struct Point
     {
-        public static readonly double Tollerance = 0.01;
         public Point(double x = 0, double y = 0)
         {
             X = x;
@@ -98,7 +97,8 @@ namespace Navigation.Infrastructure
         #region Перегрузки Object методов
         private bool Equals(Point other)
         {
-            return (Math.Abs(X - other.X) <= Tollerance) && (Math.Abs(Y - other.Y) <= Tollerance);
+            return (Math.Abs(X - other.X) <= InfrastructureConstants.CalculationsAccuracy)
+                   && (Math.Abs(Y - other.Y) <= InfrastructureConstants.CalculationsAccuracy);
         }
 
         public override int GetHashCode()
