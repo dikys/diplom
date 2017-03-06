@@ -19,13 +19,12 @@ namespace Navigation.Domain.Strategies.DFS
             CurrentNode = Start;
 
             WayToExit = new List<Node>();
-
-            Console.WriteLine(1);
         }
 
         public Node Start { get; }
         public List<Node> WayToExit { get; }
-        public Node CurrentNode
+        public bool FinishFound => WayToExit.Count != 0;
+        private Node CurrentNode
         {
             get { return _currentNode; }
             set
@@ -53,7 +52,7 @@ namespace Navigation.Domain.Strategies.DFS
 
                     if (CurrentNode.Position == Start.Position)
                     {
-                        Console.WriteLine("Выхода нет");
+                        //Console.WriteLine("Выхода нет");
 
                         return;
                     }
@@ -69,7 +68,7 @@ namespace Navigation.Domain.Strategies.DFS
                 {
                     WayToExit.Add(new Node(visionResult.FinishPoint));
 
-                    Console.WriteLine("Выход найден");
+                    //Console.WriteLine("Выход найден");
 
                     return;
                 }
@@ -82,7 +81,7 @@ namespace Navigation.Domain.Strategies.DFS
                 }
                 else if (CurrentNode.Position == Start.Position)
                 {
-                    Console.WriteLine("Выхода нет");
+                    //Console.WriteLine("Выхода нет");
 
                     return;
                 }

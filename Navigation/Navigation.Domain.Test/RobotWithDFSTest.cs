@@ -28,6 +28,7 @@ namespace Navigation.Domain.Test
             robot.Run();
 
             Assert.AreEqual(4, robot.RobotVision.Value.ViewedContours.Count);
+            Assert.AreEqual(0, robot.WayToExit.Count);
         }
     }
 }
