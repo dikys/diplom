@@ -24,3 +24,5 @@ C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.csprojResolveAssemblyReference.cache
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.pdb
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\bin\Debug\WebActivatorEx.dll

@@ -27,19 +27,26 @@ namespace Navigation.Domain.Test
                 .To<TSensor>()
                 .InSingletonScope()
                 .WithConstructorArgument("rotationAngle", rotationAngle);
+                //.OnActivation(s => s.Reset());
             container.Bind<IRobotVision>()
                 .To<TVision>()
                 .InSingletonScope()
                 .WithConstructorArgument("minPassageSize", minPassageSize);
-
-            container.Bind<Lazy<IRobotVision>>()
-                .ToMethod(c => new Lazy<IRobotVision>(() => (c.Kernel.Get<IRobotVision>())))
-                .InSingletonScope();
             container.Bind<MobileRobot>()
                 .To<TRobot>()
                 .InSingletonScope()
                 .WithConstructorArgument("position", robotPosition);
+            
+            container.Bind<Lazy<IDistanceSensor>>()
+                .ToMethod(c => new Lazy<IDistanceSensor>(() => (c.Kernel.Get<IDistanceSensor>())))
+                .InSingletonScope();
 
+            /*container.Bind<Lazy<IRobotVision>>()
+                .ToMethod(c => new Lazy<IRobotVision>(() => (c.Kernel.Get<IRobotVision>())));*/
+
+            /*container.Bind<Lazy<MobileRobot>>()
+                .ToMethod(c => new Lazy<MobileRobot>(() => c.Kernel.Get<MobileRobot>()));
+                //.InSingletonScope();*/
 
             return container;
         }

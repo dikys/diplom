@@ -17,7 +17,7 @@ namespace Navigation.Domain.Test
     public class RobotWithDFSTest
     {
         [TestMethod]
-        public void Should_b()
+        public void Should_FourViewedContours_When_DefaultMaze()
         {
             var container = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(
                 new Point(45, 45),
@@ -27,8 +27,25 @@ namespace Navigation.Domain.Test
 
             robot.Run();
 
-            Assert.AreEqual(4, robot.RobotVision.Value.ViewedContours.Count);
+            Assert.AreEqual(4, robot.RobotVision.ViewedContours.Count);
             Assert.AreEqual(0, robot.WayToExit.Count);
+            Assert.IsFalse(robot.FinishFound);
+        }
+
+        [TestMethod]
+        public void Should_TwoViewedContours_When_DefaultMazeHaveFinish()
+        {
+            var container = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(
+                 new Point(45, 45),
+                 MainFactory.GetDefaultMaze(3));
+
+            var robot = (RobotWithDFS)container.Get<MobileRobot>();
+
+            robot.Run();
+
+            Assert.AreEqual(2, robot.RobotVision.ViewedContours.Count);
+            Assert.AreEqual(3, robot.WayToExit.Count);
+            Assert.IsTrue(robot.FinishFound);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Navigation.Domain.Strategies.DFS
     {
         private Node _currentNode;
         
-        public RobotWithDFS(Lazy<IRobotVision> robotVision, Point position) : base(robotVision, position)
+        public RobotWithDFS(IRobotVision robotVision, Point position) : base(robotVision, position)
         {
             Start = new Node(position);
             CurrentNode = Start;
@@ -62,22 +62,21 @@ namespace Navigation.Domain.Strategies.DFS
                     continue;
                 }
 
-                var visionResult = RobotVision.Value.LookAround();
+                var visionResult = RobotVision.LookAround();
 
                 if (visionResult.SawFinish)
                 {
+                    WayToExit.Add(CurrentNode);
                     WayToExit.Add(new Node(visionResult.FinishPoint));
 
                     //Console.WriteLine("Выход найден");
 
                     return;
                 }
-
-                var passages = visionResult.ObservedPassages;
-
-                if (passages.Any())
+                
+                if (visionResult.ObservedPassages.Any())
                 {
-                    CurrentNode.AdjacentNodes.AddRange(passages.Select(passage => new Node(passage.Center)));
+                    CurrentNode.AdjacentNodes.AddRange(visionResult.ObservedPassages.Select(passage => new Node(passage.Center)));
                 }
                 else if (CurrentNode.Position == Start.Position)
                 {

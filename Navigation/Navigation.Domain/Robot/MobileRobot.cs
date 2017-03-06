@@ -8,12 +8,18 @@ namespace Navigation.Domain.Robot
     public abstract class MobileRobot
     {
         public Point Position { get; protected set; }
-        public Lazy<IRobotVision> RobotVision { get; }
+        public IRobotVision RobotVision { get; }
 
-        protected MobileRobot(Lazy<IRobotVision> robotVision, Point position)
+        public Guid id;
+
+        protected MobileRobot(IRobotVision robotVision, Point position)
         {
             Position = position;
             RobotVision = robotVision;
+            
+            id = Guid.NewGuid();
+
+            Console.WriteLine("Робот создан " + id);
         }
 
         public abstract void Run();

@@ -47,16 +47,11 @@ C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Navigation.App.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Navigation.Domain.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Navigation.Infrastructure.dll
-C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Ninject.dll
-C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Ninject.Extensions.Logging.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\System.Collections.Immutable.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Navigation.App.pdb
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Navigation.Domain.pdb
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Navigation.Infrastructure.pdb
-C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Ninject.xml
-C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Ninject.Extensions.Logging.pdb
-C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Ninject.Extensions.Logging.xml
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\System.Collections.Immutable.xml
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.UI\obj\Debug\Navigation.UI.csprojResolveAssemblyReference.cache

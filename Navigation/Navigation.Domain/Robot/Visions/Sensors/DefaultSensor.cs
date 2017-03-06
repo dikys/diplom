@@ -10,6 +10,8 @@ namespace Navigation.Domain.Robot.Visions.Sensors
     {
         public double Angle { private set; get; }
 
+        public Guid id;
+
         public DefaultSensor(IMaze maze, MobileRobot robot, double rotationAngle)
         {
             _maze = maze;
@@ -19,6 +21,9 @@ namespace Navigation.Domain.Robot.Visions.Sensors
             _rayLength = 1.1 * maze.Diameter.Length;
 
             Reset();
+            
+            id = Guid.NewGuid();
+            Console.WriteLine("Сенсор создан " + id);
         }
 
         private readonly IMaze _maze;
