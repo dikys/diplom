@@ -19,17 +19,15 @@ namespace Navigation.Infrastructure.Test
         }
 
         [TestMethod]
-        public void Should_CorrectIntersectionPoint_When_UsedMethodHaveIntersectionPoint()
+        public void Should_CorrectIntersectionPoint()
         {
             var intersectionPoint = new Point();
 
-            Assert.IsTrue(new Line(-1, -1, 1, 1).HaveIntersectionPoint(new Line(-1, 1, 1, -1), ref intersectionPoint));
+            Assert.IsTrue(new Line(-1, -1, 1, 1).CheckIntersectionPoint(new Line(-1, 1, 1, -1), ref intersectionPoint));
             Assert.AreEqual(new Point(0, 0), intersectionPoint);
 
-            Assert.IsTrue(new Line(-1, 2, 0, 1).HaveIntersectionPoint(new Line(-1, 1, 0, 2), ref intersectionPoint));
+            Assert.IsTrue(new Line(-1, 2, 0, 1).CheckIntersectionPoint(new Line(-1, 1, 0, 2), ref intersectionPoint));
             Assert.AreEqual(new Point(-0.5, 1.5), intersectionPoint);
-
-            Assert.IsFalse(new Line(25, 50, 50, 25).HaveIntersectionPoint(new Line(45, 45, 100, 45), ref intersectionPoint));
         }
 
         [TestMethod]
@@ -37,22 +35,23 @@ namespace Navigation.Infrastructure.Test
         {
             var intersectionPoint = new Point();
 
-            Assert.IsFalse(new Line(1, 0, 50, 0).HaveIntersectionPoint(new Line(-10, -1, 30, -1), ref intersectionPoint));
-            Assert.IsFalse(new Line(0, 0, 20, 20).HaveIntersectionPoint(new Line(21, 21, 30, 5), ref intersectionPoint));
+            Assert.IsFalse(new Line(1, 0, 50, 0).CheckIntersectionPoint(new Line(-10, -1, 30, -1), ref intersectionPoint));
+            Assert.IsFalse(new Line(0, 0, 20, 20).CheckIntersectionPoint(new Line(21, 21, 30, 5), ref intersectionPoint));
+            Assert.IsFalse(new Line(25, 50, 50, 25).CheckIntersectionPoint(new Line(45, 45, 100, 45), ref intersectionPoint));
         }
 
         [TestMethod]
         public void Should_CorrectResult_When_UsedMethodOnSegmentStraight()
         {
-            Assert.IsTrue(new Line(0, 0, 100, 0).OnSegmentStraight(new Point(100, 0)));
-            Assert.IsFalse(new Line(0, 0, -100, -100).OnSegmentStraight(new Point(-101, -101)));
+            Assert.IsTrue(new Line(0, 0, 100, 0).CheckOnSegmentStraight(new Point(100, 0)));
+            Assert.IsFalse(new Line(0, 0, -100, -100).CheckOnSegmentStraight(new Point(-101, -101)));
         }
 
         [TestMethod]
         public void Should_CorrectResult_When_UsedMethodOnStraight()
         {
-            Assert.IsTrue(new Line(0, 0, -100, -100).OnStraight(new Point(-101, -101)));
-            Assert.IsFalse(new Line(0, 0, -100, -100).OnStraight(new Point(0, 2)));
+            Assert.IsTrue(new Line(0, 0, -100, -100).CheckOnStraight(new Point(-101, -101)));
+            Assert.IsFalse(new Line(0, 0, -100, -100).CheckOnStraight(new Point(0, 2)));
         }
 
         [TestMethod]

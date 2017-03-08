@@ -16,11 +16,11 @@ namespace Navigation.App.Repository.Representations
             Walls = walls;
         }
 
-        public MazeRepresentation(IMaze maze) : this(maze.Walls.Select(wall => new WallRepresentation(wall)).ToList()) { }
+        public MazeRepresentation(StandartMaze standartMaze) : this(standartMaze.Walls.Select(wall => new WallRepresentation(wall)).ToList()) { }
 
-        public static explicit operator DefaultMaze(MazeRepresentation mazeRepresentation)
+        public static explicit operator StandartMaze(MazeRepresentation mazeRepresentation)
         {
-            return new DefaultMaze(mazeRepresentation.Walls.Select(wall => (Wall)wall).ToArray());
+            return new StandartMaze(mazeRepresentation.Walls.Cast<Wall>().ToArray());
         }
     }
 }

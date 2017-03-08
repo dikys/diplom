@@ -9,26 +9,26 @@ namespace Navigation.UI
 {
     public class MazeViewer
     {
-        public IMaze Maze;
+        public StandartMaze StandartMaze;
 
-        public MazeViewer(IMaze maze)
+        public MazeViewer(StandartMaze standartMaze)
         {
-            Maze = maze;
+            StandartMaze = standartMaze;
         }
 
         public void Draw(Canvas canvas)
         {
-            Maze.Walls.ForEach((wall) => canvas.Draw(new Pen(Color.FromArgb(55, 93, 129)), wall));
+            StandartMaze.Walls.ForEach((wall) => canvas.Draw(new Pen(Color.FromArgb(55, 93, 129)), wall));
         }
 
         public void SaveMaze(MazeRepository repository, string name)
         {
-            repository.Save(Maze, name);
+            repository.Save(StandartMaze, name);
         }
 
-        public static IMaze GetDefaultMaze()
+        public static StandartMaze GetDefaultMaze()
         {
-            return new DefaultMaze(new Wall[]{
+            return new StandartMaze(new Wall[]{
                 new Wall(new Line(50, 25, 75, 25)),
                 new Wall(new Line(75, 25, 100, 50)),
                 new Wall(new Line(100, 50, 100, 75)),

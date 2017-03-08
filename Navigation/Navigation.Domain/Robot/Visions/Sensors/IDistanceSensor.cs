@@ -11,7 +11,7 @@ namespace Navigation.Domain.Robot.Visions.Sensors
     {
         double Angle { get; }
 
-        DistanceSensorResult LookForward();
+        DistanceSensorResult LookForward(Point fromPosition);
         void Rotate();
         void Reset();
     }

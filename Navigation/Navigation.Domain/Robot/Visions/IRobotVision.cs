@@ -12,6 +12,6 @@ namespace Navigation.Domain.Robot.Visions
     {
         ImmutableList<ImmutableList<Line>> ViewedContours { get; }
 
-        VisionResult LookAround();
+        RobotVisionResult LookAround(Point fromPosition);
     }
 }

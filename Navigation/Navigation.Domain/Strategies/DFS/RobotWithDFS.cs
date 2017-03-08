@@ -62,7 +62,7 @@ namespace Navigation.Domain.Strategies.DFS
                     continue;
                 }
 
-                var visionResult = RobotVision.LookAround();
+                var visionResult = RobotVision.LookAround(Position);
 
                 if (visionResult.SawFinish)
                 {

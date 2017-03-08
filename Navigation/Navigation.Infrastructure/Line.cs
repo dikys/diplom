@@ -54,7 +54,7 @@ namespace Navigation.Infrastructure
             return angle;
         }
         
-        public bool HaveIntersectionPoint(Line other, ref Point intersectionPoint)
+        public bool CheckIntersectionPoint(Line other, ref Point intersectionPoint)
         {
             var d1 = (Start - other.Start).GetVectorProduct(other.Vector);
             var d2 = (End - other.Start).GetVectorProduct(other.Vector);
@@ -77,25 +77,25 @@ namespace Navigation.Infrastructure
 
                 return true;
             }
-            else if (Math.Abs(d1) <= InfrastructureConstants.CalculationsAccuracy && other.OnSegmentStraight(Start))
+            else if (Math.Abs(d1) <= InfrastructureConstants.CalculationsAccuracy && other.CheckOnSegmentStraight(Start))
             {
                 intersectionPoint = Start;
 
                 return true;
             }
-            else if (Math.Abs(d2) <= InfrastructureConstants.CalculationsAccuracy && other.OnSegmentStraight(End))
+            else if (Math.Abs(d2) <= InfrastructureConstants.CalculationsAccuracy && other.CheckOnSegmentStraight(End))
             {
                 intersectionPoint = End;
 
                 return true;
             }
-            else if (Math.Abs(d3) <= InfrastructureConstants.CalculationsAccuracy && OnSegmentStraight(other.Start))
+            else if (Math.Abs(d3) <= InfrastructureConstants.CalculationsAccuracy && CheckOnSegmentStraight(other.Start))
             {
                 intersectionPoint = other.Start;
 
                 return true;
             }
-            else if (Math.Abs(d4) <= InfrastructureConstants.CalculationsAccuracy && OnSegmentStraight(other.End))
+            else if (Math.Abs(d4) <= InfrastructureConstants.CalculationsAccuracy && CheckOnSegmentStraight(other.End))
             {
                 intersectionPoint = other.End;
 
@@ -107,7 +107,7 @@ namespace Navigation.Infrastructure
         /// <summary>
         /// Вернет лежит ли точка point на отрезке, причем point должна лежать на прямой с данный направляющим вектором
         /// </summary>
-        public bool OnSegmentStraight(Point point)
+        public bool CheckOnSegmentStraight(Point point)
         {
             return (Math.Min(Start.X, End.X) - InfrastructureConstants.CalculationsAccuracy <= point.X
                     && point.X <= Math.Max(Start.X, End.X) + InfrastructureConstants.CalculationsAccuracy
@@ -118,17 +118,17 @@ namespace Navigation.Infrastructure
         /// <summary>
         /// Вернет лежит ли точка point на прямой с данным направляющим вектором 
         /// </summary>
-        public bool OnStraight(Point point)
+        public bool CheckOnStraight(Point point)
         {
             return Math.Abs(Vector.GetVectorProduct(point - Start)) < InfrastructureConstants.CalculationsAccuracy;
         }
 
         public bool HavePoint(Point point)
         {
-            if (!OnStraight(point))
+            if (!CheckOnStraight(point))
                 return false;
 
-            return OnSegmentStraight(point);
+            return CheckOnSegmentStraight(point);
         }
 
         /// <summary>

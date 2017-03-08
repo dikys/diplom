@@ -13,8 +13,8 @@ using Navigation.UI.Windows;
  *          А можно с помощью делегатов сделать
  *      
  *      Написать тесты для
- *          DefaultRobotVision
- *          DefaultMaze
+ *          StandartVision
+ *          StandartMaze
  *          ...
  *          
  *      Написать редактор

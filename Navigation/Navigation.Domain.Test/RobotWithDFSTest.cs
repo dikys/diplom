@@ -19,7 +19,7 @@ namespace Navigation.Domain.Test
         [TestMethod]
         public void Should_FourViewedContours_When_DefaultMaze()
         {
-            var container = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(
+            var container = MainFactory.CreateContainer<RobotWithDFS, StandartVision, StandartSensor>(
                 new Point(45, 45),
                 MainFactory.GetDefaultMaze());
 
@@ -35,7 +35,7 @@ namespace Navigation.Domain.Test
         [TestMethod]
         public void Should_TwoViewedContours_When_DefaultMazeHaveFinish()
         {
-            var container = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(
+            var container = MainFactory.CreateContainer<RobotWithDFS, StandartVision, StandartSensor>(
                  new Point(45, 45),
                  MainFactory.GetDefaultMaze(3));
 

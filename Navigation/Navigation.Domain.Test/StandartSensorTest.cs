@@ -12,14 +12,16 @@ using Ninject;
 namespace Navigation.Domain.Test
 {
     [TestClass]
-    public class DefaultSensorTest
+    public class StandartSensorTest
     {
         [TestMethod]
         public void Should_CorrectSensorResult_When_UseLookForward()
         {
-            var container = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(
-                new Point(45, 45),
-                new DefaultMaze(new Wall[]
+            var position = new Point(45, 45);
+
+            var container = MainFactory.CreateContainer<RobotWithDFS, StandartVision, StandartSensor>(
+                position,
+                new StandartMaze(new Wall[]
                 {
                     new Wall(new Line(70, -100, 70, 100)),
                     new Wall(new Line(60, -100, 60, 100)),
@@ -32,7 +34,7 @@ namespace Navigation.Domain.Test
 
             sensor.Rotate();
             
-            var sensorResult = sensor.LookForward();
+            var sensorResult = sensor.LookForward(position);
             
             Assert.AreEqual(new Wall(new Line(60, -100, 60, 100)), sensorResult.ObservedWall);
             Assert.AreEqual(new Point(60, 60), sensorResult.ObservedPoint);
@@ -41,13 +43,15 @@ namespace Navigation.Domain.Test
         [TestMethod]
         public void Should_CorrectSensorResult_WhenDefaultMaze()
         {
-            var container = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(
-                 new Point(45, 45),
+            var position = new Point(45, 45);
+
+            var container = MainFactory.CreateContainer<RobotWithDFS, StandartVision, StandartSensor>(
+                 new Point(position),
                  MainFactory.GetDefaultMaze());
 
             var sensor = container.Get<IDistanceSensor>();
 
-            var sensorResult = sensor.LookForward();
+            var sensorResult = sensor.LookForward(position);
 
             Assert.AreEqual(new Point(95, 45), sensorResult.ObservedPoint);
             Assert.AreEqual(new Wall(new Line(75, 25, 100, 50)), sensorResult.ObservedWall);
@@ -57,9 +61,11 @@ namespace Navigation.Domain.Test
         [ExpectedException(typeof (MazeHaveGapException))]
         public void Should_ThrowMazeHaveGapException_When_MizeHaveGap()
         {
-            var container = MainFactory.CreateContainer<RobotWithDFS, DefaultRobotVision, DefaultSensor>(
-                new Point(0, 0),
-                new DefaultMaze(new Wall[]
+            var position = new Point();
+
+            var container = MainFactory.CreateContainer<RobotWithDFS, StandartVision, StandartSensor>(
+                position,
+                new StandartMaze(new Wall[]
                 {
                     new Wall(new Line(10, 1, 10, -100))
                 }),
@@ -70,7 +76,7 @@ namespace Navigation.Domain.Test
 
             sensor.Rotate();
 
-            sensor.LookForward();
+            sensor.LookForward(position);
         }
     }
 }

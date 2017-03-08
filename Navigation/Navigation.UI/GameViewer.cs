@@ -19,12 +19,12 @@ namespace Navigation.UI
             var maze = MazeViewer.GetDefaultMaze();
 
             MazeViewer = new MazeViewer(maze);
-            //_robot = new RobotWithDFS(maze, new Point(50, 50));
+            //_robot = new RobotWithDFS(StandartMaze, new Point(50, 50));
         }
 
         public void RunRobot()
         {
-            //_robot = new RobotWithDFS(MazeViewer.DefaultMaze, new Point(50, 50));
+            //_robot = new RobotWithDFS(MazeViewer.StandartMaze, new Point(50, 50));
 
             _robot.Run();
         }

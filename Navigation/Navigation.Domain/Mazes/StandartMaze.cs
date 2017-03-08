@@ -1,22 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Navigation.Infrastructure;
 
 namespace Navigation.Domain.Mazes
 {
-    public class DefaultMaze : IMaze
+    public class StandartMaze
     {
         private Line? _diameter;
-        
-        public DefaultMaze(ImmutableList<Wall> walls = null)
+
+        public StandartMaze(ImmutableList<Wall> walls = null)
         {
             Walls = walls ?? ImmutableList<Wall>.Empty;
         }
-        public DefaultMaze(params Wall[] walls) : this(walls.ToImmutableList())
+        public StandartMaze(params Wall[] walls) : this(walls.ToImmutableList())
         { }
 
-        public ImmutableList<Wall> Walls { get; set; }
+        public ImmutableList<Wall> Walls { get; }
         /// <summary>
         /// Диаметр лабиринта, у которой Start - верхний левый угол, а End - нижний правый угол
         /// </summary>
@@ -42,7 +43,7 @@ namespace Navigation.Domain.Mazes
             }
         }
 
-        public IMaze AddWalls(params Wall[] walls)
+        public StandartMaze AddWalls(params Wall[] walls)
         {
             if (walls == null)
                 throw new ArgumentNullException(nameof(walls));
@@ -50,7 +51,7 @@ namespace Navigation.Domain.Mazes
             throw new NotImplementedException();
         }
 
-        public IMaze RemoveWalls(params Wall[] walls)
+        public StandartMaze RemoveWalls(params Wall[] walls)
         {
             if (walls == null)
                 throw new ArgumentNullException(nameof(walls));
@@ -61,7 +62,7 @@ namespace Navigation.Domain.Mazes
         #region Перегрузка Object методов
         public override string ToString()
         {
-            return "DefaultMaze[" + String.Concat(Walls.Select((wall, index) => wall.ToString() + (index < Walls.Count ? "\n" : ""))) + "]";
+            return "StandartMaze[" + String.Concat(Walls.Select((wall, index) => wall.ToString() + (index < Walls.Count ? "\n" : ""))) + "]";
         }
         #endregion
     }

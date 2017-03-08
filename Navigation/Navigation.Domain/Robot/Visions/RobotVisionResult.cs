@@ -3,9 +3,9 @@ using Navigation.Infrastructure;
 
 namespace Navigation.Domain.Robot.Visions
 {
-    public struct VisionResult
+    public struct RobotVisionResult
     {
-        public VisionResult(bool sawFinish,
+        public RobotVisionResult(bool sawFinish,
             Point finishPoint,
             IReadOnlyList<Line> observedContour,
             IReadOnlyList<Line> observedPassages)

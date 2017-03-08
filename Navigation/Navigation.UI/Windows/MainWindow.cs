@@ -64,7 +64,7 @@ namespace Navigation.UI.Windows
 
                                         var mazeName = mazeNames[listBox.SelectedIndex];
 
-                                        GameViewer.MazeViewer.Maze = Repository.Load(mazeName);
+                                        GameViewer.MazeViewer.StandartMaze = Repository.Load(mazeName);
 
                                         Canvas.Invalidate();
 
@@ -162,7 +162,7 @@ namespace Navigation.UI.Windows
             
             Load += (s, e) =>
             {
-                Canvas = new Canvas(this, GameViewer.MazeViewer.Maze.Diameter)
+                Canvas = new Canvas(this, GameViewer.MazeViewer.StandartMaze.Diameter)
                 {
                     Dock = DockStyle.Fill
                 };
