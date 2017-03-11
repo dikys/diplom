@@ -9,10 +9,10 @@ namespace Navigation.App.Views
 {
     public interface IRepositoryView
     {
-        event Func<string, StandartMaze> LoadMaze;
-        event Action<StandartMaze, string> SaveMaze;
-        event Action<string> DeleteMaze;
-
+        event Func<string, StandartMaze> LoadingMaze;
+        event Action<StandartMaze, string> SavingMaze;
+        event Action<string> DeletingMaze;
+        
         void OnRepositoryCommandExecuted(string commandName, string message);
         void OnRepositoryCommandError(string commandName, string message);
         void OnRepositoryAddedMaze(string name);

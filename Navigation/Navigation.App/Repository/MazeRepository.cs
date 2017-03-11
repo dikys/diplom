@@ -29,55 +29,55 @@ namespace Navigation.App.Repository
         public IEnumerable<string> MazeNames
             => _directory.GetFiles().Select(file => file.Name.Replace(file.Extension, ""));
         public IEnumerable<StandartMaze> Mazes
-            => MazeNames.Select(Load);
+            => MazeNames.Select(Loading);
         
-        public void Save(StandartMaze maze, string name)
+        public void Saving(StandartMaze maze, string name)
         {
             name = name.Trim();
 
             if (name == "")
             {
-                CommandError?.Invoke("Save", "Имя лабиринта не может быть пустым");
+                CommandError?.Invoke("Saving", "Имя лабиринта не может быть пустым");
                 return;
             }
             else if (MazeNames.Any(z => z == name))
             {
-                CommandError?.Invoke("Save", "Лабиринт с таким именем уже есть");
+                CommandError?.Invoke("Saving", "Лабиринт с таким именем уже есть");
                 return;
             }
 
             File.WriteAllText(PathTo(name), JsonConvert.SerializeObject(new MazeRepresentation(maze)));
 
             AddedMaze?.Invoke(name);
-            CommandExecuted?.Invoke("Save", "Сохранено успешно");
+            CommandExecuted?.Invoke("Saving", "Сохранено успешно");
         }
 
-        public StandartMaze Load(string name)
+        public StandartMaze Loading(string name)
         {
             if (MazeNames.All(z => z != name))
             {
-                CommandError?.Invoke("Load", "Такого лабиринта не существует");
+                CommandError?.Invoke("Loading", "Такого лабиринта не существует");
             }
 
             var result = (StandartMaze)JsonConvert.DeserializeObject<MazeRepresentation>(File.ReadAllText(PathTo(name)));
 
-            CommandExecuted?.Invoke("Load", "Загруженно успешно");
+            CommandExecuted?.Invoke("Loading", "Загруженно успешно");
 
             return result;
         }
 
-        public void Delete(string name)
+        public void Deleting(string name)
         {
             try
             {
                 _directory.GetFiles().Single(file => file.Name.Replace(file.Extension, "") == name).Delete();
 
                 RemovedMaze?.Invoke(name);
-                CommandExecuted?.Invoke("Delete", "Удаленно успешно");
+                CommandExecuted?.Invoke("Deleting", "Удаленно успешно");
             }
             catch (ArgumentNullException)
             {
-                CommandError?.Invoke("Delete", "Лабиринта с таким именем не существует");
+                CommandError?.Invoke("Deleting", "Лабиринта с таким именем не существует");
             }
         }
         

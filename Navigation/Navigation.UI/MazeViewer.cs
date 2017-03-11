@@ -23,7 +23,7 @@ namespace Navigation.UI
 
         public void SaveMaze(MazeRepository repository, string name)
         {
-            repository.Save(StandartMaze, name);
+            repository.Saving(StandartMaze, name);
         }
 
         public static StandartMaze GetDefaultMaze()

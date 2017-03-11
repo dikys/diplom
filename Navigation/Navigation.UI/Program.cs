@@ -32,7 +32,8 @@ namespace Navigation.UI
     {
         static void Main(string[] args)
         {
-            Application.Run(new MainWindow());
+            Application.Run(new RepositoryWindow());
+            //Application.Run(new MainWindow());
         }
     }
 }

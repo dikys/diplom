@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Navigation.App.Extensions
 {
@@ -14,6 +15,13 @@ namespace Navigation.App.Extensions
         public static MenuStrip WithRender(this MenuStrip menu, ToolStripRenderer render)
         {
             menu.Renderer = render;
+
+            return menu;
+        }
+
+        public static MenuStrip OnMouseDown(this MenuStrip menu, MouseEventHandler action)
+        {
+            menu.MouseDown += action;
 
             return menu;
         }

@@ -18,9 +18,9 @@ namespace Navigation.App.Controllers
             _repository = repository;
             _view = view;
 
-            _view.LoadMaze += _repository.Load;
-            _view.SaveMaze += _repository.Save;
-            _view.DeleteMaze += _repository.Delete;
+            _view.LoadingMaze += _repository.Loading;
+            _view.SavingMaze += _repository.Saving;
+            _view.DeletingMaze += _repository.Deleting;
 
             _repository.CommandExecuted += _view.OnRepositoryCommandExecuted;
             _repository.CommandError += _view.OnRepositoryCommandError;

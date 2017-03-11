@@ -18,10 +18,10 @@ namespace Navigation.App.Repository
         IEnumerable<string> MazeNames { get; }
         IEnumerable<StandartMaze> Mazes { get; }
 
-        void Save(StandartMaze maze, string name);
+        void Saving(StandartMaze maze, string name);
 
-        StandartMaze Load(string name);
+        StandartMaze Loading(string name);
 
-        void Delete(string name);
+        void Deleting(string name);
     }
 }

@@ -36,7 +36,7 @@ namespace Navigation.UI.Windows
                         new ToolStripButton("Репозиторий лабиринтов").TuneItem()
                             .WithOnClick((sender, args) =>
                             {
-                                var window = new BaseWindow()
+                                /*var window = new BaseWindow()
                                 {
                                     Height = 300
                                 };
@@ -64,7 +64,7 @@ namespace Navigation.UI.Windows
 
                                         var mazeName = mazeNames[listBox.SelectedIndex];
 
-                                        GameViewer.MazeViewer.StandartMaze = Repository.Load(mazeName);
+                                        GameViewer.MazeViewer.StandartMaze = Repository.Loading(mazeName);
 
                                         Canvas.Invalidate();
 
@@ -82,7 +82,7 @@ namespace Navigation.UI.Windows
                                         mazeNames.RemoveAt(listBox.SelectedIndex);
                                         listBox.Items.RemoveAt(listBox.SelectedIndex);
 
-                                        Repository.Delete(mazeName);
+                                        Repository.Deleting(mazeName);
                                     }), 0, 2);
                                 table.Controls.Add(new Button().TuneControl()
                                     .WithText("Сохранить текущий")
@@ -145,7 +145,7 @@ namespace Navigation.UI.Windows
 
                                 window.MainPanel.Controls.Add(table);
 
-                                window.ShowDialog(this);
+                                window.ShowDialog(this);*/
                             })),
                 new ToolStripMenuItem("Редактор").TuneItem()
                     .WithDropDownItems(
