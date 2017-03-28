@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
-using Navigation.App.Repository;
 using Navigation.App.Windows.Controls;
-using Navigation.Domain.Mazes;
+using Navigation.Domain.Game.Mazes;
+using Navigation.Domain.Repository;
 using Navigation.Infrastructure;
 using Navigation.UI.Windows.Controls;
 
@@ -9,9 +9,9 @@ namespace Navigation.UI
 {
     public class MazeViewer
     {
-        public StandartMaze StandartMaze;
+        public IMaze StandartMaze;
 
-        public MazeViewer(StandartMaze standartMaze)
+        public MazeViewer(IMaze standartMaze)
         {
             StandartMaze = standartMaze;
         }
@@ -23,10 +23,10 @@ namespace Navigation.UI
 
         public void SaveMaze(MazeRepository repository, string name)
         {
-            repository.Saving(StandartMaze, name);
+            repository.Save(StandartMaze, name);
         }
 
-        public static StandartMaze GetDefaultMaze()
+        public static IMaze GetDefaultMaze()
         {
             return new StandartMaze(new Wall[]{
                 new Wall(new Line(50, 25, 75, 25)),

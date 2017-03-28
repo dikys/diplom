@@ -1,5 +1,5 @@
 ﻿using System;
-using Navigation.Domain.Robot;
+using Navigation.Domain.Game.Robot;
 
 namespace Navigation.App
 {
@@ -10,7 +10,7 @@ namespace Navigation.App
             
         }
 
-        public MobileRobot CreateRobot()
+        public IMobileRobot CreateRobot()
         {
             return null;
         }

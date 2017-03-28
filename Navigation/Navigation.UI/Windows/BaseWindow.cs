@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Navigation.App.Extensions;
 using Navigation.App.Windows.Controls;
+using Navigation.UI.Extensions;
 
-namespace Navigation.App.Windows
+namespace Navigation.UI.Windows
 {
     public class BaseWindow : Form
     {
@@ -20,13 +21,10 @@ namespace Navigation.App.Windows
             FormBorderStyle = FormBorderStyle.None;
             StartPosition = FormStartPosition.CenterParent;
             
-             var controlsTable = new TableLayoutPanel()
-             {
-                 Dock = DockStyle.Fill
-             };
-            controlsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-            controlsTable.RowStyles.Add(new RowStyle(SizeType.AutoSize, 30));
-            controlsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+             var controlsTable = new TableLayoutPanel() { Dock = DockStyle.Fill }
+                .WithColumnStyles(new ColumnStyle(SizeType.Percent, 100))
+                .WithRowStyles(new RowStyle(SizeType.AutoSize, 30))
+                .WithRowStyles(new RowStyle(SizeType.Percent, 100));
             Controls.Add(controlsTable);
             
             TopMenuStrip = new MenuStrip()

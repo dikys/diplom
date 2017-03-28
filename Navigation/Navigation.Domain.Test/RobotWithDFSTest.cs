@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Navigation.Domain.Robot;
-using Navigation.Domain.Robot.Visions;
-using Navigation.Domain.Robot.Visions.Sensors;
-using Navigation.Domain.Strategies.DFS;
+using Navigation.Domain.Game.Robot;
+using Navigation.Domain.Game.Robot.Visions;
+using Navigation.Domain.Game.Robot.Visions.Sensors;
+using Navigation.Domain.Game.Strategies.DFS;
 using Navigation.Infrastructure;
 using Ninject;
 
@@ -23,7 +23,7 @@ namespace Navigation.Domain.Test
                 new Point(45, 45),
                 MainFactory.GetDefaultMaze());
 
-            var robot = (RobotWithDFS)container.Get<MobileRobot>();
+            var robot = (RobotWithDFS)container.Get<IMobileRobot>();
 
             robot.Run();
 
@@ -39,7 +39,7 @@ namespace Navigation.Domain.Test
                  new Point(45, 45),
                  MainFactory.GetDefaultMaze(3));
 
-            var robot = (RobotWithDFS)container.Get<MobileRobot>();
+            var robot = (RobotWithDFS)container.Get<IMobileRobot>();
 
             robot.Run();
 

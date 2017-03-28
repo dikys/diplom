@@ -37,3 +37,16 @@ C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debu
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.csprojResolveAssemblyReference.cache
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.dll
 C:\Users\Вадим\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.App.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.App.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.Domain.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.Infrastructure.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\System.Collections.Immutable.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.Domain.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Navigation.Infrastructure.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\System.Collections.Immutable.xml
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.csprojResolveAssemblyReference.cache
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.pdb

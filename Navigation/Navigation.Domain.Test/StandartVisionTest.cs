@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Navigation.Domain.Robot.Visions;
-using Navigation.Domain.Robot.Visions.Sensors;
-using Navigation.Domain.Strategies.DFS;
+using Navigation.Domain.Game.Robot.Visions;
+using Navigation.Domain.Game.Robot.Visions.Sensors;
+using Navigation.Domain.Game.Strategies.DFS;
 using Navigation.Infrastructure;
 using Ninject;
 

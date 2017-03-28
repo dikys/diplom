@@ -20,3 +20,14 @@ D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain\bin\Debug\System.C
 D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.csprojResolveAssemblyReference.cache
 D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.dll
 D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Navigation.Domain.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Navigation.Domain.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Navigation.Infrastructure.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\System.Collections.Immutable.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Navigation.Infrastructure.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\System.Collections.Immutable.xml
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.pdb

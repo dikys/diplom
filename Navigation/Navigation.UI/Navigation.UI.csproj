@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.1.37.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -68,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\MenuStripExtension.cs" />
+    <Compile Include="Extensions\TableLayoutPanelExtension.cs" />
     <Compile Include="Extensions\ToolStripButtonExtension.cs" />
     <Compile Include="Extensions\ToolStripItemExtension.cs" />
     <Compile Include="Extensions\ToolStripMenuItemExtension.cs" />
@@ -84,6 +88,9 @@
     <Compile Include="GameViewer.cs" />
     <Compile Include="Windows\Controls\Focus.cs" />
     <Compile Include="Windows\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\MainWindow2.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Extensions\PointExtension.cs" />

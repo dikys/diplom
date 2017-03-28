@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Navigation.Domain.Mazes;
+using Navigation.Domain.Game.Mazes;
 
 namespace Navigation.App.Views
 {
-    public interface IRepositoryView
+    public interface IRepositoryView : IView
     {
-        event Func<string, StandartMaze> LoadingMaze;
-        event Action<StandartMaze, string> SavingMaze;
-        event Action<string> DeletingMaze;
-        
-        void OnRepositoryCommandExecuted(string commandName, string message);
-        void OnRepositoryCommandError(string commandName, string message);
-        void OnRepositoryAddedMaze(string name);
-        void OnRepositoryRemovedMaze(string name);
+        BindingList<string> MazeNames { get; }
+        string SelectedName { set; get; }
+
+        event Action LoadMaze;
+        event Action<IMaze, string> SaveMaze;
+        event Action DeleteMaze;
+        event Action<string> ChangeMazeName;
+
+        void SetMazeNames(List<string> names);
+
+        void ShowError(string message);
     }
 }

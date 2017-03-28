@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
 using Navigation.App.Windows.Controls;
-using Navigation.Domain.Robot;
-using Navigation.Domain.Strategies.DFS;
+using Navigation.Domain.Game.Robot;
 using Navigation.UI.Windows.Controls;
 using Point = Navigation.Infrastructure.Point;
 
@@ -11,7 +10,7 @@ namespace Navigation.UI
     {
         public MazeViewer MazeViewer;
 
-        private MobileRobot _robot;
+        private IMobileRobot _robot;
         private Canvas _canvas;
 
         public GameViewer()

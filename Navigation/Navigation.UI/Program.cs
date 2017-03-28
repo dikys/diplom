@@ -1,5 +1,16 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 using Navigation.UI.Windows;
+using Navigation.App.Windows;
+using Navigation.App.Views;
+using Navigation.App.Extensions;
+using Navigation.App.Presenters;
+using Navigation.App.Presenters.MainWindow;
+using Navigation.App.Presenters.Repository;
+using Navigation.Domain.Repository;
+using Ninject;
 
 /*
  *  Планы:
@@ -30,10 +41,55 @@ namespace Navigation.UI
 {
     public class Program
     {
+        static IPresenter CreateMainPresenter()
+        {
+            var container = new StandardKernel();
+            
+            // репозиторий
+            container.Bind<IRepositoryPresenter>()
+                .To<RepositoryPresenter>()
+                .InSingletonScope();
+            container.Bind<IRepositoryView>()
+                .To<RepositoryWindow>()
+                .InSingletonScope();
+            container.Bind<IMazeRepository>()
+                .To<MazeRepository>()
+                .InSingletonScope()
+                .WithConstructorArgument("path", "mazes/");
+
+            // главное окно
+            container.Bind<IMainWindowPresenter>()
+                .To<MainWindowPresenter>()
+                .InSingletonScope()
+                .WithConstructorArgument("presenters",
+                    new List<IPresenter>
+                    {
+                        container.Get<IRepositoryPresenter>()
+                    });
+            container.Bind<IMainWindowView>()
+                .To<MainWindow>()
+                .InSingletonScope();
+
+            /*//создаем контроллеры
+            var repositoryPresenter = container.Get<RepositoryPresenter>();
+            
+            var window = new BaseWindow();
+            window.TopMenuStrip.WithItems(
+                new ToolStripButton("Открыть Репозиторий")
+                .WithToolTipText("Репозиторий")
+                .WithOnClick((s, e) =>
+                {
+                    repositoryPresenter.ShowView();
+                }));*/
+
+            return container.Get<IMainWindowPresenter>();
+        }
+
         static void Main(string[] args)
         {
-            Application.Run(new RepositoryWindow());
-            //Application.Run(new MainWindow());
+            var mainPresenter = CreateMainPresenter();
+            
+            mainPresenter.ShowView();
         }
     }
 }

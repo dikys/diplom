@@ -48,20 +48,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\MazeHaveGapException.cs" />
-    <Compile Include="GameModel.cs" />
-    <Compile Include="IGameModel.cs" />
-    <Compile Include="Mazes\StandartMaze.cs" />
+    <Compile Include="Game\GameModel.cs" />
+    <Compile Include="Game\IGameModel.cs" />
+    <Compile Include="Game\Mazes\IMaze.cs" />
+    <Compile Include="Game\Mazes\StandartMaze.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Robot\Visions\IRobotVision.cs" />
-    <Compile Include="Robot\Visions\Sensors\StandartSensor.cs" />
-    <Compile Include="Robot\Visions\Sensors\DistanceSensorResult.cs" />
-    <Compile Include="Robot\Visions\Sensors\IDistanceSensor.cs" />
-    <Compile Include="Robot\Visions\RobotVisionResult.cs" />
-    <Compile Include="Robot\MobileRobot.cs" />
-    <Compile Include="Strategies\DFS\RobotWithDFS.cs" />
-    <Compile Include="Robot\Visions\StandartVision.cs" />
-    <Compile Include="Strategies\StrategyInfoAttribute.cs" />
-    <Compile Include="UpdatableGameModel.cs" />
+    <Compile Include="Repository\IMazeRepository.cs" />
+    <Compile Include="Repository\MazeRepository.cs" />
+    <Compile Include="Repository\Representations\LineRepresentation.cs" />
+    <Compile Include="Repository\Representations\MazeRepresentation.cs" />
+    <Compile Include="Repository\Representations\PointRepresentation.cs" />
+    <Compile Include="Repository\Representations\WallRepresentation.cs" />
+    <Compile Include="Game\Robot\IMobileRobot.cs" />
+    <Compile Include="Game\Robot\Visions\IRobotVision.cs" />
+    <Compile Include="Game\Robot\Visions\Sensors\DistanceSensorResult.cs" />
+    <Compile Include="Game\Robot\Visions\Sensors\IDistanceSensor.cs" />
+    <Compile Include="Game\Robot\Visions\RobotVisionResult.cs" />
+    <Compile Include="Game\Robot\MobileRobot.cs" />
+    <Compile Include="Game\Strategies\DFS\RobotWithDFS.cs" />
+    <Compile Include="Game\Robot\Visions\StandartVision.cs" />
+    <Compile Include="Game\Strategies\StrategyInfoAttribute.cs" />
+    <Compile Include="Game\UpdatableGameModel.cs" />
+    <Compile Include="Game\Robot\Visions\Sensors\StandartSensor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Navigation.Infrastructure\Navigation.Infrastructure.csproj">

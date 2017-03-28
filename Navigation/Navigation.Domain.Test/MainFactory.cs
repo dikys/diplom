@@ -1,37 +1,37 @@
 ﻿using System.Linq;
+using Navigation.Domain.Game.Mazes;
+using Navigation.Domain.Game.Robot;
+using Navigation.Domain.Game.Robot.Visions;
+using Navigation.Domain.Game.Robot.Visions.Sensors;
 using Ninject;
-using Navigation.Domain.Robot.Visions.Sensors;
-using Navigation.Domain.Robot;
-using Navigation.Domain.Robot.Visions;
 using Navigation.Infrastructure;
-using Navigation.Domain.Mazes;
 
 namespace Navigation.Domain.Test
 {
     public static class MainFactory
     {
-        public static StandardKernel CreateContainer<TRobot, TVision, TSensor>(Point robotPosition, StandartMaze standartMaze, double minPassageSize = 5, double rotationAngle = 0.017)
-            where TRobot : MobileRobot
+        public static StandardKernel CreateContainer<TRobot, TVision, TSensor>(Point robotPosition, IMaze standartMaze, double minPassageSize = 5, double rotationAngle = 0.017)
+            where TRobot : IMobileRobot
             where TVision : IRobotVision
             where TSensor : IDistanceSensor
         {
             var container = new StandardKernel();
 
-            container.Bind<StandartMaze>().ToConstant(standartMaze).InSingletonScope();
+            container.Bind<IMaze>().ToConstant(standartMaze).InSingletonScope();
             container.Bind<IDistanceSensor>()
                 .To<TSensor>()
                 .WithConstructorArgument("rotationAngle", rotationAngle);
             container.Bind<IRobotVision>()
                 .To<TVision>()
                 .WithConstructorArgument("minPassageSize", minPassageSize);
-            container.Bind<MobileRobot>()
+            container.Bind<IMobileRobot>()
                 .To<TRobot>()
                 .WithConstructorArgument("position", robotPosition);
 
             return container;
         }
 
-        public static StandartMaze GetDefaultMaze(params int[] wallFinishIndexes)
+        public static IMaze GetDefaultMaze(params int[] wallFinishIndexes)
         {
             var result = new StandartMaze(
                 new Wall[]

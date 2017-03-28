@@ -8,3 +8,8 @@ D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Infrastructure\bin\Debug\
 D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.csprojResolveAssemblyReference.cache
 D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.dll
 D:\RepositoriesFromGitHub\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\bin\Debug\Navigation.Infrastructure.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\bin\Debug\Navigation.Infrastructure.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.csprojResolveAssemblyReference.cache
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.pdb
