@@ -12,46 +12,18 @@ namespace Navigation.App.Repository.Presenters
     public class RepositoryPresenter : IRepositoryPresenter
     {
         private readonly IMazeRepository _repository;
-        private readonly IRepositoryView _view;
+        private readonly Func<IRepositoryView> _viewCreator;
         private readonly IGameModel _gameModel;
         private readonly IDialogFactory _dialogFactory;
 
-        public RepositoryPresenter(IRepositoryView view, IMazeRepository repository, IGameModel gameModel, IDialogFactory dialogFactory)
+        private IRepositoryView _view;
+
+        public RepositoryPresenter(Func<IRepositoryView> viewCreator, IMazeRepository repository, IGameModel gameModel, IDialogFactory dialogFactory)
         {
             _repository = repository;
-            _view = view;
+            _viewCreator = viewCreator;
             _gameModel = gameModel;
             _dialogFactory = dialogFactory;
-
-            _view.SetMazeNames(_repository.MazeNames.ToList());
-            
-            _view.LoadMaze += () => OnLoadMaze(_view.SelectedName);
-            _view.SaveMaze += () =>
-            {
-                var dialog = _dialogFactory.CreateDialog(new[]
-                {
-                    new DialogElement("Имя", DialogTypes.Input)
-                });
-
-                if (dialog.OpenDialog() == ResultOfDialog.Yes)
-                {
-                    OnSaveMaze(dialog.Elements.First().Value);
-                }
-            };
-            _view.DeleteMaze += () => OnDeleteMaze(_view.SelectedName);
-            _view.ChangeMazeName += () =>
-            {
-                var dialog = _dialogFactory.CreateDialog(new []
-                {
-                    new DialogElement("Старое имя", DialogTypes.Text, -1, _view.SelectedName), 
-                    new DialogElement("Новое имя", DialogTypes.Input)
-                });
-
-                if (dialog.OpenDialog() == ResultOfDialog.Yes)
-                {
-                    OnChangeMazeName(_view.SelectedName, dialog.Elements[1].Value);
-                }
-            };
         }
 
         public void OnLoadMaze(string name)
@@ -137,6 +109,38 @@ namespace Navigation.App.Repository.Presenters
 
         public void ShowView()
         {
+            _view = _viewCreator.Invoke();
+
+            _view.SetMazeNames(_repository.MazeNames.ToList());
+
+            _view.LoadMaze += () => OnLoadMaze(_view.SelectedName);
+            _view.SaveMaze += () =>
+            {
+                var dialog = _dialogFactory.CreateDialog(new[]
+                {
+                    new DialogElement("Имя", DialogTypes.Input)
+                });
+
+                if (dialog.OpenDialog() == ResultOfDialog.Yes)
+                {
+                    OnSaveMaze(dialog.Elements.First().Value);
+                }
+            };
+            _view.DeleteMaze += () => OnDeleteMaze(_view.SelectedName);
+            _view.ChangeMazeName += () =>
+            {
+                var dialog = _dialogFactory.CreateDialog(new[]
+                {
+                    new DialogElement("Старое имя", DialogTypes.Text, -1, _view.SelectedName),
+                    new DialogElement("Новое имя", DialogTypes.Input)
+                });
+
+                if (dialog.OpenDialog() == ResultOfDialog.Yes)
+                {
+                    OnChangeMazeName(_view.SelectedName, dialog.Elements[1].Value);
+                }
+            };
+
             _view.Show();
             _view.SetSelectedName(_view.MazeNames[0]);
         }

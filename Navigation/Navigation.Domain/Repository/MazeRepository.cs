@@ -41,7 +41,7 @@ namespace Navigation.Domain.Repository
 
         public IMaze Load(string name)
         {
-            return (IMaze)JsonConvert.DeserializeObject<MazeRepresentation>(File.ReadAllText(PathTo(name))); ;
+            return (StandartMaze)JsonConvert.DeserializeObject<MazeRepresentation>(File.ReadAllText(PathTo(name))); ;
         }
 
         public void Delete(string name)

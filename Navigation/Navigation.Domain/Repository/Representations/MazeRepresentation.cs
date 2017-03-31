@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Navigation.Domain.Game.Mazes;
 using Navigation.Infrastructure;
@@ -20,7 +21,10 @@ namespace Navigation.Domain.Repository.Representations
         
         public static explicit operator StandartMaze(MazeRepresentation mazeRepresentation)
         {
-            return new StandartMaze(mazeRepresentation.Walls.Cast<Wall>().ToArray());
+            var walls = new List<Wall>();
+            mazeRepresentation.Walls.ForEach(w => walls.Add((Wall)w));
+            
+            return new StandartMaze(walls.ToArray());
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Navigation.UI.Windows
 
             table.Controls.Add(new Button()
                 .TuneControl()
-                .WithText("Загрузить [Не робит]")
+                .WithText("Загрузить [Вроде меняет модель)]")
                 .WithOnClick((s, e) => LoadMaze?.Invoke()), 0, 1);
             table.Controls.Add(new Button()
                 .TuneControl()

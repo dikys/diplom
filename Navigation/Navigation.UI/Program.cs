@@ -22,6 +22,7 @@ using Navigation.Domain.Repository;
 using Navigation.Infrastructure;
 using Navigation.UI.Dialogs;
 using Ninject;
+using Ninject.Parameters;
 
 /*
  *  Планы:
@@ -95,10 +96,11 @@ namespace Navigation.UI
             // репозиторий
             container.Bind<IRepositoryPresenter>()
                 .To<RepositoryPresenter>()
-                .InSingletonScope();
+                .InSingletonScope()
+                .WithConstructorArgument("viewCreator",
+                    (Func<IRepositoryView>) (() => container.Get<IRepositoryView>()));
             container.Bind<IRepositoryView>()
-                .To<RepositoryWindow>()
-                .InSingletonScope();
+                .To<RepositoryWindow>();
             container.Bind<IMazeRepository>()
                 .To<MazeRepository>()
                 .InSingletonScope()
