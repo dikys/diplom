@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using Navigation.App.Windows.Controls;
 using Navigation.Domain.Game.Mazes;
 using Navigation.Domain.Repository;
 using Navigation.Infrastructure;

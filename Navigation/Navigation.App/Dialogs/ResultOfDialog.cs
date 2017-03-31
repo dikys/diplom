@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Navigation.App.Views
+namespace Navigation.App.Dialogs
 {
-    public interface IView
+    public enum ResultOfDialog
     {
-        void Show();
-        void Close();
+        Yes,
+        No
     }
 }

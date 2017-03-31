@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Navigation.App.Extensions;
-using Navigation.App.Views;
-using Navigation.App.Windows;
+using Navigation.App.Repository;
 using Navigation.Domain.Game.Mazes;
 using Navigation.UI.Extensions;
 
@@ -35,11 +34,25 @@ namespace Navigation.UI.Windows
                 .WithRowStyles(new RowStyle(SizeType.Absolute, 30));
             MainPanel.Controls.Add(table);
 
-            _listMazes = new ListBox().TuneControl();
-            _listMazes.BackColor = Color.FromArgb(225, 230, 250);
-            _listMazes.ForeColor = Color.FromArgb(55, 93, 129);
-            _listMazes.DataSource = MazeNames;
-            _listMazes.SelectedIndexChanged += (s, e) => SelectedName = _listMazes.SelectedItem.ToString();
+            _listMazes = new ListBox()
+                .TuneControl()
+                .WithProperty("BackColor", Color.FromArgb(225, 230, 250))
+                .WithProperty("ForeColor", Color.FromArgb(55, 93, 129))
+                .WithProperty("DataSource", MazeNames);
+                //.OnEvent("SelectedIndexChanged", () => SelectedName = _listMazes.SelectedItem.ToString());
+
+            _listMazes.SelectedIndexChanged +=
+                (s, e) =>
+                {
+                    if (_listMazes.SelectedIndex != -1)
+                        SelectedName = _listMazes.SelectedItem.ToString();
+                    else
+                    {
+                        _listMazes.SelectedIndex = 0;
+
+                        SelectedName = MazeNames[0];
+                    }
+                };
             table.Controls.Add(_listMazes, 0, 0);
 
             table.Controls.Add(new Button()
@@ -48,34 +61,39 @@ namespace Navigation.UI.Windows
                 .WithOnClick((s, e) => LoadMaze?.Invoke()), 0, 1);
             table.Controls.Add(new Button()
                 .TuneControl()
-                .WithText("Сохранить [не робит]")
-                .WithOnClick((s, e) => SaveMaze?.Invoke(new StandartMaze(), SelectedName)), 0, 2); // тут надо диалоговое окно использовать, которое стринг вернет))
+                .WithText("Сохранить")
+                .WithOnClick((s, e) => SaveMaze?.Invoke()), 0, 2); // тут надо диалоговое окно использовать, которое стринг вернет))
             table.Controls.Add(new Button()
                 .TuneControl()
                 .WithText("Удалить")
                 .WithOnClick((s, e) => DeleteMaze?.Invoke()), 0, 3);
             table.Controls.Add(new Button()
                 .TuneControl()
-                .WithText("Переименовать [не робит]")
-                .WithOnClick((s, e) => ChangeMazeName?.Invoke(SelectedName)), 0, 4); // тут надо диалоговое окно использовать, которое стринг вернет))
+                .WithText("Переименовать")
+                .WithOnClick((s, e) => ChangeMazeName?.Invoke()), 0, 4); // тут надо диалоговое окно использовать, которое стринг вернет))
         }
 
         public BindingList<string> MazeNames { get; }
         public string SelectedName { set; get; }
 
         public event Action LoadMaze;
-        public event Action<IMaze, string> SaveMaze;
+        public event Action SaveMaze;
         public event Action DeleteMaze;
-        public event Action<string> ChangeMazeName;
+        public event Action ChangeMazeName;
 
         public void SetMazeNames(List<string> names)
         {
             MazeNames.Clear();
 
             names.ForEach(MazeNames.Add);
-            
-            if (names.Any())
-                _listMazes.SelectedIndex = names.IndexOf(SelectedName);
+
+            if (SelectedName != null)
+                SetSelected(SelectedName);
+        }
+
+        public void SetSelectedName(string name)
+        {
+            SetSelected(name);
         }
 
         public void ShowError(string message)
@@ -85,6 +103,18 @@ namespace Navigation.UI.Windows
             window.MainPanel.Controls.Add(new Label().TuneControl().WithText(message));
 
             window.ShowDialog();
+        }
+
+        private void SetSelected(string name)
+        {
+            if (!MazeNames.Any())
+                return;
+
+            if (!MazeNames.Contains(name))
+                return;
+
+            _listMazes.SelectedIndex = MazeNames.IndexOf(name);
+            SelectedName = name;
         }
     }
 }

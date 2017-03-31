@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Navigation.App.Extensions;
-using Navigation.App.Windows.Controls;
 using Navigation.UI.Extensions;
+using Navigation.UI.Styles;
 
 namespace Navigation.UI.Windows
 {

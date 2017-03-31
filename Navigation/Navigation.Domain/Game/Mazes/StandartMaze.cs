@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using Navigation.Infrastructure;
+using Ninject;
 
 namespace Navigation.Domain.Game.Mazes
 {
@@ -13,6 +14,7 @@ namespace Navigation.Domain.Game.Mazes
         {
             Walls = walls ?? ImmutableList<Wall>.Empty;
         }
+        [Inject]
         public StandartMaze(params Wall[] walls) : this(walls.ToImmutableList())
         { }
 

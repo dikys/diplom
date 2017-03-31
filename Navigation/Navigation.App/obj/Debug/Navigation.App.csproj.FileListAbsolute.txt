@@ -50,3 +50,5 @@ C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\De
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.csprojResolveAssemblyReference.cache
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.dll
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\obj\Debug\Navigation.App.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Ninject.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.App\bin\Debug\Ninject.xml

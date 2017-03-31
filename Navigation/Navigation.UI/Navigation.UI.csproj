@@ -70,6 +70,7 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\DialogResultExtensions.cs" />
     <Compile Include="Extensions\MenuStripExtension.cs" />
     <Compile Include="Extensions\TableLayoutPanelExtension.cs" />
     <Compile Include="Extensions\ToolStripButtonExtension.cs" />
@@ -80,8 +81,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Extensions\ControlExtension.cs" />
-    <Compile Include="Windows\Controls\BaseColorTable.cs" />
-    <Compile Include="Windows\Controls\BaseMenuStripRender.cs" />
+    <Compile Include="Styles\BaseColorTable.cs" />
+    <Compile Include="Styles\BaseMenuStripRender.cs" />
     <Compile Include="Windows\Controls\Canvas.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -97,6 +98,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Windows\RepositoryWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FirstDialogWindow.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -133,6 +137,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -31,3 +31,5 @@ C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.csprojResolveAssemblyReference.cache
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.dll
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\obj\Debug\Navigation.Domain.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Ninject.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain\bin\Debug\Ninject.xml

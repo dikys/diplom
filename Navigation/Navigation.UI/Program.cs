@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Windows.Forms;
+using Navigation.App.Common;
+using Navigation.App.Dialogs;
+using Navigation.App.Dialogs.Elements;
+using Navigation.App.Dialogs.Factoryes;
 using Navigation.UI.Windows;
-using Navigation.App.Windows;
-using Navigation.App.Views;
-using Navigation.App.Extensions;
-using Navigation.App.Presenters;
-using Navigation.App.Presenters.MainWindow;
-using Navigation.App.Presenters.Repository;
+using Navigation.App.MainWindow;
+using Navigation.App.MainWindow.Presenters;
+using Navigation.App.Repository;
+using Navigation.App.Repository.Presenters;
+using Navigation.Domain.Game;
+using Navigation.Domain.Game.Mazes;
+using Navigation.Domain.Game.Robot;
+using Navigation.Domain.Game.Robot.Visions;
+using Navigation.Domain.Game.Robot.Visions.Sensors;
+using Navigation.Domain.Game.Strategies.DFS;
 using Navigation.Domain.Repository;
+using Navigation.Infrastructure;
+using Navigation.UI.Dialogs;
 using Ninject;
 
 /*
@@ -44,7 +55,43 @@ namespace Navigation.UI
         static IPresenter CreateMainPresenter()
         {
             var container = new StandardKernel();
-            
+
+            // игровая модель
+            container.Bind<IGameModel>()
+                .To<GameModel>()
+                .InSingletonScope();
+            container.Bind<IMaze>()
+                .To<StandartMaze>()
+                .InSingletonScope()
+                .WithConstructorArgument("walls",
+                    new[]
+                    {
+                        new Wall(new Line(50, 25, 75, 25)),
+                        new Wall(new Line(75, 25, 100, 50)),
+                        new Wall(new Line(100, 50, 100, 75)),
+                        new Wall(new Line(100, 75, 75, 100)),
+                        new Wall(new Line(75, 100, 50, 100)),
+                        new Wall(new Line(50, 100, 25, 75)),
+                        new Wall(new Line(25, 75, 25, 50)),
+                        new Wall(new Line(25, 50, 50, 25)),
+
+                        new Wall(new Line(75, 50, 75, 75)),
+                        new Wall(new Line(75, 75, 50, 75)),
+                        new Wall(new Line(50, 75, 75, 50))
+                    });
+            container.Bind<IMobileRobot>()
+                .To<RobotWithDFS>()
+                .InSingletonScope()
+                .WithConstructorArgument("position", new Point());
+            container.Bind<IRobotVision>()
+                .To<StandartVision>()
+                .InSingletonScope()
+                .WithConstructorArgument("minPassageSize", 5.0);
+            container.Bind<IDistanceSensor>()
+                .To<StandartSensor>()
+                .InSingletonScope()
+                .WithConstructorArgument("rotationAngle", 0.01);
+
             // репозиторий
             container.Bind<IRepositoryPresenter>()
                 .To<RepositoryPresenter>()
@@ -56,6 +103,11 @@ namespace Navigation.UI
                 .To<MazeRepository>()
                 .InSingletonScope()
                 .WithConstructorArgument("path", "mazes/");
+            container.Bind<IDialogFactory>()
+                .To<DialogFactory>();
+            container.Bind<IDialogWindow>()
+                .To<FirstDialogWindow>()
+                .WithConstructorArgument("elements", new DialogElement[] {});
 
             // главное окно
             container.Bind<IMainWindowPresenter>()
@@ -69,18 +121,6 @@ namespace Navigation.UI
             container.Bind<IMainWindowView>()
                 .To<MainWindow>()
                 .InSingletonScope();
-
-            /*//создаем контроллеры
-            var repositoryPresenter = container.Get<RepositoryPresenter>();
-            
-            var window = new BaseWindow();
-            window.TopMenuStrip.WithItems(
-                new ToolStripButton("Открыть Репозиторий")
-                .WithToolTipText("Репозиторий")
-                .WithOnClick((s, e) =>
-                {
-                    repositoryPresenter.ShowView();
-                }));*/
 
             return container.Get<IMainWindowPresenter>();
         }

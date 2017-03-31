@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using Navigation.App.Extensions;
-using Navigation.App.Windows.Controls;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
 

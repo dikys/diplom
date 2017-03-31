@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
+using Navigation.App.Dialogs;
 
 namespace Navigation.App.Extensions
 {
@@ -25,6 +27,40 @@ namespace Navigation.App.Extensions
 
             return control;
         }
+
+        public static TControl WithControls<TControl>(this TControl control, params Control[] controls)
+            where TControl : Control
+        {
+            control.Controls.AddRange(controls);
+
+            return control;
+        }
+
+        public static TControl WithProperty<TControl>(this TControl control, string propertyName, Object value)
+            where TControl : Control
+        {
+            control.GetType().GetProperty(propertyName).SetValue(control, value);
+
+            return control;
+        }
+
+        /*public static TControl OnEvent<TControl>(this TControl control, string eventName, Action action)
+            where TControl : Control
+        {
+            var tDelegate = control.GetType().GetEvent(eventName);
+            
+            Action<Object, EventArgs> ev = (sender, e) => action();
+
+            Delegate d = Delegate.CreateDelegate(tDelegate.EventHandlerType, ev.Method);
+
+            MethodInfo addHandler = tDelegate.GetAddMethod();
+            Object[] addHandlerArgs = { d };
+            addHandler.Invoke(control, addHandlerArgs);
+
+            //control.GetType().GetEvent(eventName).AddEventHandler(control, Delegate.CreateDelegate(tDelegate.EventHandlerType, ev.Method));
+
+            return control;
+        }*/
 
         public static TControl WithTextAlign<TControl>(this TControl control, ContentAlignment alignment)
             where TControl : Label

@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Navigation.Domain.Game.Mazes;
+using Navigation.App.Common;
 
-namespace Navigation.App.Views
+namespace Navigation.App.Repository
 {
     public interface IRepositoryView : IView
     {
         BindingList<string> MazeNames { get; }
-        string SelectedName { set; get; }
+        string SelectedName { get; }
 
         event Action LoadMaze;
-        event Action<IMaze, string> SaveMaze;
+        event Action SaveMaze;
         event Action DeleteMaze;
-        event Action<string> ChangeMazeName;
+        event Action ChangeMazeName;
 
         void SetMazeNames(List<string> names);
+
+        void SetSelectedName(string name);
 
         void ShowError(string message);
     }

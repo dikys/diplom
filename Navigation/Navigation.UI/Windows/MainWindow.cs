@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Navigation.App.Extensions;
-using Navigation.App.Presenters;
-using Navigation.App.Presenters.Repository;
-using Navigation.App.Views;
+using Navigation.App.MainWindow;
+using Navigation.App.Repository;
+using Navigation.App.Repository.Presenters;
 
 namespace Navigation.UI.Windows
 {
@@ -16,9 +12,12 @@ namespace Navigation.UI.Windows
         public MainWindow()
         {
             TopMenuStrip.WithItems(
+                new ToolStripButton("Запустить"),
                 new ToolStripButton("Открыть Репозиторий")
                     .WithToolTipText("Репозиторий")
                     .WithOnClick((s, e) => ShowViewOfPresenter?.Invoke(typeof(IRepositoryPresenter))));
+
+           // MainPanel.Controls.
         }
 
         public event Action<Type> ShowViewOfPresenter;

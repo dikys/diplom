@@ -1,4 +1,4 @@
-﻿namespace Navigation.App.Presenters
+﻿namespace Navigation.App.Common
 {
     public interface IPresenter
     {

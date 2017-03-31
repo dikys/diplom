@@ -1,28 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using Navigation.App.Presenters.Repository;
-using Navigation.App.Views;
+using Navigation.App.Common;
+using Navigation.Domain.Game;
 
-namespace Navigation.App.Presenters.MainWindow
+namespace Navigation.App.MainWindow.Presenters
 {
     public class MainWindowPresenter : IMainWindowPresenter
     {
         private readonly IMainWindowView _mainWindowView;
+        private readonly IGameModel _gameModel;
         private readonly List<IPresenter> _presenters;
 
-        public MainWindowPresenter(IMainWindowView mainWindowView, List<IPresenter> presenters)
+        public MainWindowPresenter(IMainWindowView mainWindowView, IGameModel gameModel, List<IPresenter> presenters)
         {
             _mainWindowView = mainWindowView;
+            _gameModel = gameModel;
             _presenters = presenters;
 
             _mainWindowView.ShowViewOfPresenter += OnShowViewOfPresenter;
         }
         
         public void ShowView() => this._mainWindowView.Show();
-
         public void CloseView() => this._mainWindowView.Close();
+
         public void OnShowViewOfPresenter(Type presenterType) => _presenters.Single(presenterType.IsInstanceOfType).ShowView();
+        public void OnSetMazeName(string name) => System.Console.WriteLine("MainWindowPresenter:OnSetMazeName - " + name);
     }
 }

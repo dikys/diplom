@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using Navigation.App.Extensions;
-using Navigation.App.Windows;
-using Navigation.App.Windows.Controls;
 using Navigation.Domain.Repository;
 using Navigation.UI.Windows.Controls;
 

@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using Navigation.App.Windows.Controls;
 using Navigation.Domain.Game.Robot;
 using Navigation.UI.Windows.Controls;
 using Point = Navigation.Infrastructure.Point;
