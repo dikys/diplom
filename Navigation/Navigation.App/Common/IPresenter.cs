@@ -2,6 +2,8 @@
 {
     public interface IPresenter
     {
+        bool IsShownView { get; }
+
         void ShowView();
 
         void CloseView();

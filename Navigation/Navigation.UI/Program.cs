@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Windows.Forms;
+using System.Drawing;
 using Navigation.App.Common;
+using Navigation.App.Common.Presenters;
+using Navigation.App.Common.Views;
 using Navigation.App.Dialogs;
 using Navigation.App.Dialogs.Elements;
-using Navigation.App.Dialogs.Factoryes;
 using Navigation.UI.Windows;
 using Navigation.App.MainWindow;
-using Navigation.App.MainWindow.Presenters;
+using Navigation.App.Presenters;
 using Navigation.App.Repository;
-using Navigation.App.Repository.Presenters;
 using Navigation.Domain.Game;
 using Navigation.Domain.Game.Mazes;
 using Navigation.Domain.Game.Robot;
@@ -20,9 +18,9 @@ using Navigation.Domain.Game.Robot.Visions.Sensors;
 using Navigation.Domain.Game.Strategies.DFS;
 using Navigation.Domain.Repository;
 using Navigation.Infrastructure;
-using Navigation.UI.Dialogs;
 using Ninject;
 using Ninject.Parameters;
+using Point = Navigation.Infrastructure.Point;
 
 /*
  *  Планы:
@@ -98,18 +96,24 @@ namespace Navigation.UI
                 .To<RepositoryPresenter>()
                 .InSingletonScope()
                 .WithConstructorArgument("viewCreator",
-                    (Func<IRepositoryView>) (() => container.Get<IRepositoryView>()));
+                    (Func<IRepositoryView>) (() => container.Get<IRepositoryView>()))
+                .WithConstructorArgument("dialogCreator",
+                    (Func<DialogElement[], IDialogWindow>)
+                        (elements => container.Get<IDialogWindow>(
+                            new ConstructorArgument("elements", elements),
+                            new ConstructorArgument("size", new Size(300, 100)))));
             container.Bind<IRepositoryView>()
-                .To<RepositoryWindow>();
+                .To<RepositoryWindow>()
+                .WithConstructorArgument("size",
+                    new Size(350, 600));
             container.Bind<IMazeRepository>()
                 .To<MazeRepository>()
                 .InSingletonScope()
                 .WithConstructorArgument("path", "mazes/");
-            container.Bind<IDialogFactory>()
-                .To<DialogFactory>();
+            
+            // диалоговые окна
             container.Bind<IDialogWindow>()
-                .To<FirstDialogWindow>()
-                .WithConstructorArgument("elements", new DialogElement[] {});
+                .To<DialogWindow>();
 
             // главное окно
             container.Bind<IMainWindowPresenter>()

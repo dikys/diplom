@@ -1,7 +1,6 @@
 ﻿using System;
-using Navigation.App.Common;
 
-namespace Navigation.App.MainWindow
+namespace Navigation.App.Common.Presenters
 {
     public interface IMainWindowPresenter : IPresenter
     {

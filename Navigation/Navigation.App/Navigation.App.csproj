@@ -51,21 +51,19 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dialogs\Factoryes\DialogFactory.cs" />
     <Compile Include="Dialogs\ResultOfDialog.cs" />
-    <Compile Include="Dialogs\Elements\DialogTypes.cs" />
-    <Compile Include="Dialogs\Factoryes\IDialogFactory.cs" />
+    <Compile Include="Dialogs\Elements\DialogElementTypes.cs" />
     <Compile Include="Dialogs\Elements\DialogElement.cs" />
     <Compile Include="Dialogs\IDialogWindow.cs" />
     <Compile Include="Common\IPresenter.cs" />
-    <Compile Include="MainWindow\IMainWindowPresenter.cs" />
-    <Compile Include="MainWindow\Presenters\MainWindowPresenter.cs" />
-    <Compile Include="Repository\IRepositoryPresenter.cs" />
-    <Compile Include="Repository\Presenters\RepositoryPresenter.cs" />
+    <Compile Include="Common\Presenters\IMainWindowPresenter.cs" />
+    <Compile Include="Presenters\MainWindowPresenter.cs" />
+    <Compile Include="Common\Presenters\IRepositoryPresenter.cs" />
+    <Compile Include="Presenters\RepositoryPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IRepositoryView.cs" />
+    <Compile Include="Common\Views\IRepositoryView.cs" />
     <Compile Include="Common\IView.cs" />
-    <Compile Include="MainWindow\IMainWindowView.cs" />
+    <Compile Include="Common\Views\IMainWindowView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Navigation.Domain\Navigation.Domain.csproj">

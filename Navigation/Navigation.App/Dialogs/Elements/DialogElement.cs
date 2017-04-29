@@ -2,20 +2,17 @@
 {
     public struct DialogElement
     {
-        public DialogElement(string name, DialogTypes type, int id = 0, string value = "")
+        public DialogElement(string name, DialogElementTypes elementType, string value = "")
         {
             Name = name;
-            Type = type;
+            ElementType = elementType;
             Value = value;
-            Id = id;
         }
 
-        public DialogTypes Type { get; }
+        public DialogElementTypes ElementType { get; }
 
         public string Value { get; set; }
 
         public string Name { get; }
-
-        public int Id { get; }
     }
 }

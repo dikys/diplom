@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Navigation.App.Common;
 
-namespace Navigation.App.Repository
+namespace Navigation.App.Common.Views
 {
     public interface IRepositoryView : IView
     {

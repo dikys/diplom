@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Navigation.App.Common.Views;
 using Navigation.App.Extensions;
 using Navigation.App.Repository;
 using Navigation.Domain.Game.Mazes;
@@ -17,10 +18,10 @@ namespace Navigation.UI.Windows
     {
         private readonly ListBox _listMazes;
 
-        public RepositoryWindow()
+        public RepositoryWindow(Size size)
         {
-            Width = 800;
-            Height = 600;
+            Width = size.Width;
+            Height = size.Height;
 
             MazeNames = new BindingList<string>();
 
@@ -39,7 +40,7 @@ namespace Navigation.UI.Windows
                 .WithProperty("BackColor", Color.FromArgb(225, 230, 250))
                 .WithProperty("ForeColor", Color.FromArgb(55, 93, 129))
                 .WithProperty("DataSource", MazeNames);
-                //.OnEvent("SelectedIndexChanged", () => SelectedName = _listMazes.SelectedItem.ToString());
+                //.WithEventHandler("SelectedIndexChanged", () => SelectedName = _listMazes.SelectedItem.ToString());
 
             _listMazes.SelectedIndexChanged +=
                 (s, e) =>
@@ -57,20 +58,20 @@ namespace Navigation.UI.Windows
 
             table.Controls.Add(new Button()
                 .TuneControl()
-                .WithText("Загрузить [Вроде меняет модель)]")
-                .WithOnClick((s, e) => LoadMaze?.Invoke()), 0, 1);
+                .WithProperty("Text", "Загрузить [Вроде меняет модель)]")
+                .WithEventHandler("Click", (s, e) => LoadMaze?.Invoke()), 0, 1);
             table.Controls.Add(new Button()
                 .TuneControl()
-                .WithText("Сохранить")
-                .WithOnClick((s, e) => SaveMaze?.Invoke()), 0, 2); // тут надо диалоговое окно использовать, которое стринг вернет))
+                .WithProperty("Text", "Сохранить")
+                .WithEventHandler("Click", (s, e) => SaveMaze?.Invoke()), 0, 2); // тут надо диалоговое окно использовать, которое стринг вернет))
             table.Controls.Add(new Button()
                 .TuneControl()
-                .WithText("Удалить")
-                .WithOnClick((s, e) => DeleteMaze?.Invoke()), 0, 3);
+                .WithProperty("Text", "Удалить")
+                .WithEventHandler("Click", (s, e) => DeleteMaze?.Invoke()), 0, 3);
             table.Controls.Add(new Button()
                 .TuneControl()
-                .WithText("Переименовать")
-                .WithOnClick((s, e) => ChangeMazeName?.Invoke()), 0, 4); // тут надо диалоговое окно использовать, которое стринг вернет))
+                .WithProperty("Text", "Переименовать")
+                .WithEventHandler("Click", (s, e) => ChangeMazeName?.Invoke()), 0, 4); // тут надо диалоговое окно использовать, которое стринг вернет))
         }
 
         public BindingList<string> MazeNames { get; }
@@ -100,7 +101,7 @@ namespace Navigation.UI.Windows
         {
             var window = new BaseWindow();
 
-            window.MainPanel.Controls.Add(new Label().TuneControl().WithText(message));
+            window.MainPanel.Controls.Add(new Label().TuneControl().WithProperty("Text", message));
 
             window.ShowDialog();
         }

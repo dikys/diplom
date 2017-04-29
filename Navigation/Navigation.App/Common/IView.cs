@@ -1,4 +1,6 @@
-﻿namespace Navigation.App.Common
+﻿using System;
+
+namespace Navigation.App.Common
 {
     public interface IView
     {

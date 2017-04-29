@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using Navigation.App.Common.Presenters;
+using Navigation.App.Common.Views;
 using Navigation.App.Dialogs;
 using Navigation.App.Dialogs.Elements;
-using Navigation.App.Dialogs.Factoryes;
 using Navigation.Domain.Game;
 using Navigation.Domain.Repository;
 
-namespace Navigation.App.Repository.Presenters
+namespace Navigation.App.Presenters
 {
     // переименовать в Presenter
     public class RepositoryPresenter : IRepositoryPresenter
@@ -14,16 +15,23 @@ namespace Navigation.App.Repository.Presenters
         private readonly IMazeRepository _repository;
         private readonly Func<IRepositoryView> _viewCreator;
         private readonly IGameModel _gameModel;
-        private readonly IDialogFactory _dialogFactory;
+        private readonly Func<DialogElement[], IDialogWindow> _dialogCreator;
 
         private IRepositoryView _view;
 
-        public RepositoryPresenter(Func<IRepositoryView> viewCreator, IMazeRepository repository, IGameModel gameModel, IDialogFactory dialogFactory)
+        public bool IsShownView { get; private set; }
+
+        public RepositoryPresenter(Func<IRepositoryView> viewCreator,
+            IMazeRepository repository,
+            IGameModel gameModel,
+            Func<DialogElement[], IDialogWindow> dialogCreator)
         {
             _repository = repository;
             _viewCreator = viewCreator;
             _gameModel = gameModel;
-            _dialogFactory = dialogFactory;
+            _dialogCreator = dialogCreator;
+
+            IsShownView = false;
         }
 
         public void OnLoadMaze(string name)
@@ -109,6 +117,11 @@ namespace Navigation.App.Repository.Presenters
 
         public void ShowView()
         {
+            if (IsShownView)
+                return;
+
+            IsShownView = true;
+
             _view = _viewCreator.Invoke();
 
             _view.SetMazeNames(_repository.MazeNames.ToList());
@@ -116,9 +129,9 @@ namespace Navigation.App.Repository.Presenters
             _view.LoadMaze += () => OnLoadMaze(_view.SelectedName);
             _view.SaveMaze += () =>
             {
-                var dialog = _dialogFactory.CreateDialog(new[]
+                var dialog = _dialogCreator(new[]
                 {
-                    new DialogElement("Имя", DialogTypes.Input)
+                    new DialogElement("Имя", DialogElementTypes.Input)
                 });
 
                 if (dialog.OpenDialog() == ResultOfDialog.Yes)
@@ -129,10 +142,10 @@ namespace Navigation.App.Repository.Presenters
             _view.DeleteMaze += () => OnDeleteMaze(_view.SelectedName);
             _view.ChangeMazeName += () =>
             {
-                var dialog = _dialogFactory.CreateDialog(new[]
+                var dialog = _dialogCreator(new[]
                 {
-                    new DialogElement("Старое имя", DialogTypes.Text, -1, _view.SelectedName),
-                    new DialogElement("Новое имя", DialogTypes.Input)
+                    new DialogElement("Старое имя", DialogElementTypes.Text, _view.SelectedName),
+                    new DialogElement("Новое имя", DialogElementTypes.Input)
                 });
 
                 if (dialog.OpenDialog() == ResultOfDialog.Yes)
@@ -145,6 +158,10 @@ namespace Navigation.App.Repository.Presenters
             _view.SetSelectedName(_view.MazeNames[0]);
         }
 
-        public void CloseView() => _view.Close();
+        public void CloseView()
+        {
+            _view.Close();
+            IsShownView = false;
+        }
     }
 }

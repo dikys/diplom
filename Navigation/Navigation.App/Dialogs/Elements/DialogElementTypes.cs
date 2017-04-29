@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Navigation.App.Dialogs.Elements
 {
-    public enum DialogTypes
+    public enum DialogElementTypes
     {
         Text, Input
     }

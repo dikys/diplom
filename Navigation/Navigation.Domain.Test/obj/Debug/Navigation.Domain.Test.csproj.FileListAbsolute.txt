@@ -41,3 +41,5 @@ C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Tes
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.csprojResolveAssemblyReference.cache
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.dll
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\obj\Debug\Navigation.Domain.Test.pdb
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Domain.Test\bin\Debug\Newtonsoft.Json.xml

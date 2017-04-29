@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
+using Navigation.App.Common.Presenters;
+using Navigation.App.Common.Views;
 using Navigation.App.Extensions;
 using Navigation.App.MainWindow;
 using Navigation.App.Repository;
-using Navigation.App.Repository.Presenters;
+using Navigation.UI.Extensions;
 
 namespace Navigation.UI.Windows
 {
@@ -11,11 +13,13 @@ namespace Navigation.UI.Windows
     {
         public MainWindow()
         {
-            TopMenuStrip.WithItems(
+            WindowState = FormWindowState.Maximized;
+            
+            TopMenuStrip.WithItems("Items",
                 new ToolStripButton("Запустить"),
                 new ToolStripButton("Открыть Репозиторий")
-                    .WithToolTipText("Репозиторий")
-                    .WithOnClick((s, e) => ShowViewOfPresenter?.Invoke(typeof(IRepositoryPresenter))));
+                    .WithProperty("ToolTipText", "Репозиторий")
+                    .WithEventHandler("Click", (s, e) => ShowViewOfPresenter?.Invoke(typeof(IRepositoryPresenter))));
 
            // MainPanel.Controls.
         }

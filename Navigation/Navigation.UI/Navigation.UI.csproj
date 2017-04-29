@@ -70,13 +70,10 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ComponentExtension.cs" />
     <Compile Include="Extensions\DialogResultExtensions.cs" />
-    <Compile Include="Extensions\MenuStripExtension.cs" />
     <Compile Include="Extensions\TableLayoutPanelExtension.cs" />
-    <Compile Include="Extensions\ToolStripButtonExtension.cs" />
     <Compile Include="Extensions\ToolStripItemExtension.cs" />
-    <Compile Include="Extensions\ToolStripMenuItemExtension.cs" />
-    <Compile Include="MazeViewer.cs" />
     <Compile Include="Windows\BaseWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,12 +83,8 @@
     <Compile Include="Windows\Controls\Canvas.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GameViewer.cs" />
     <Compile Include="Windows\Controls\Focus.cs" />
     <Compile Include="Windows\MainWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\MainWindow2.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Extensions\PointExtension.cs" />
@@ -100,7 +93,7 @@
     <Compile Include="Windows\RepositoryWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\FirstDialogWindow.cs">
+    <Compile Include="Windows\DialogWindow.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

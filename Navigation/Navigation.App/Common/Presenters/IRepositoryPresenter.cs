@@ -1,6 +1,4 @@
-﻿using Navigation.App.Common;
-
-namespace Navigation.App.Repository
+﻿namespace Navigation.App.Common.Presenters
 {
     public interface IRepositoryPresenter : IPresenter
     {

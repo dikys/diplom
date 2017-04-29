@@ -64,16 +64,21 @@ namespace Navigation.Infrastructure
             // d1=d2=d3=d4 = 0 => тогда отрезки имеют множество точек пересечения!
 
             // тут можно Tollerance использовать
-            if (((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0))
-                && ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0)))
+            if (((d1 > InfrastructureConstants.CalculationsAccuracy && d2 < InfrastructureConstants.CalculationsAccuracy)
+                 ||
+                 (d1 < InfrastructureConstants.CalculationsAccuracy && d2 > InfrastructureConstants.CalculationsAccuracy))
+                &&
+                ((d3 > InfrastructureConstants.CalculationsAccuracy && d4 < InfrastructureConstants.CalculationsAccuracy)
+                 ||
+                 (d3 < InfrastructureConstants.CalculationsAccuracy && d4 > InfrastructureConstants.CalculationsAccuracy)))
             {
                 var delta = Vector.GetVectorProduct(other.Vector);
 
                 intersectionPoint = new Point(
-                    (-VectorProductBetweenStartAndEnd * other.Vector.X +
-                     Vector.X*other.VectorProductBetweenStartAndEnd) /delta,
+                    (-VectorProductBetweenStartAndEnd*other.Vector.X +
+                     Vector.X*other.VectorProductBetweenStartAndEnd)/delta,
                     (Vector.Y*other.VectorProductBetweenStartAndEnd -
-                     other.Vector.Y*VectorProductBetweenStartAndEnd) /delta);
+                     other.Vector.Y*VectorProductBetweenStartAndEnd)/delta);
 
                 return true;
             }
@@ -83,19 +88,22 @@ namespace Navigation.Infrastructure
 
                 return true;
             }
-            else if (Math.Abs(d2) <= InfrastructureConstants.CalculationsAccuracy && other.CheckOnSegmentStraight(End))
+            else if (Math.Abs(d2) <= InfrastructureConstants.CalculationsAccuracy &&
+                     other.CheckOnSegmentStraight(End))
             {
                 intersectionPoint = End;
 
                 return true;
             }
-            else if (Math.Abs(d3) <= InfrastructureConstants.CalculationsAccuracy && CheckOnSegmentStraight(other.Start))
+            else if (Math.Abs(d3) <= InfrastructureConstants.CalculationsAccuracy &&
+                     CheckOnSegmentStraight(other.Start))
             {
                 intersectionPoint = other.Start;
 
                 return true;
             }
-            else if (Math.Abs(d4) <= InfrastructureConstants.CalculationsAccuracy && CheckOnSegmentStraight(other.End))
+            else if (Math.Abs(d4) <= InfrastructureConstants.CalculationsAccuracy &&
+                     CheckOnSegmentStraight(other.End))
             {
                 intersectionPoint = other.End;
 
