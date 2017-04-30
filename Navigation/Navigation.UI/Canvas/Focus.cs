@@ -14,7 +14,8 @@ namespace Navigation.UI.Canvas
 {
     class Focus : IFocus
     {
-        private Lazy<Line> _line;
+        // Слева снизу начало
+        private Line? _line;
         public Line Line
         {
             get { return _line.Value; }
@@ -58,28 +59,38 @@ namespace Navigation.UI.Canvas
 
         public double AspectRatio { get; }
 
-        public RectangleF Border { get; }
-        public SizeF MaxSize { get; }
-        public SizeF MinSize { get; }
+        public RectangleF? Border { get; private set; }
+        public SizeF MaxSize { get; private set; }
+        public SizeF MinSize { get; private set; }
+
+        public event Action Change;
 
         private double _focusCoefficient;
         private Size _canvasSize;
-
-        public Focus(Size canvasSize)
+        
+        public Focus(Line focusMaxLine, Size canvasSize)
         {
             _canvasSize = canvasSize;
 
-            if (canvas == null)
-                throw new ArgumentNullException("canvas");
-
             ScalingSpeed = 30;
             MovingSpeed = 1;
+            
+            AspectRatio = _canvasSize.Width / _canvasSize.Height;
+            
+            RecalculateBorder(focusMaxLine);
 
-            _canvas = canvas;
+            /*Line = focusMaxLine;
 
-            AspectRatio = canvasSize.Width / canvasSize.Height;
+            var focusMinHeight = Math.Max((float)Line.Vector.Y * 10 / 100, 20);
 
-            Line = maxLine;
+            Border = new RectangleF(Line.Start.ToPointF(), Line.Vector.ToSizeF());
+            MaxSize = new SizeF((float)Math.Abs(Line.Vector.X), (float)Math.Abs(Line.Vector.Y));
+            MinSize = new SizeF((float)AspectRatio * focusMinHeight, focusMinHeight);*/
+        }
+
+        public void RecalculateBorder(Line focusMaxLine)
+        {
+            Line = focusMaxLine;
 
             var focusMinHeight = Math.Max((float)Line.Vector.Y * 10 / 100, 20);
 

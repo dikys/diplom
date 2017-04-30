@@ -70,6 +70,10 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Canvas\Canvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Canvas\Focus.cs" />
     <Compile Include="Extensions\ComponentExtension.cs" />
     <Compile Include="Extensions\DialogResultExtensions.cs" />
     <Compile Include="Extensions\TableLayoutPanelExtension.cs" />

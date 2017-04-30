@@ -11,8 +11,6 @@ namespace Navigation.App.Canvas
 {
     public interface ICanvas
     {
-        IFocus CanvasFocus { get; }
-
         void Draw(Point point, Color color, float size);
         void Draw(Line line, Color color);
         void Draw(Wall wall, Color color);

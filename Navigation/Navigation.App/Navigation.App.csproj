@@ -43,6 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,6 +52,8 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Canvas\ICanvas.cs" />
+    <Compile Include="Canvas\IFocus.cs" />
     <Compile Include="Dialogs\ResultOfDialog.cs" />
     <Compile Include="Dialogs\Elements\DialogElementTypes.cs" />
     <Compile Include="Dialogs\Elements\DialogElement.cs" />

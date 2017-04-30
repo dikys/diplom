@@ -2,10 +2,8 @@
 using System.Windows.Forms;
 using Navigation.App.Common.Presenters;
 using Navigation.App.Common.Views;
-using Navigation.App.Extensions;
-using Navigation.App.MainWindow;
-using Navigation.App.Repository;
 using Navigation.UI.Extensions;
+using Canvas = Navigation.UI.Canvas.Canvas;
 
 namespace Navigation.UI.Windows
 {
@@ -20,8 +18,6 @@ namespace Navigation.UI.Windows
                 new ToolStripButton("Открыть Репозиторий")
                     .WithProperty("ToolTipText", "Репозиторий")
                     .WithEventHandler("Click", (s, e) => ShowViewOfPresenter?.Invoke(typeof(IRepositoryPresenter))));
-
-           // MainPanel.Controls.
         }
 
         public event Action<Type> ShowViewOfPresenter;

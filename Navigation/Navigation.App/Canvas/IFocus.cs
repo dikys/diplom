@@ -20,12 +20,15 @@ namespace Navigation.App.Canvas
 
         double AspectRatio { get; }
 
-        RectangleF Border { get; }
+        RectangleF? Border { get; }
         SizeF MaxSize { get; }
         SizeF MinSize { get; }
-       
+
+        event Action Change;
+
         void ZoomIn();
         void ZoomOut();
         void Move(Point deltaPosition);
+        void RecalculateBorder(Line focusMaxLine);
     }
 }

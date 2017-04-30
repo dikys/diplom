@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
+using Navigation.App.Canvas;
 using Navigation.App.Common;
 using Navigation.App.Common.Presenters;
 using Navigation.App.Common.Views;
 using Navigation.App.Dialogs;
 using Navigation.App.Dialogs.Elements;
 using Navigation.UI.Windows;
-using Navigation.App.MainWindow;
 using Navigation.App.Presenters;
-using Navigation.App.Repository;
 using Navigation.Domain.Game;
 using Navigation.Domain.Game.Mazes;
 using Navigation.Domain.Game.Robot;
@@ -18,6 +18,8 @@ using Navigation.Domain.Game.Robot.Visions.Sensors;
 using Navigation.Domain.Game.Strategies.DFS;
 using Navigation.Domain.Repository;
 using Navigation.Infrastructure;
+using Navigation.UI.Canvas;
+using Navigation.UI.Extensions;
 using Ninject;
 using Ninject.Parameters;
 using Point = Navigation.Infrastructure.Point;
@@ -96,7 +98,8 @@ namespace Navigation.UI
                 .To<RepositoryPresenter>()
                 .InSingletonScope()
                 .WithConstructorArgument("viewCreator",
-                    (Func<IRepositoryView>) (() => container.Get<IRepositoryView>()))
+                    (Func<IRepositoryView>)
+                        (() => container.Get<IRepositoryView>()))
                 .WithConstructorArgument("dialogCreator",
                     (Func<DialogElement[], IDialogWindow>)
                         (elements => container.Get<IDialogWindow>(
@@ -115,6 +118,23 @@ namespace Navigation.UI
             container.Bind<IDialogWindow>()
                 .To<DialogWindow>();
 
+            // холст
+            var diameter = container.Get<IMaze>().Diameter;
+            container.Bind<IFocus>()
+                .To<Focus>()
+                .InSingletonScope()
+                .WithConstructorArgument("focusMaxLine",
+                    new Line(diameter.Start.X, diameter.End.Y, diameter.End.X, diameter.Start.Y));
+            container.Bind<ICanvas>()
+                .To<Canvas.Canvas>()
+                .InSingletonScope()
+                .OnActivation(c =>
+                {
+                    var gameModel = container.Get<IGameModel>();
+
+                    c.Paint += (s, e) => gameModel.Maze.Walls.ForEach(w => c.Draw(w, Color.Blue));
+                });
+            
             // главное окно
             container.Bind<IMainWindowPresenter>()
                 .To<MainWindowPresenter>()
@@ -126,7 +146,20 @@ namespace Navigation.UI
                     });
             container.Bind<IMainWindowView>()
                 .To<MainWindow>()
-                .InSingletonScope();
+                .InSingletonScope()
+                .OnActivation(p =>
+                {
+                    p.Shown += (t0, t1) =>
+                    {
+                        var canvas =
+                            (container.Get<ICanvas>(new ConstructorArgument("focus",
+                                container.Get<IFocus>(new ConstructorArgument("canvasSize", p.MainPanel.Size)))) as
+                                Canvas.Canvas);
+
+                        p.MainPanel.Controls.Add(canvas);
+                        p.MouseWheel += (s, e) => canvas.OnZoom(e);
+                    };
+                });
 
             return container.Get<IMainWindowPresenter>();
         }
