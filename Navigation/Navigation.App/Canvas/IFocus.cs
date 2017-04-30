@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Navigation.Domain.Game.Mazes;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
 
@@ -25,7 +26,7 @@ namespace Navigation.App.Canvas
         SizeF MinSize { get; }
 
         event Action Change;
-
+        
         void ZoomIn();
         void ZoomOut();
         void Move(Point deltaPosition);

@@ -97,6 +97,8 @@ namespace Navigation.UI.Canvas
             Border = new RectangleF(Line.Start.ToPointF(), Line.Vector.ToSizeF());
             MaxSize = new SizeF((float)Math.Abs(Line.Vector.X), (float)Math.Abs(Line.Vector.Y));
             MinSize = new SizeF((float)AspectRatio * focusMinHeight, focusMinHeight);
+
+            Change?.Invoke();
         }
 
         public void ZoomIn()

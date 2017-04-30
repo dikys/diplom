@@ -77,13 +77,13 @@ namespace Navigation.UI
                         new Wall(new Line(25, 50, 50, 25)),
 
                         new Wall(new Line(75, 50, 75, 75)),
-                        new Wall(new Line(75, 75, 50, 75)),
+                        //new Wall(new Line(75, 75, 50, 75)),
                         new Wall(new Line(50, 75, 75, 50))
                     });
             container.Bind<IMobileRobot>()
                 .To<RobotWithDFS>()
                 .InSingletonScope()
-                .WithConstructorArgument("position", new Point());
+                .WithConstructorArgument("position", new Point(25, 25));
             container.Bind<IRobotVision>()
                 .To<StandartVision>()
                 .InSingletonScope()
@@ -119,20 +119,33 @@ namespace Navigation.UI
                 .To<DialogWindow>();
 
             // холст
-            var diameter = container.Get<IMaze>().Diameter;
+            var gameModel = container.Get<IGameModel>();
+
             container.Bind<IFocus>()
                 .To<Focus>()
                 .InSingletonScope()
                 .WithConstructorArgument("focusMaxLine",
-                    new Line(diameter.Start.X, diameter.End.Y, diameter.End.X, diameter.Start.Y));
+                    new Line(gameModel.Maze.Diameter.Start.X, gameModel.Maze.Diameter.End.Y, gameModel.Maze.Diameter.End.X, gameModel.Maze.Diameter.Start.Y))
+                .OnActivation(f =>
+                {
+                    gameModel.MazeChanged +=
+                        () =>
+                            f.RecalculateBorder(new Line(gameModel.Maze.Diameter.Start.X,
+                                gameModel.Maze.Diameter.End.Y,
+                                gameModel.Maze.Diameter.End.X,
+                                gameModel.Maze.Diameter.Start.Y));
+                });
             container.Bind<ICanvas>()
                 .To<Canvas.Canvas>()
                 .InSingletonScope()
                 .OnActivation(c =>
                 {
-                    var gameModel = container.Get<IGameModel>();
+                    c.Paint += (s, e) =>
+                    {
+                        gameModel.Maze.Walls.ForEach(w => c.Draw(w, Color.Blue));
 
-                    c.Paint += (s, e) => gameModel.Maze.Walls.ForEach(w => c.Draw(w, Color.Blue));
+                        c.Draw(gameModel.Robot.Position, Color.Green);
+                    };
                 });
             
             // главное окно
@@ -149,7 +162,7 @@ namespace Navigation.UI
                 .InSingletonScope()
                 .OnActivation(p =>
                 {
-                    p.Shown += (t0, t1) =>
+                    p.Shown += (m, a) =>
                     {
                         var canvas =
                             (container.Get<ICanvas>(new ConstructorArgument("focus",
