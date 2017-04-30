@@ -125,28 +125,12 @@ namespace Navigation.UI
                 .To<Focus>()
                 .InSingletonScope()
                 .WithConstructorArgument("focusMaxLine",
-                    new Line(gameModel.Maze.Diameter.Start.X, gameModel.Maze.Diameter.End.Y, gameModel.Maze.Diameter.End.X, gameModel.Maze.Diameter.Start.Y))
-                .OnActivation(f =>
-                {
-                    gameModel.MazeChanged +=
-                        () =>
-                            f.RecalculateBorder(new Line(gameModel.Maze.Diameter.Start.X,
-                                gameModel.Maze.Diameter.End.Y,
-                                gameModel.Maze.Diameter.End.X,
-                                gameModel.Maze.Diameter.Start.Y));
-                });
+                    new Line(gameModel.Maze.Diameter.Start.X, gameModel.Maze.Diameter.End.Y, gameModel.Maze.Diameter.End.X, gameModel.Maze.Diameter.Start.Y));
             container.Bind<ICanvas>()
                 .To<Canvas.Canvas>()
-                .InSingletonScope()
-                .OnActivation(c =>
-                {
-                    c.Paint += (s, e) =>
-                    {
-                        gameModel.Maze.Walls.ForEach(w => c.Draw(w, Color.Blue));
-
-                        c.Draw(gameModel.Robot.Position, Color.Green);
-                    };
-                });
+                .InSingletonScope();
+            container.Bind<ICanvasPresenter>()
+                .To<CanvasPresenter>();
             
             // главное окно
             container.Bind<IMainWindowPresenter>()
@@ -169,11 +153,13 @@ namespace Navigation.UI
                                 container.Get<IFocus>(new ConstructorArgument("canvasSize", p.MainPanel.Size)))) as
                                 Canvas.Canvas);
 
+                        container.Get<ICanvasPresenter>();
+
                         p.MainPanel.Controls.Add(canvas);
                         p.MouseWheel += (s, e) => canvas.OnZoom(e);
                     };
                 });
-
+            
             return container.Get<IMainWindowPresenter>();
         }
 

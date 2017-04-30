@@ -17,7 +17,9 @@ namespace Navigation.UI.Canvas
         public Graphics Graphics { get; private set; }
         public bool IsFocused { get; private set; }
 
-        private readonly IFocus _focus;
+        public IFocus WFocus { get; }
+
+        public event Action RePaint;
 
         public Canvas(IFocus focus)
         {
@@ -26,9 +28,9 @@ namespace Navigation.UI.Canvas
             ResizeRedraw = true;
             BackColor = Color.FromArgb(225, 230, 250);
 
-            _focus = focus;
+            WFocus = focus;
 
-            _focus.Change += () => Invalidate();
+            WFocus.Change += () => Invalidate();
 
             var previousMousePosition = new Point();
             MouseMove += (sender, args) =>
@@ -46,18 +48,25 @@ namespace Navigation.UI.Canvas
                 var deltaPosition = new Point(args.X, Height - args.Y) - previousMousePosition;
                 previousMousePosition = new Point(args.X, Height - args.Y);
 
-                _focus.Move(deltaPosition);
+                WFocus.Move(deltaPosition);
             };
 
             Paint += (sender, args) =>
             {
                 Graphics = args.Graphics;
 
-                Graphics.MultiplyTransform(_focus.TransformMatrix);
+                Graphics.MultiplyTransform(WFocus.TransformMatrix);
+
+                RePaint?.Invoke();
             };
 
             MouseEnter += (sender, args) => IsFocused = true;
             MouseLeave += (sender, args) => IsFocused = false;
+        }
+
+        public void ReDraw()
+        {
+            Invalidate();
         }
 
         public void OnZoom(MouseEventArgs args)
@@ -66,9 +75,9 @@ namespace Navigation.UI.Canvas
                 return;
 
             if (args.Delta > 0)
-                _focus.ZoomIn();
+                WFocus.ZoomIn();
             else
-                _focus.ZoomOut();
+                WFocus.ZoomOut();
         }
 
         public void Draw(Point point, Color color, float size = 2)

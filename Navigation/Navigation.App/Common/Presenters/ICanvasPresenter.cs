@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
 
-namespace Navigation.App.Canvas
+namespace Navigation.App.Common.Presenters
 {
-    public interface ICanvas
+    public interface ICanvasPresenter
     {
-        IFocus WFocus { get; }
-
-        event Action RePaint;
-
-        void ReDraw();
+        event Action Paint;
 
         void Draw(Point point, Color color, float size);
         void Draw(Line line, Color color);

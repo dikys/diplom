@@ -54,12 +54,14 @@
   <ItemGroup>
     <Compile Include="Canvas\ICanvas.cs" />
     <Compile Include="Canvas\IFocus.cs" />
+    <Compile Include="Common\Presenters\ICanvasPresenter.cs" />
     <Compile Include="Dialogs\ResultOfDialog.cs" />
     <Compile Include="Dialogs\Elements\DialogElementTypes.cs" />
     <Compile Include="Dialogs\Elements\DialogElement.cs" />
     <Compile Include="Dialogs\IDialogWindow.cs" />
     <Compile Include="Common\IPresenter.cs" />
     <Compile Include="Common\Presenters\IMainWindowPresenter.cs" />
+    <Compile Include="Presenters\CanvasPresenter.cs" />
     <Compile Include="Presenters\MainWindowPresenter.cs" />
     <Compile Include="Common\Presenters\IRepositoryPresenter.cs" />
     <Compile Include="Presenters\RepositoryPresenter.cs" />
@@ -81,9 +83,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
