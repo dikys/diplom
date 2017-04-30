@@ -29,9 +29,7 @@ namespace Navigation.UI.Canvas
             BackColor = Color.FromArgb(225, 230, 250);
 
             WFocus = focus;
-
-            WFocus.Change += () => Invalidate();
-
+            
             var previousMousePosition = new Point();
             MouseMove += (sender, args) =>
             {

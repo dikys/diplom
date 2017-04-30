@@ -24,6 +24,7 @@ namespace Navigation.App.Presenters
             _canvas = canvas;
             _gameModel = gameModel;
 
+            _canvas.WFocus.Change += () => _canvas.ReDraw();
             _canvas.RePaint += () =>
             {
                 _gameModel.Maze.Walls.ForEach(w => _canvas.Draw(w, Color.Blue));
