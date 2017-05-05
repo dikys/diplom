@@ -4,7 +4,6 @@ using Navigation.App.Common;
 using Navigation.App.Common.Presenters;
 using Navigation.App.Common.Views;
 using Navigation.UI.Extensions;
-using Canvas = Navigation.UI.Controls.Canvas;
 
 namespace Navigation.UI.Views
 {
@@ -12,7 +11,7 @@ namespace Navigation.UI.Views
     {
         public MainWindow()
         {
-            //WindowState = FormWindowState.Maximized;
+            WindowState = FormWindowState.Maximized;
             
             TopMenuStrip.WithItems("Items",
                 new ToolStripButton("Запустить"),
