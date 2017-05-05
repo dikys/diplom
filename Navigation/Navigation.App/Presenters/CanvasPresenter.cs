@@ -24,8 +24,8 @@ namespace Navigation.App.Presenters
             _canvas = canvas;
             _gameModel = gameModel;
 
-            _canvas.WFocus.Change += () => _canvas.ReDraw();
-            _canvas.CanvasPaint += () =>
+            _canvas.Focus.Change += () => _canvas.ReDraw();
+            _canvas.Paint += () =>
             {
                 _gameModel.Maze.Walls.ForEach(w => _canvas.Draw(w, Color.Blue));
                 Draw(_gameModel.Robot.Position, Color.Green);
@@ -34,7 +34,7 @@ namespace Navigation.App.Presenters
             };
             _gameModel.MazeChanged += () =>
             {
-                _canvas.WFocus.Recalculate(
+                _canvas.Focus.Recalculate(
                     new Line(gameModel.Maze.Diameter.Start.X,
                         gameModel.Maze.Diameter.End.Y,
                         gameModel.Maze.Diameter.End.X,

@@ -11,9 +11,9 @@ namespace Navigation.App.Canvas
 {
     public interface ICanvas
     {
-        IFocus WFocus { get; }
+        IFocus Focus { get; }
 
-        event Action CanvasPaint;
+        event Action Paint;
 
         void ReDraw();
 

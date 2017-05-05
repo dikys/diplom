@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Navigation.App.Canvas;
 using Navigation.App.Extensions;
@@ -16,10 +12,16 @@ namespace Navigation.UI.Controls.Canvas
     {
         public Graphics Graphics { get; private set; }
         public bool IsFocused { get; private set; }
+        
+        public IFocus CanvasFocus { get; }
+        IFocus ICanvas.Focus => CanvasFocus;
 
-        public IFocus WFocus { get; }
-
-        public event Action CanvasPaint;
+        event Action CanvasPaint;
+        event Action ICanvas.Paint
+        {
+            add { CanvasPaint += value; }
+            remove { CanvasPaint -= value; }
+        }
 
         public Canvas(IFocus focus)
         {
@@ -28,7 +30,7 @@ namespace Navigation.UI.Controls.Canvas
             ResizeRedraw = true;
             BackColor = Color.FromArgb(225, 230, 250);
 
-            WFocus = focus;
+            CanvasFocus = focus;
             
             var previousMousePosition = new Point();
             MouseMove += (sender, args) =>
@@ -46,14 +48,14 @@ namespace Navigation.UI.Controls.Canvas
                 var deltaPosition = new Point(args.X, Height - args.Y) - previousMousePosition;
                 previousMousePosition = new Point(args.X, Height - args.Y);
 
-                WFocus.Move(deltaPosition);
+                CanvasFocus.Move(deltaPosition);
             };
 
             Paint += (sender, args) =>
             {
                 Graphics = args.Graphics;
 
-                Graphics.MultiplyTransform(WFocus.TransformMatrix);
+                Graphics.MultiplyTransform(CanvasFocus.TransformMatrix);
 
                 CanvasPaint?.Invoke();
             };
@@ -73,9 +75,9 @@ namespace Navigation.UI.Controls.Canvas
                 return;
 
             if (args.Delta > 0)
-                WFocus.ZoomIn();
+                CanvasFocus.ZoomIn();
             else
-                WFocus.ZoomOut();
+                CanvasFocus.ZoomOut();
         }
 
         public void Draw(Point point, Color color, float size = 2)
