@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Navigation.App.Canvas;
+using Navigation.App.Common.Views.Canvas;
 using Navigation.App.Common;
 using Navigation.App.Common.Presenters;
 using Navigation.App.Common.Views;
@@ -27,17 +27,10 @@ using Point = Navigation.Infrastructure.Point;
  *      Создать фабрику, создающая робота, фабрика в конструктор принимает все возможные реализации робота
  *      и фабрику можно попросить создать робота передав ей тип
  *      
- *      Как-нить убрать из Line и Point tollerance
- *      
  *      Возможность визуального просмотра алгоритма
  *          Наверное, нужно для каждой стратегии создавать StrategyViewer, который все будет выводить
  *          А можно с помощью делегатов сделать
  *      
- *      Написать тесты для
- *          StandartVision
- *          StandartMaze
- *          ...
- *          
  *      Написать редактор
  *      
  *      Написать новую стратегию
@@ -75,7 +68,7 @@ namespace Navigation.UI
                         new Wall(new Line(25, 50, 50, 25)),
 
                         new Wall(new Line(75, 50, 75, 75)),
-                        //new Wall(new Line(75, 75, 50, 75)),
+                        new Wall(new Line(75, 75, 50, 75)),
                         new Wall(new Line(50, 75, 75, 50))
                     });
             container.Bind<IMobileRobot>()

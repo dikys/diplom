@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Navigation.App.Canvas;
+using Navigation.App.Common.Views.Canvas;
 using Navigation.App.Extensions;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
@@ -14,7 +14,6 @@ namespace Navigation.UI.Controls.Canvas
 {
     class Focus : IFocus
     {
-        // Слева снизу начало
         private Line? _focusLine;
         public Line FocusLine
         {

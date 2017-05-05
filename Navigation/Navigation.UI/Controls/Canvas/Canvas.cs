@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Navigation.App.Canvas;
+using Navigation.App.Common.Views.Canvas;
 using Navigation.App.Extensions;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
@@ -31,6 +31,7 @@ namespace Navigation.UI.Controls.Canvas
             BackColor = Color.FromArgb(225, 230, 250);
 
             CanvasFocus = focus;
+            CanvasFocus.Change += ReDraw;
             
             var previousMousePosition = new Point();
             MouseMove += (sender, args) =>

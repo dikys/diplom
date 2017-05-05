@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Navigation.App.Canvas;
+using Navigation.App.Common.Views.Canvas;
 using Navigation.App.Common.Presenters;
 using Navigation.Domain.Game;
 using Navigation.Infrastructure;
@@ -23,8 +19,7 @@ namespace Navigation.App.Presenters
         {
             _canvas = canvas;
             _gameModel = gameModel;
-
-            _canvas.Focus.Change += () => _canvas.ReDraw();
+            
             _canvas.Paint += () =>
             {
                 _gameModel.Maze.Walls.ForEach(w => _canvas.Draw(w, Color.Blue));

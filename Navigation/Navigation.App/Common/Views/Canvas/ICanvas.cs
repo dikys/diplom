@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
 
-namespace Navigation.App.Canvas
+namespace Navigation.App.Common.Views.Canvas
 {
     public interface ICanvas
     {
