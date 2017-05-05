@@ -24,7 +24,13 @@ namespace Navigation.UI.Windows
         }
 
         public event Action<Type> ShowingViewOfPresenter;
-        public event Action ViewClosed;
+
+        event Action ViewClosed;
+        event Action IView.Closed
+        {
+            add { ViewClosed += value; }
+            remove { ViewClosed -= value; }
+        }
 
         public new void Show()
         {

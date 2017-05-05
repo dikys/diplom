@@ -148,7 +148,7 @@ namespace Navigation.App.Presenters
                     ChangeMazeName(_view.SelectedName, dialog.Elements[1].Value);
                 }
             };
-            _view.ViewClosed += () => IsShownView = false;
+            _view.Closed += () => IsShownView = false;
 
             _view.Show();
             _view.SetSelectedName(_view.MazeNames[0]);

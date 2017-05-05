@@ -12,6 +12,6 @@ namespace Navigation.App.Common
         /// </summary>
         void Focus();
 
-        event Action ViewClosed;
+        event Action Closed;
     }
 }
