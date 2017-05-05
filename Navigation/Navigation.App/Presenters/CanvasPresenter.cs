@@ -14,7 +14,7 @@ namespace Navigation.App.Presenters
 {
     public class CanvasPresenter : ICanvasPresenter
     {
-        public event Action Paint;
+        public event Action CanvasPaint;
 
         private readonly ICanvas _canvas;
         private readonly IGameModel _gameModel;
@@ -25,12 +25,12 @@ namespace Navigation.App.Presenters
             _gameModel = gameModel;
 
             _canvas.WFocus.Change += () => _canvas.ReDraw();
-            _canvas.RePaint += () =>
+            _canvas.CanvasPaint += () =>
             {
                 _gameModel.Maze.Walls.ForEach(w => _canvas.Draw(w, Color.Blue));
                 Draw(_gameModel.Robot.Position, Color.Green);
 
-                Paint?.Invoke();
+                CanvasPaint?.Invoke();
             };
             _gameModel.MazeChanged += () =>
             {

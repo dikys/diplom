@@ -11,7 +11,7 @@ namespace Navigation.App.Common.Presenters
 {
     public interface ICanvasPresenter
     {
-        event Action Paint;
+        event Action CanvasPaint;
 
         void Draw(Point point, Color color, float size);
         void Draw(Line line, Color color);

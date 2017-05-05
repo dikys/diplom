@@ -114,7 +114,11 @@ namespace Navigation.App.Presenters
         public void ShowView()
         {
             if (IsShownView)
+            {
+                _view.Focus();
+
                 return;
+            }
 
             IsShownView = true;
 
@@ -122,8 +126,8 @@ namespace Navigation.App.Presenters
 
             _view.SetMazeNames(_repository.MazeNames.ToList());
 
-            _view.LoadMaze += () => LoadMaze(_view.SelectedName);
-            _view.SaveMaze += () =>
+            _view.LoadingMaze += () => LoadMaze(_view.SelectedName);
+            _view.SavingMaze += () =>
             {
                 var dialog = _dialogCreator(new[] { new DialogElement("Имя", DialogElementTypes.Input) });
 
@@ -132,8 +136,8 @@ namespace Navigation.App.Presenters
                     SaveMaze(dialog.Elements.First().Value);
                 }
             };
-            _view.DeleteMaze += () => DeleteMaze(_view.SelectedName);
-            _view.ChangeMazeName += () =>
+            _view.DeletingMaze += () => DeleteMaze(_view.SelectedName);
+            _view.ChangingMazeName += () =>
             {
                 var dialog = _dialogCreator(new[] {
                     new DialogElement("Старое имя", DialogElementTypes.Text, _view.SelectedName),

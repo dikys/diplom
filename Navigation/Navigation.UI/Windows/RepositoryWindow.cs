@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Navigation.App.Common;
 using Navigation.App.Common.Views;
 using Navigation.App.Extensions;
 using Navigation.UI.Extensions;
@@ -57,19 +58,19 @@ namespace Navigation.UI.Windows
             table.Controls.Add(new Button()
                 .TuneControl()
                 .WithProperty("Text", "Загрузить [Вроде меняет модель)]")
-                .WithEventHandler("Click", (s, e) => LoadMaze?.Invoke()), 0, 1);
+                .WithEventHandler("Click", (s, e) => LoadingMaze?.Invoke()), 0, 1);
             table.Controls.Add(new Button()
                 .TuneControl()
                 .WithProperty("Text", "Сохранить")
-                .WithEventHandler("Click", (s, e) => SaveMaze?.Invoke()), 0, 2);
+                .WithEventHandler("Click", (s, e) => SavingMaze?.Invoke()), 0, 2);
             table.Controls.Add(new Button()
                 .TuneControl()
                 .WithProperty("Text", "Удалить")
-                .WithEventHandler("Click", (s, e) => DeleteMaze?.Invoke()), 0, 3);
+                .WithEventHandler("Click", (s, e) => DeletingMaze?.Invoke()), 0, 3);
             table.Controls.Add(new Button()
                 .TuneControl()
                 .WithProperty("Text", "Переименовать")
-                .WithEventHandler("Click", (s, e) => ChangeMazeName?.Invoke()), 0, 4);
+                .WithEventHandler("Click", (s, e) => ChangingMazeName?.Invoke()), 0, 4);
 
             FormClosed += (s, e) => ViewClosed?.Invoke();
         }
@@ -77,10 +78,11 @@ namespace Navigation.UI.Windows
         public BindingList<string> MazeNames { get; }
         public string SelectedName { set; get; }
 
-        public event Action LoadMaze;
-        public event Action SaveMaze;
-        public event Action DeleteMaze;
-        public event Action ChangeMazeName;
+        public event Action LoadingMaze;
+        public event Action SavingMaze;
+        public event Action DeletingMaze;
+        public event Action ChangingMazeName;
+
         public event Action ViewClosed;
 
         public void SetMazeNames(List<string> names)
@@ -105,6 +107,11 @@ namespace Navigation.UI.Windows
             window.MainPanel.Controls.Add(new Label().TuneControl().WithProperty("Text", message));
 
             window.ShowDialog();
+        }
+
+        void IView.Focus()
+        {
+            Focus();
         }
 
         private void SetSelected(string name)

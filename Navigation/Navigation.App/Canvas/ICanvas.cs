@@ -13,7 +13,7 @@ namespace Navigation.App.Canvas
     {
         IFocus WFocus { get; }
 
-        event Action RePaint;
+        event Action CanvasPaint;
 
         void ReDraw();
 

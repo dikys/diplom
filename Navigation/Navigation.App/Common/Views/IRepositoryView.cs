@@ -9,10 +9,10 @@ namespace Navigation.App.Common.Views
         BindingList<string> MazeNames { get; }
         string SelectedName { get; }
 
-        event Action LoadMaze;
-        event Action SaveMaze;
-        event Action DeleteMaze;
-        event Action ChangeMazeName;
+        event Action LoadingMaze;
+        event Action SavingMaze;
+        event Action DeletingMaze;
+        event Action ChangingMazeName;
 
         void SetMazeNames(List<string> names);
 

@@ -22,7 +22,7 @@ namespace Navigation.App.Presenters
             _gameModel = gameModel;
             _presenters = presenters;
 
-            _mainWindowView.ShowViewOfPresenter += OnShowViewOfPresenter;
+            _mainWindowView.ShowingViewOfPresenter += OnShowViewOfPresenter;
 
             IsShownView = false;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Navigation.App.Common;
 using Navigation.App.Common.Presenters;
 using Navigation.App.Common.Views;
 using Navigation.UI.Extensions;
@@ -17,17 +18,22 @@ namespace Navigation.UI.Windows
                 new ToolStripButton("Запустить"),
                 new ToolStripButton("Открыть Репозиторий")
                     .WithProperty("ToolTipText", "Репозиторий")
-                    .WithEventHandler("Click", (s, e) => ShowViewOfPresenter?.Invoke(typeof(IRepositoryPresenter))));
+                    .WithEventHandler("Click", (s, e) => ShowingViewOfPresenter?.Invoke(typeof(IRepositoryPresenter))));
 
             FormClosed += (s, e) => ViewClosed?.Invoke();
         }
 
-        public event Action<Type> ShowViewOfPresenter;
+        public event Action<Type> ShowingViewOfPresenter;
         public event Action ViewClosed;
 
         public new void Show()
         {
             Application.Run(this);
+        }
+        
+        void IView.Focus()
+        {
+            Focus();
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Navigation.UI.Controls.Canvas
 
         public IFocus WFocus { get; }
 
-        public event Action RePaint;
+        public event Action CanvasPaint;
 
         public Canvas(IFocus focus)
         {
@@ -55,7 +55,7 @@ namespace Navigation.UI.Controls.Canvas
 
                 Graphics.MultiplyTransform(WFocus.TransformMatrix);
 
-                RePaint?.Invoke();
+                CanvasPaint?.Invoke();
             };
 
             MouseEnter += (sender, args) => IsFocused = true;
