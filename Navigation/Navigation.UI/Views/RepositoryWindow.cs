@@ -9,7 +9,7 @@ using Navigation.App.Common.Views;
 using Navigation.App.Extensions;
 using Navigation.UI.Extensions;
 
-namespace Navigation.UI.Windows
+namespace Navigation.UI.Views
 {
     public class RepositoryWindow : BaseWindow, IRepositoryView
     {

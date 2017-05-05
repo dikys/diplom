@@ -6,7 +6,7 @@ using Navigation.App.Common.Views;
 using Navigation.UI.Extensions;
 using Canvas = Navigation.UI.Controls.Canvas;
 
-namespace Navigation.UI.Windows
+namespace Navigation.UI.Views
 {
     public class MainWindow : BaseWindow, IMainWindowView
     {

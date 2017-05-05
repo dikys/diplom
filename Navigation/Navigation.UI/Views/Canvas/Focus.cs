@@ -10,7 +10,7 @@ using Navigation.App.Extensions;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
 
-namespace Navigation.UI.Controls.Canvas
+namespace Navigation.UI.Views.Canvas
 {
     class Focus : IFocus
     {

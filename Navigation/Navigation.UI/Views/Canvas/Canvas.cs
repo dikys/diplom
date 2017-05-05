@@ -6,7 +6,7 @@ using Navigation.App.Extensions;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
 
-namespace Navigation.UI.Controls.Canvas
+namespace Navigation.UI.Views.Canvas
 {
     public class Canvas : PictureBox, ICanvas
     {

@@ -7,7 +7,7 @@ using Navigation.App.Extensions;
 using Navigation.UI.Extensions;
 using DialogResult = System.Windows.Forms.DialogResult;
 
-namespace Navigation.UI.Windows
+namespace Navigation.UI.Views
 {
     public class DialogWindow : BaseWindow, IDialogWindow
     {

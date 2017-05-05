@@ -9,7 +9,7 @@ using Navigation.App.Extensions;
 using Navigation.UI.Extensions;
 using Navigation.UI.Styles;
 
-namespace Navigation.UI.Windows
+namespace Navigation.UI.Views
 {
     public class BaseWindow : Form
     {

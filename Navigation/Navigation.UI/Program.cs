@@ -7,7 +7,7 @@ using Navigation.App.Common.Presenters;
 using Navigation.App.Common.Views;
 using Navigation.App.Dialogs;
 using Navigation.App.Dialogs.Elements;
-using Navigation.UI.Windows;
+using Navigation.UI.Views;
 using Navigation.App.Presenters;
 using Navigation.Domain.Game;
 using Navigation.Domain.Game.Mazes;
@@ -19,7 +19,7 @@ using Navigation.Domain.Repository;
 using Navigation.Infrastructure;
 using Ninject;
 using Ninject.Parameters;
-using Navigation.UI.Controls.Canvas;
+using Navigation.UI.Views.Canvas;
 using Point = Navigation.Infrastructure.Point;
 
 /*
