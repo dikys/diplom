@@ -10,18 +10,18 @@ using Navigation.App.Extensions;
 using Navigation.Infrastructure;
 using Point = Navigation.Infrastructure.Point;
 
-namespace Navigation.UI.Canvas
+namespace Navigation.UI.Controls.Canvas
 {
     class Focus : IFocus
     {
         // Слева снизу начало
-        private Line? _line;
-        public Line Line
+        private Line? _focusLine;
+        public Line FocusLine
         {
-            get { return _line.Value; }
+            get { return _focusLine.Value; }
             private set
             {
-                if (value.Equals(_line))
+                if (value.Equals(_focusLine))
                     return;
 
                 var focusWidth = Math.Max(Math.Abs(value.Vector.X), Math.Abs(value.Vector.Y) * AspectRatio);
@@ -29,21 +29,21 @@ namespace Navigation.UI.Canvas
 
                 if (Border.HasValue)
                 {
-                    _line = new Line(Math.Max(value.Center.X - focusWidth / 2, Border.Value.Left),
+                    _focusLine = new Line(Math.Max(value.Center.X - focusWidth / 2, Border.Value.Left),
                         Math.Max(value.Center.Y - focusHeight / 2, Border.Value.Top),
                         Math.Min(value.Center.X + focusWidth / 2, Border.Value.Right),
                         Math.Min(value.Center.Y + focusHeight / 2, Border.Value.Bottom));
                 }
                 else
-                    _line = new Line(value.Center.X - focusWidth / 2,
+                    _focusLine = new Line(value.Center.X - focusWidth / 2,
                         value.Center.Y - focusHeight / 2,
                         value.Center.X + focusWidth / 2,
                         value.Center.Y + focusHeight / 2);
 
-                var scX = (float)(_canvasSize.Width / Line.Vector.X);
-                var scY = -(float)(_canvasSize.Height / Line.Vector.Y);
-                var trX = -(float)Line.Start.X;
-                var trY = -(float)Line.Start.Y + _canvasSize.Height / scY;
+                var scX = (float)(_canvasSize.Width / FocusLine.Vector.X);
+                var scY = -(float)(_canvasSize.Height / FocusLine.Vector.Y);
+                var trX = -(float)FocusLine.Start.X;
+                var trY = -(float)FocusLine.Start.Y + _canvasSize.Height / scY;
 
                 TransformMatrix = new Matrix(scX, 0, 0, scY, scX * trX, scY * trY);
 
@@ -77,25 +77,17 @@ namespace Navigation.UI.Canvas
             
             AspectRatio = _canvasSize.Width / _canvasSize.Height;
             
-            RecalculateBorder(focusMaxLine);
-
-            /*Line = focusMaxLine;
-
-            var focusMinHeight = Math.Max((float)Line.Vector.Y * 10 / 100, 20);
-
-            Border = new RectangleF(Line.Start.ToPointF(), Line.Vector.ToSizeF());
-            MaxSize = new SizeF((float)Math.Abs(Line.Vector.X), (float)Math.Abs(Line.Vector.Y));
-            MinSize = new SizeF((float)AspectRatio * focusMinHeight, focusMinHeight);*/
+            Recalculate(focusMaxLine);
         }
 
-        public void RecalculateBorder(Line focusMaxLine)
+        public void Recalculate(Line focusMaxLine)
         {
-            Line = focusMaxLine;
+            FocusLine = focusMaxLine;
 
-            var focusMinHeight = Math.Max((float)Line.Vector.Y * 10 / 100, 20);
+            var focusMinHeight = Math.Max((float)FocusLine.Vector.Y * 10 / 100, 20);
 
-            Border = new RectangleF(Line.Start.ToPointF(), Line.Vector.ToSizeF());
-            MaxSize = new SizeF((float)Math.Abs(Line.Vector.X), (float)Math.Abs(Line.Vector.Y));
+            Border = new RectangleF(FocusLine.Start.ToPointF(), FocusLine.Vector.ToSizeF());
+            MaxSize = new SizeF((float)Math.Abs(FocusLine.Vector.X), (float)Math.Abs(FocusLine.Vector.Y));
             MinSize = new SizeF((float)AspectRatio * focusMinHeight, focusMinHeight);
 
             Change?.Invoke();
@@ -103,27 +95,27 @@ namespace Navigation.UI.Canvas
 
         public void ZoomIn()
         {
-            if (Line.Vector.X <= MinSize.Width || Line.Vector.Y <= MinSize.Height)
+            if (FocusLine.Vector.X <= MinSize.Width || FocusLine.Vector.Y <= MinSize.Height)
                 return;
 
-            Line = new Line(Line.Start + ScalingSpeed * _focusCoefficient,
-                Line.End - ScalingSpeed * _focusCoefficient);
+            FocusLine = new Line(FocusLine.Start + ScalingSpeed * _focusCoefficient,
+                FocusLine.End - ScalingSpeed * _focusCoefficient);
         }
 
         public void ZoomOut()
         {
-            if (MaxSize.Width <= Line.Vector.X || MaxSize.Height <= Line.Vector.Y)
+            if (MaxSize.Width <= FocusLine.Vector.X || MaxSize.Height <= FocusLine.Vector.Y)
                 return;
 
-            Line = new Line(Line.Start - ScalingSpeed * _focusCoefficient,
-                Line.End + ScalingSpeed * _focusCoefficient);
+            FocusLine = new Line(FocusLine.Start - ScalingSpeed * _focusCoefficient,
+                FocusLine.End + ScalingSpeed * _focusCoefficient);
         }
 
         public void Move(Point deltaPosition)
         {
-            var newFocus = Line - deltaPosition * MovingSpeed * _focusCoefficient;
+            var newFocus = FocusLine - deltaPosition * MovingSpeed * _focusCoefficient;
 
-            Line = newFocus;
+            FocusLine = newFocus;
         }
     }
 }

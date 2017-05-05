@@ -21,10 +21,11 @@ namespace Navigation.App.Presenters
 
         public bool IsShownView { get; private set; }
 
-        public RepositoryPresenter(Func<IRepositoryView> viewCreator,
+        public RepositoryPresenter(
             IMazeRepository repository,
             IGameModel gameModel,
-            Func<DialogElement[], IDialogWindow> dialogCreator)
+            Func<DialogElement[], IDialogWindow> dialogCreator,
+            Func<IRepositoryView> viewCreator)
         {
             _repository = repository;
             _viewCreator = viewCreator;
@@ -34,10 +35,9 @@ namespace Navigation.App.Presenters
             IsShownView = false;
         }
 
-        public void OnLoadMaze(string name)
+        public void LoadMaze(string name)
         {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
 
             if (!_repository.HaveMaze(name))
             {
@@ -49,10 +49,9 @@ namespace Navigation.App.Presenters
             _gameModel.Maze = _repository.Load(name);
         }
 
-        public void OnSaveMaze(string name)
+        public void SaveMaze(string name)
         {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
 
             name = name.Trim();
 
@@ -75,10 +74,9 @@ namespace Navigation.App.Presenters
             _view.SetSelectedName(name);
         }
 
-        public void OnDeleteMaze (string name)
+        public void DeleteMaze (string name)
         {
-            if (name == null)
-                throw new ArgumentNullException(nameof(name));
+            if (name == null) throw new ArgumentNullException(nameof(name));
 
             if (!_repository.HaveMaze(name))
             {
@@ -95,12 +93,10 @@ namespace Navigation.App.Presenters
             _view.SetSelectedName(_view.MazeNames[Math.Max(index - 1, 0)]);
         }
 
-        public void OnChangeMazeName(string nowName, string newName)
+        public void ChangeMazeName(string nowName, string newName)
         {
-            if (nowName == null)
-                throw new ArgumentNullException(nameof(nowName));
-            if (newName == null)
-                throw new ArgumentNullException(nameof(newName));
+            if (nowName == null) throw new ArgumentNullException(nameof(nowName));
+            if (newName == null) throw new ArgumentNullException(nameof(newName));
 
             if (!_repository.HaveMaze(nowName))
             {
@@ -126,33 +122,29 @@ namespace Navigation.App.Presenters
 
             _view.SetMazeNames(_repository.MazeNames.ToList());
 
-            _view.LoadMaze += () => OnLoadMaze(_view.SelectedName);
+            _view.LoadMaze += () => LoadMaze(_view.SelectedName);
             _view.SaveMaze += () =>
             {
-                var dialog = _dialogCreator(new[]
-                {
-                    new DialogElement("Имя", DialogElementTypes.Input)
-                });
+                var dialog = _dialogCreator(new[] { new DialogElement("Имя", DialogElementTypes.Input) });
 
                 if (dialog.OpenDialog() == ResultOfDialog.Yes)
                 {
-                    OnSaveMaze(dialog.Elements.First().Value);
+                    SaveMaze(dialog.Elements.First().Value);
                 }
             };
-            _view.DeleteMaze += () => OnDeleteMaze(_view.SelectedName);
+            _view.DeleteMaze += () => DeleteMaze(_view.SelectedName);
             _view.ChangeMazeName += () =>
             {
-                var dialog = _dialogCreator(new[]
-                {
+                var dialog = _dialogCreator(new[] {
                     new DialogElement("Старое имя", DialogElementTypes.Text, _view.SelectedName),
-                    new DialogElement("Новое имя", DialogElementTypes.Input)
-                });
+                    new DialogElement("Новое имя", DialogElementTypes.Input) });
 
                 if (dialog.OpenDialog() == ResultOfDialog.Yes)
                 {
-                    OnChangeMazeName(_view.SelectedName, dialog.Elements[1].Value);
+                    ChangeMazeName(_view.SelectedName, dialog.Elements[1].Value);
                 }
             };
+            _view.ViewClosed += () => IsShownView = false;
 
             _view.Show();
             _view.SetSelectedName(_view.MazeNames[0]);

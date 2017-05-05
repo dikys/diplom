@@ -13,3 +13,8 @@ C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastruc
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.csprojResolveAssemblyReference.cache
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.dll
 C:\Users\Анисов\Desktop\ПРОГИ\diplom\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.pdb
+C:\Repository\Navigation\Navigation.Infrastructure\bin\Debug\Navigation.Infrastructure.dll
+C:\Repository\Navigation\Navigation.Infrastructure\bin\Debug\Navigation.Infrastructure.pdb
+C:\Repository\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.csprojResolveAssemblyReference.cache
+C:\Repository\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.dll
+C:\Repository\Navigation\Navigation.Infrastructure\obj\Debug\Navigation.Infrastructure.pdb

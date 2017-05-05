@@ -6,5 +6,7 @@ namespace Navigation.App.Common
     {
         void Show();
         void Close();
+
+        event Action ViewClosed;
     }
 }

@@ -5,7 +5,6 @@
         bool IsShownView { get; }
 
         void ShowView();
-
         void CloseView();
     }
 }

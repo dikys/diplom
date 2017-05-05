@@ -70,10 +70,10 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Canvas\Canvas.cs">
+    <Compile Include="Controls\Canvas\Canvas.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Canvas\Focus.cs" />
+    <Compile Include="Controls\Canvas\Focus.cs" />
     <Compile Include="Extensions\ComponentExtension.cs" />
     <Compile Include="Extensions\DialogResultExtensions.cs" />
     <Compile Include="Extensions\TableLayoutPanelExtension.cs" />
@@ -84,10 +84,6 @@
     <Compile Include="Extensions\ControlExtension.cs" />
     <Compile Include="Styles\BaseColorTable.cs" />
     <Compile Include="Styles\BaseMenuStripRender.cs" />
-    <Compile Include="Windows\Controls\Canvas.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Windows\Controls\Focus.cs" />
     <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

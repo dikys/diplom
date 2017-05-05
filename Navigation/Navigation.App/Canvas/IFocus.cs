@@ -13,14 +13,11 @@ namespace Navigation.App.Canvas
 {
     public interface IFocus
     {
-        Line Line { get; }
+        Line FocusLine { get; }
         Matrix TransformMatrix { get; }
-
         double ScalingSpeed { get; }
         double MovingSpeed { get; }
-
         double AspectRatio { get; }
-
         RectangleF? Border { get; }
         SizeF MaxSize { get; }
         SizeF MinSize { get; }
@@ -30,6 +27,7 @@ namespace Navigation.App.Canvas
         void ZoomIn();
         void ZoomOut();
         void Move(Point deltaPosition);
-        void RecalculateBorder(Line focusMaxLine);
+
+        void Recalculate(Line focusMaxLine);
     }
 }

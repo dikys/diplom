@@ -42,7 +42,9 @@ namespace Navigation.UI.Windows
                 (s, e) =>
                 {
                     if (_listMazes.SelectedIndex != -1)
+                    {
                         SelectedName = _listMazes.SelectedItem.ToString();
+                    }
                     else
                     {
                         _listMazes.SelectedIndex = 0;
@@ -59,7 +61,7 @@ namespace Navigation.UI.Windows
             table.Controls.Add(new Button()
                 .TuneControl()
                 .WithProperty("Text", "Сохранить")
-                .WithEventHandler("Click", (s, e) => SaveMaze?.Invoke()), 0, 2); // тут надо диалоговое окно использовать, которое стринг вернет))
+                .WithEventHandler("Click", (s, e) => SaveMaze?.Invoke()), 0, 2);
             table.Controls.Add(new Button()
                 .TuneControl()
                 .WithProperty("Text", "Удалить")
@@ -67,7 +69,9 @@ namespace Navigation.UI.Windows
             table.Controls.Add(new Button()
                 .TuneControl()
                 .WithProperty("Text", "Переименовать")
-                .WithEventHandler("Click", (s, e) => ChangeMazeName?.Invoke()), 0, 4); // тут надо диалоговое окно использовать, которое стринг вернет))
+                .WithEventHandler("Click", (s, e) => ChangeMazeName?.Invoke()), 0, 4);
+
+            FormClosed += (s, e) => ViewClosed?.Invoke();
         }
 
         public BindingList<string> MazeNames { get; }
@@ -77,6 +81,7 @@ namespace Navigation.UI.Windows
         public event Action SaveMaze;
         public event Action DeleteMaze;
         public event Action ChangeMazeName;
+        public event Action ViewClosed;
 
         public void SetMazeNames(List<string> names)
         {

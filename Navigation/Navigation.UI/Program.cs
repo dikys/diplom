@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 using Navigation.App.Canvas;
 using Navigation.App.Common;
 using Navigation.App.Common.Presenters;
@@ -18,10 +17,9 @@ using Navigation.Domain.Game.Robot.Visions.Sensors;
 using Navigation.Domain.Game.Strategies.DFS;
 using Navigation.Domain.Repository;
 using Navigation.Infrastructure;
-using Navigation.UI.Canvas;
-using Navigation.UI.Extensions;
 using Ninject;
 using Ninject.Parameters;
+using Navigation.UI.Controls.Canvas;
 using Point = Navigation.Infrastructure.Point;
 
 /*
@@ -123,12 +121,10 @@ namespace Navigation.UI
 
             container.Bind<IFocus>()
                 .To<Focus>()
-                .InSingletonScope()
                 .WithConstructorArgument("focusMaxLine",
                     new Line(gameModel.Maze.Diameter.Start.X, gameModel.Maze.Diameter.End.Y, gameModel.Maze.Diameter.End.X, gameModel.Maze.Diameter.Start.Y));
             container.Bind<ICanvas>()
-                .To<Canvas.Canvas>()
-                .InSingletonScope();
+                .To<Canvas>();
             container.Bind<ICanvasPresenter>()
                 .To<CanvasPresenter>();
             
@@ -148,12 +144,12 @@ namespace Navigation.UI
                 {
                     p.Shown += (m, a) =>
                     {
-                        var canvas =
-                            (container.Get<ICanvas>(new ConstructorArgument("focus",
-                                container.Get<IFocus>(new ConstructorArgument("canvasSize", p.MainPanel.Size)))) as
-                                Canvas.Canvas);
+                        var focus = container.Get<IFocus>(new ConstructorArgument("canvasSize", p.MainPanel.Size));
+                        var canvas = (Canvas) container.Get<ICanvas>(new ConstructorArgument("focus", focus));
 
-                        container.Get<ICanvasPresenter>();
+                        container.Get<ICanvasPresenter>(
+                            new ConstructorArgument("canvas", canvas),
+                            new ConstructorArgument("focus", focus));
 
                         p.MainPanel.Controls.Add(canvas);
                         p.MouseWheel += (s, e) => canvas.OnZoom(e);

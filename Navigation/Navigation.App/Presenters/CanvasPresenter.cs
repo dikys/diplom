@@ -29,15 +29,17 @@ namespace Navigation.App.Presenters
             {
                 _gameModel.Maze.Walls.ForEach(w => _canvas.Draw(w, Color.Blue));
                 Draw(_gameModel.Robot.Position, Color.Green);
+
+                Paint?.Invoke();
             };
             _gameModel.MazeChanged += () =>
             {
-                _canvas.ReDraw();
-                _canvas.WFocus.RecalculateBorder(
+                _canvas.WFocus.Recalculate(
                     new Line(gameModel.Maze.Diameter.Start.X,
                         gameModel.Maze.Diameter.End.Y,
                         gameModel.Maze.Diameter.End.X,
                         gameModel.Maze.Diameter.Start.Y));
+                _canvas.ReDraw();
             };
         }
 
