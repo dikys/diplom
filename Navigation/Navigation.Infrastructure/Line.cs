@@ -175,8 +175,8 @@ namespace Navigation.Infrastructure
         #region Перегрузка Object методов
         private bool Equals(Line other)
         {
-            return Start == other.Start && End == other.End;
-                   //|| Start == other.End && End == other.Start;
+            return (Start == other.Start && End == other.End)
+                   || (Start == other.End && End == other.Start);
         }
 
         public override bool Equals(object obj)

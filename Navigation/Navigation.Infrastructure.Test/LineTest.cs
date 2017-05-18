@@ -72,5 +72,11 @@ namespace Navigation.Infrastructure.Test
         {
             Assert.AreEqual(new Line(100, 50, 50, 50), new Line(100, 50, 100, 0).Rotate(-Math.PI / 2));
         }
+
+        [TestMethod]
+        public void Should_Correct_Equals()
+        {
+            Assert.AreEqual(new Line(100, 30, 90, 60), new Line(90, 60, 100, 30));
+        }
     }
 }

@@ -32,19 +32,19 @@ namespace Navigation.UI.Extensions
 
             return component;
         }
-
-        public static TComponent WithEventHandler<TComponent>(this TComponent component, string eventName, EventHandler action)
+        
+        public static TComponent WithEventHandler<TComponent>(this TComponent component, string eventName, EventHandler handler)
             where TComponent : Component
         {
-            component.GetType().GetEvent(eventName).AddEventHandler(component, action);
+            component.GetType().GetEvent(eventName).AddEventHandler(component, handler);
 
             return component;
         }
 
-        public static TComponent WithMouseEventHandler<TComponent>(this TComponent component, string eventName, MouseEventHandler action)
+        public static TComponent WithMouseEventHandler<TComponent>(this TComponent component, string eventName, MouseEventHandler handler)
             where TComponent : Component
         {
-            component.GetType().GetEvent(eventName).AddEventHandler(component, action);
+            component.GetType().GetEvent(eventName).AddEventHandler(component, handler);
 
             return component;
         }
